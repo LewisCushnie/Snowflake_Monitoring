@@ -11,7 +11,7 @@ st.set_page_config(
 def main():
 
     # Variables
-    default_table_width = 1000
+    default_table_width = 500
 
     #------------------------------- SIDEBAR ----------------------------------- 
     st.sidebar.header('Snowflake session')
@@ -67,13 +67,16 @@ def main():
     # metering_top_10_df = metering_top_10_df.set_index('WH_Name')
     # metering_top_10_df['Credits Used'] = metering_top_10_df['Credits Used'].astype(float)
 
-    # # Multiselect list
-    # wh_selected = st.multiselect("Pick Warehouse:", list(metering_top_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
-    # # filter using panda's .loc
-    # WH_to_show_df = metering_top_10_df.loc[wh_selected]
+    METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
+    METERING_TOP_10_df['CREDITS_USED'] = metering_top_10_df['CREDITS_USED'].astype(float)
 
-    # # Display the filtered df on the page.
-    # st.bar_chart(WH_to_show_df, height= 500)
+    # # Multiselect list
+    wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
+    # filter using panda's .loc
+    wh_to_show_df = metering_top_10_df.loc[wh_selected]
+
+    # Display the filtered df on the page.
+    st.bar_chart(wh_to_show_df, height= default_table_width)
 
     # st.text('On/Off grid')
     # col1, col2, col3 = st.columns(3)
