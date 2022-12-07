@@ -79,6 +79,16 @@ ORDER BY avg(partitions_total) DESC
 ;
 '''
 
+DOMAIN_QUERY_USAGE = f'''
+select q.schema_name, sum(w.credits_used), sum(w.credits_used_compute), sum(w.credits_used_cloud_services) 
+from snowflake.account_usage.query_history as q
+join snowflake.account_usage.warehouse_metering_history as w
+on q.warehouse_id = w.warehouse_id
+where q.database_name like 'PROD_DB' and q.schema_name like '%{DOMAIN}%'
+group by q.database_name, q.schema_name
+order by sum(w.credits_used) desc;
+'''
+
 
 if __name__ == "__main__":
     pass
