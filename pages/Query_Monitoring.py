@@ -16,14 +16,13 @@ def main():
     
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
 
-    SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
-    SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
+    df = sf.sql_to_dataframe(query)
+    df = df.transpose()
 
-    current_user=SNOWFLAKE_ACCOUNT_PARAMS_df['CURRENT_USER']
+    current_user = df.loc['CURRENT_USER'] 
     st.write(f'Hello, {current_user}')
 
-
-    st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
+    st.sidebar.dataframe(df)
 
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
