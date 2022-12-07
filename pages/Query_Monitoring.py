@@ -68,7 +68,7 @@ def main():
     df['Scanned From Cache (%)'] = df['Scanned From Cache (%)'].astype(float)              
     df['Avg Partitions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
     df['Avg Total Partitions'] = df['Avg Total Partitions'].astype(float)     
-    #df['Avg Execution time'] = df['Avg Execution time'].astype(float)  
+    df['Avg Execution time'] = df['Avg Execution time'].astype(float)  
     df['Avg Query Load (%)'] = df['Avg Query Load (%)'].astype(float) 
 
     selected_username = st.multiselect('Select a user', clean_users)
@@ -77,7 +77,7 @@ def main():
     if selected_username:
         st.dataframe(df)
         st.bar_chart(data = df, y='Avg Partitions Scanned')
-        st.bar_chart(data = df, y=['Execution time'])
+        st.bar_chart(data = df, y='Avg Execution Time')
 
 
 if __name__ == "__main__":
