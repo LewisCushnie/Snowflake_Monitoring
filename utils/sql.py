@@ -39,6 +39,7 @@ group by name; '''
 
 #-------------- RBAC SUMMARY ------------------
 
+#-------------- QUERY MONITORING ------------------
 USER_LIST = ''' 
 SELECT distinct(user_name)
 FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY
@@ -59,7 +60,6 @@ ORDER BY avg(partitions_total) DESC
 ;
 '''
 
-#-------------- QUERY MONITORING ------------------
 
 if __name__ == "__main__":
     pass
