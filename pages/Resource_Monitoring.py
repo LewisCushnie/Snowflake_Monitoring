@@ -55,17 +55,12 @@ def main():
     st.header("Metering Summary:")
     query = sql.METERING_HISTORY
     METERING_HISTORY_df = sf.sql_to_dataframe(query)
-    st.dataframe(METERING_HISTORY_df, width= default_width)
+    st.dataframe(METERING_HISTORY_df)
 
     st.header('Warehouse credit usage')
     query = sql.METERING_TOP_10
     METERING_TOP_10_df = sf.sql_to_dataframe(query)
-    st.dataframe(METERING_TOP_10_df, width= default_width)
-
-    # # Convert to pandas dataframe
-    # metering_top_10_df = pd.DataFrame(metering_top_10, columns=['WH_Name', 'Credits Used'])
-    # metering_top_10_df = metering_top_10_df.set_index('WH_Name')
-    # metering_top_10_df['Credits Used'] = metering_top_10_df['Credits Used'].astype(float)
+    st.dataframe(METERING_TOP_10_df)
 
     METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
     METERING_TOP_10_df['SUM(CREDITS_USED)'] = METERING_TOP_10_df['SUM(CREDITS_USED)'].astype(float)
@@ -76,7 +71,7 @@ def main():
     wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
 
     # Display the filtered df on the page.
-    st.bar_chart(wh_to_show_df, width= default_width)
+    st.bar_chart(wh_to_show_df)
 
     # st.text('On/Off grid')
     # col1, col2, col3 = st.columns(3)
