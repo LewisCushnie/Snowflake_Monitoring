@@ -46,11 +46,6 @@ def main():
     optimise caching and warehouse compute'''
     )
 
-    st.header("Metering Summary:")
-    query = sql.METERING_HISTORY
-    METERING_HISTORY_df = sf.sql_to_dataframe(query)
-    st.dataframe(METERING_HISTORY_df)
-
     # Get clean list of USERS from ACCOUNT_USAGE
     query = sql.USER_LIST 
     users = pd.read_sql(query,sf)
