@@ -75,6 +75,7 @@ def main():
 
     if selected_username:
         st.dataframe(df)
+        st.download_button('Download Results', df, help='Click to download user query history as a csv')
         st.bar_chart(data = df, y=['Avg Partitions Scanned','Avg Execution Time'])
 
 if __name__ == "__main__":
