@@ -15,11 +15,11 @@ def main():
 
     query = sql.TEST_QUERY
     TEST_QUERY_df = sf.sql_to_dataframe(query)
-    st.dataframe(TEST_QUERY_df)
+    st.sidebar.dataframe(TEST_QUERY_df)
 
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
-    st.dataframe(STREAMLIT_CREDITS_USED_df)
+    st.sidebar.dataframe(STREAMLIT_CREDITS_USED_df)
 
     # streamlit_credits_used_df = pd.DataFrame(streamlit_credits_used, columns=['Streamlit_Credits_Used'])
     # credits = streamlit_credits_used_df.iloc[0]['Streamlit_Credits_Used']
