@@ -10,12 +10,11 @@ st.set_page_config(
 
 def main():
 
-    # Variables
+    # VARAIBLES
     default_width = 500
 
-    #------------------------------- SIDEBAR ----------------------------------- 
+    # SIDEBAR - CREDITS USED THROUGH STREAMLIT
     st.sidebar.header('Snowflake session')
-
     # Credits used running queries through streamlit
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
@@ -23,21 +22,19 @@ def main():
     remaining=round(100-metric,3)
     st.sidebar.metric(label='Credits used by Streamlit', value =metric, delta=f'{remaining} remaining')
     
-    # Account parameters of the account being accessed through streamlit
+    # SIDEBAR - ACCOUNT PARAMETERS OF LINKED ACCOUNT
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
     SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
     SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
     st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
 
+    # SIDEBAR - WAREHOUSE USAGE SUMMARY STATS
     st.sidebar.header('Warehouse usage summary stats')
-
     query = sql.WH_USAGE_LAST_7_DAYS
     WH_USAGE_LAST_7_DAYS_df = sf.sql_to_dataframe(query)
     metric=round(WH_USAGE_LAST_7_DAYS_df['CREDITS_USED_LAST_PERIOD'].iloc[0],5)
     pct_change=round(WH_USAGE_LAST_7_DAYS_df['PCT_CHANGE'].iloc[0],3)
     st.sidebar.metric(label='Credit usage over last 7 day period', value= metric, delta= f'{pct_change}%', delta_color= "inverse")
-
-    #------------------------------- SIDEBAR ----------------------------------- 
 
     # Apply formatting from the style.css file to the page
     with open("utils/style.css") as f:
@@ -45,6 +42,7 @@ def main():
 
     st.title('Resource Monitoring Summary')
 
+    # MAIN PAGE - INTRO
     st.text(
     '''
     This page provides a breakdown of the resource useage within the Snowflake account to better understand
@@ -62,12 +60,14 @@ def main():
 
     left_column, right_column = st.columns(2)
 
+    # MAIN PAGE - METERING SUMMARY
     query = sql.METERING_HISTORY
     METERING_HISTORY_df = sf.sql_to_dataframe(query)
     with right_column:
         st.header("Metering Summary:")
         st.dataframe(METERING_HISTORY_df)
 
+    # MAIN PAGE - WAREHOUSE USAGE TABLE
     query = sql.METERING_TOP_10
     METERING_TOP_10_df = sf.sql_to_dataframe(query)
     with left_column:
@@ -80,6 +80,7 @@ def main():
     amount_used = round(METERING_TOP_10_df['SUM(CREDITS_USED)'].iloc[most_used_loc], 3)
     st.sidebar.metric(label='Most used warehouse', value= most_used_wh, delta= f'{amount_used} Credits', delta_color= "normal")
 
+    # MAIN PAGE - WAREHOUSE USAGE COMPARISON BAR CHART
     st.header('Warehouse usage comparison chart')
     METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
     METERING_TOP_10_df['SUM(CREDITS_USED)'] = METERING_TOP_10_df['SUM(CREDITS_USED)'].astype(float)
