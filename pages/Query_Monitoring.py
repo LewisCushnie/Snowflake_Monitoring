@@ -44,11 +44,8 @@ def main():
 
 
     query = sql.USER_LIST 
+    users=sf.cursor().execute(query)
     
-    with sf.cursor() as cur:
-        cur.execute(query)
-        users = cur.fetchall()
-
     clean_users = []
 
     for i in users:
