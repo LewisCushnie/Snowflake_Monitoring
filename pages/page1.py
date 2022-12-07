@@ -8,11 +8,9 @@ st.set_page_config(
     layout="centered",
 )
 
-
-
-
 def main():
 
+    return st.write('Hello')
 
 
 if __name__ == "__main__":
