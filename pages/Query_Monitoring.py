@@ -23,9 +23,9 @@ def main():
     SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
     st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
 
-    credits = SNOWFLAKE_ACCOUNT_PARAMS_df.iloc[0]['Streamlit_Credits_Used']
-    rounded_credits = round(credits, 5)
-    st.sidebar.metric("Credits used from streamlit queries", rounded_credits)
+    # credits = SNOWFLAKE_ACCOUNT_PARAMS_df.iloc[0]['Streamlit_Credits_Used']
+    # rounded_credits = round(credits, 5)
+    # st.sidebar.metric("Credits used from streamlit queries", rounded_credits)
 
     #------------------------------- SIDEBAR ----------------------------------- 
 
@@ -41,8 +41,13 @@ def main():
     )
 
     # Get clean list of USERS from ACCOUNT_USAGE
+
+
     query = sql.USER_LIST 
-    users = pd.read_sql(query,sf)
+    
+    with sf.cursor() as cur:
+        cur.execute(query)
+        users = cur.fetchall()
 
     clean_users = []
 
