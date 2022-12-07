@@ -8,7 +8,7 @@ from utils import sql
 
 #=============
 
-from snowflake.connector import connect
+import snowflake.connector
 
 # Initialize connection.
 # Uses st.experimental_singleton to only run once.
