@@ -19,9 +19,9 @@ def main():
     # Credits used running queries through streamlit
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
-    streamlit_credits = STREAMLIT_CREDITS_USED_df.iloc[0]['SUM(CREDITS_USED_CLOUD_SERVICES)']
-    streamlit_credits = round(streamlit_credits, 5)
-    st.sidebar.metric("Credits used from streamlit queries", streamlit_credits)
+    metric=round(STREAMLIT_CREDITS_USED_df['SUM(CREDITS_USED_CLOUD_SERVICES)'].iloc[0],5)
+    remaining=round(100-metric,3)
+    st.sidebar.metric(label='Credits used by Streamlit', value =metric, delta=f'{remaining} remaining')
     
     # Account parameters of the account being accessed through streamlit
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
