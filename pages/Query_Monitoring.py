@@ -52,8 +52,13 @@ def main():
     optimise caching and warehouse compute'''
     )
 
-    # Get clean list of USERS from ACCOUNT_USAGE
+    #==========================#
+    # USER QUERY PERFORMANCE #
+    #==========================#
 
+    st.header('User Query Performance')
+
+    # Get clean list of USERS from ACCOUNT_USAGE
 
     query = sql.USER_LIST 
     users = sf.run_query(query)
@@ -86,9 +91,9 @@ def main():
         st.download_button('Download Results', download_data, 
                             help='Click to download user query history as a csv')
 
-#==========================#
-# DOMAIN QUERY PERFORMANCE #
-#==========================#
+    #==========================#
+    # DOMAIN QUERY PERFORMANCE #
+    #==========================#
 
     st.header('Domain Query Performance')
 
