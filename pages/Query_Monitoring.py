@@ -19,7 +19,7 @@ def main():
     SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
     SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
 
-    current_user=SNOWFLAKE_ACCOUNT_PARAMS_df['CURRENT_USER'].iloc[0]
+    current_user=SNOWFLAKE_ACCOUNT_PARAMS_df['CURRENT_USER']
     st.write(f'Hello, {current_user}')
 
 
