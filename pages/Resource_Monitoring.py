@@ -54,16 +54,16 @@ def main():
 
     left_column, right_column = st.columns(2)
 
+    query = sql.METERING_HISTORY
+    METERING_HISTORY_df = sf.sql_to_dataframe(query)
     with right_column:
         st.header("Metering Summary:")
-        query = sql.METERING_HISTORY
-        METERING_HISTORY_df = sf.sql_to_dataframe(query)
         st.dataframe(METERING_HISTORY_df)
 
+    query = sql.METERING_TOP_10
+    METERING_TOP_10_df = sf.sql_to_dataframe(query)
     with left_column:
         st.header('Warehouse credit usage')
-        query = sql.METERING_TOP_10
-        METERING_TOP_10_df = sf.sql_to_dataframe(query)
         st.dataframe(METERING_TOP_10_df)
 
     METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
