@@ -22,6 +22,7 @@ def init_connection():
 
 snowflake_connector = init_connection()
 
+# Run SQL query and return Pandas DF
 @st.experimental_memo(ttl=TIME_TO_LIVE)
 def sql_to_dataframe(sql_query: str) -> pd.DataFrame:
     data = pd.read_sql(
@@ -30,5 +31,14 @@ def sql_to_dataframe(sql_query: str) -> pd.DataFrame:
     )
     return data
 
+# Run SQL query and return results in default formate.
+# Uses st.experimental_memo to only rerun when the query changes or after 10 min.
+@st.experimental_memo(ttl=TIME_TO_LIVE)
+def run_query(query):
+    with snowflake_connector.cursor() as cur:
+        cur.execute(query)
+        return cur.fetchall()
+
 if __name__ == "__main__":
     pass
+
