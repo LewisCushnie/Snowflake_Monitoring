@@ -56,7 +56,8 @@ def main():
 
     query = sql.USER_QUERY_HISTORY
     df = sf.sql_to_dataframe(query)
-    df = df.set_index('USERNAME')
+    st.dataframe(df)
+    df = df.set_index('USER_NAME')
 
     selected_username = st.multiselect('Select a user', clean_users)
     df = df.loc[selected_username]                    
