@@ -75,7 +75,7 @@ def main():
         st.dataframe(METERING_TOP_10_df)
 
     most_used_wh = METERING_TOP_10_df['SUM(CREDITS_USED)'].idxmax()
-    st.write(WH_USAGE_LAST_7_DAYS_df['NAME'].iloc[most_used_wh])
+    # st.write(WH_USAGE_LAST_7_DAYS_df['NAME'].iloc[most_used_wh])
     st.write(WH_USAGE_LAST_7_DAYS_df['SUM(CREDITS_USED)'].iloc[most_used_wh])
 
     st.header('Warehouse usage comparison chart')
