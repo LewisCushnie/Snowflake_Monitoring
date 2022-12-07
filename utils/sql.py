@@ -1,19 +1,20 @@
 #-------------- RESOURCE MONITORING ------------------
 STREAMLIT_CREDITS_USED = '''
 select
-sum(credits_used_cloud_services)
+sum(credits_used_cloud_services) as credits_used_streamlit
 from query_history
 where query_tag = 'StreamlitQuery';'''
 
 SNOWFLAKE_ACCOUNT_PARAMS = '''
-select current_database() 
-,current_schema()
-,current_role()
-,current_session()
-,current_user()
-,current_warehouse()
-,current_region()
-,current_time();'''
+select current_database() as Database
+,current_schema() as Schema
+,current_role() as Current role
+,current_session() as Session ID
+,current_user() as Current user
+,current_warehouse() as Warehouse
+,current_region() as Acccount region
+,current_time() as Region time
+;'''
 
 METERING_HISTORY = ''' 
 select 
