@@ -16,3 +16,6 @@ This app provides insights on a demo Snowflake account usage.
 👈 Select a page in the sidebar!
     """
 )
+
+theme = st.get_option("theme")
+st.write(theme)
