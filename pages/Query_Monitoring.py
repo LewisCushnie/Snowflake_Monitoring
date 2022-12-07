@@ -18,7 +18,7 @@ def main():
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
     metric=STREAMLIT_CREDITS_USED_df['SUM(CREDITS_USED_CLOUD_SERVICES)'].iloc[0]
     remaining=100-metric
-    st.sidebar.metric(label='Credits used', value =f'{metric}', delta=remaining)
+    st.sidebar.metric(label='Credits used by Streamlit', value =metric, delta=f'{remaining} in account')
     
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
     SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
