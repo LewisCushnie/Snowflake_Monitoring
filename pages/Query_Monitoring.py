@@ -58,14 +58,7 @@ def main():
 
     query = sql.USER_QUERY_HISTORY
     df = sf.sql_to_dataframe(query)
-    df = df.set_index('USER_NAME')
-
-    df.rename(columns = {'AVG(PERCENTAGE_SCANNED_FROM_CACHE)':'Scanned From Cache (%)',
-                        'AVG(PARTITIONS_SCANNED)':'Avg Partitions Scanned',
-                        'AVG(PARTITIONS_TOTAL)':'Avg Total Partitions',
-                        'AVG(EXECUTION_TIME)':'Avg Execution Time',
-                        'AVG(QUERY_LOAD_PERCENT)':'Avg Query Load (%)'}, inplace = True)
-
+    df = df.set_index('Username')
 
     df['Scanned From Cache (%)'] = df['Scanned From Cache (%)'].astype(float)              
     df['Avg Partitions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
@@ -87,15 +80,24 @@ def main():
 #==========================#
 # DOMAIN QUERY PERFORMANCE #
 #==========================#
-    st.header('Domain Performance')
+
+    st.header('Domain Query Performance')
 
     DOMAIN = st.selectbox('Choose business domain', ('FINANCE', 'UNDERWRITING'))
-    query = sql.DOMAIN_QUERY_USAGE
-    st.write(query)
 
-    # if DOMAIN:
-    #     df = sf.sql_to_dataframe(query)
-    #     st.dataframe(df)
+    DOMAIN_QUERY_USAGE = f'''
+        select q.schema_name, sum(w.credits_used), sum(w.credits_used_compute), sum(w.credits_used_cloud_services) 
+        from snowflake.account_usage.query_history as q
+        join snowflake.account_usage.warehouse_metering_history as w
+        on q.warehouse_id = w.warehouse_id
+        where q.database_name like 'PROD_DB' and q.schema_name like '%{DOMAIN}%'
+        group by q.database_name, q.schema_name
+        order by sum(w.credits_used) desc;
+        '''
+
+    if DOMAIN:
+        df = sf.sql_to_dataframe(DOMAIN_QUERY_USAGE)
+        st.dataframe(df)
 
 
 if __name__ == "__main__":

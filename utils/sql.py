@@ -67,26 +67,15 @@ FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY
     '''
 
 USER_QUERY_HISTORY = '''
-SELECT user_name
-    , avg(percentage_scanned_from_cache)
-    , avg(partitions_scanned)
-    , avg(partitions_total)
-    , avg(execution_time)
-    , avg(query_load_percent)
+SELECT user_name as "Username"
+    , avg(percentage_scanned_from_cache) as "Avg Scanned from Cache (%)"
+    , avg(partitions_scanned) as "Avg Partitions Scanned"
+    , avg(partitions_total) as "Avg Partitions Used"
+    , avg(execution_time) as "Avg Execution Time"
 FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY 
 GROUP BY user_name
 ORDER BY avg(partitions_total) DESC
 ;
-'''
-
-DOMAIN_QUERY_USAGE = f'''
-select q.schema_name, sum(w.credits_used), sum(w.credits_used_compute), sum(w.credits_used_cloud_services) 
-from snowflake.account_usage.query_history as q
-join snowflake.account_usage.warehouse_metering_history as w
-on q.warehouse_id = w.warehouse_id
-where q.database_name like 'PROD_DB' and q.schema_name like '%{DOMAIN}%'
-group by q.database_name, q.schema_name
-order by sum(w.credits_used) desc;
 '''
 
 
