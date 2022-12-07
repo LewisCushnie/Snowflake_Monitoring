@@ -17,5 +17,5 @@ This app provides insights on a demo Snowflake account usage.
     """
 )
 
-theme = st.get_option("theme")
-st.write(theme)
+primaryColor = st.get_option("theme.primaryColor")
+st.write(primaryColor)
