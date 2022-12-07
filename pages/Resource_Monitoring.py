@@ -75,6 +75,11 @@ def main():
     wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
     # Display the filtered df on the page.
     st.bar_chart(wh_to_show_df)
+
+    st.header('Total warehouse usage over last 7 days')
+    query = sql.WH_USAGE_LAST_7_DAYS
+    WH_USAGE_LAST_7_DAYS_df = sf.sql_to_dataframe(query)    
+    st.dataframe(WH_USAGE_LAST_7_DAYS_df)
     
 
 
