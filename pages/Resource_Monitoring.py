@@ -15,6 +15,7 @@ def main():
 
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
     SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
+    SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
     st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
 
     query = sql.STREAMLIT_CREDITS_USED
