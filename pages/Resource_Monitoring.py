@@ -13,9 +13,9 @@ def main():
     #------------------------------- SIDEBAR ----------------------------------- 
     st.sidebar.header('Snowflake session')
 
-    query = sql.TEST_QUERY
-    TEST_QUERY_df = sf.sql_to_dataframe(query)
-    st.sidebar.dataframe(TEST_QUERY_df)
+    query = sql.SNOWFLAKE_ACCOUNT_PARAMS
+    SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
+    st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
 
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)

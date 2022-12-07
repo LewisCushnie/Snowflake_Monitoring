@@ -1,6 +1,6 @@
 #-------------------- SIDEBAR ------------------------
 
-TEST_QUERY = '''select current_database() 
+SNOWFLAKE_ACCOUNT_PARAMS = '''select current_database() 
 ,current_schema()
 ,current_role()
 ,current_session()
