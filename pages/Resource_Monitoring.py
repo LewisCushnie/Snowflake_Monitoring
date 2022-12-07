@@ -70,7 +70,8 @@ def main():
     METERING_TOP_10_df['SUM(CREDITS_USED)'] = METERING_TOP_10_df['SUM(CREDITS_USED)'].astype(float)
 
     # # Multiselect list
-    wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
+    wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index))
+    # ,['COMPUTE_WH', 'CADENS_WH', 'INTL_WH']
     # filter using panda's .loc
     wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
 
