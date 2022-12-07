@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from utils import snowflake_connector as sf, run_query
+from utils import snowflake_connector as sf
 from utils import sql
 
 st.set_page_config(
@@ -44,7 +44,7 @@ def main():
 
 
     query = sql.USER_LIST 
-    users = run_query(query)
+    users = sf.run_query(query)
     
     clean_users = []
 
