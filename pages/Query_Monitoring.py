@@ -80,7 +80,7 @@ def main():
         st.bar_chart(data = df, y=['Avg Partitions Scanned','Avg Execution Time'])
 
         st.download_button('Download Results', download_data, 
-                            filename = f'{selected_username}_query_history',
+                            filename = 'user_query_history.csv',
                             help='Click to download user query history as a csv')
 
         # if button:
