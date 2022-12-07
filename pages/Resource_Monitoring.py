@@ -39,6 +39,7 @@ def main():
 
 
     most_used_wh = STREAMLIT_CREDITS_USED_df['SUM(CREDITS_USED_CLOUD_SERVICES)'].idxmax()
+    st.write(WH_USAGE_LAST_7_DAYS_df['NAME'].iloc[most_used_wh])
     st.write(WH_USAGE_LAST_7_DAYS_df['CREDITS_USED_LAST_PERIOD'].iloc[most_used_wh])
 
     #------------------------------- SIDEBAR ----------------------------------- 
