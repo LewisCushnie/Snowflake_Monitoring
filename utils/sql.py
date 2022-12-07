@@ -31,9 +31,10 @@ from metering_history;'''
 
 METERING_TOP_10 = '''select top 10 
 name 
-,sum(credits_used) 
+,sum(credits_used)
 from metering_history 
-group by name; '''
+group by name
+order by sum(credits_used); '''
 
 #-------------- RBAC SUMMARY ------------------
 ALL_RBAC_ROLES = '''
