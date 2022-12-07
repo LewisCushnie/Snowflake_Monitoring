@@ -11,7 +11,7 @@ st.set_page_config(
 def main():
 
     # Variables
-    default_table_width = 500
+    default_table_width = 1000
 
     #------------------------------- SIDEBAR ----------------------------------- 
     st.sidebar.header('Snowflake session')
