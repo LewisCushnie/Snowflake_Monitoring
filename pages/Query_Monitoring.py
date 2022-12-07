@@ -84,8 +84,17 @@ def main():
         st.download_button('Download Results', download_data, 
                             help='Click to download user query history as a csv')
 
-        # if button:
-        #     button=False
-        
+#==========================#
+# DOMAIN QUERY PERFORMANCE #
+#==========================#
+
+    DOMAIN = st.selectbox('Choose business domain', ('FINANCE', 'UNDERWRITING'))
+    query = sql.DOMAIN_QUERY_USAGE
+
+    if DOMAIN:
+        df = sf.sql_to_dataframe(query)
+        st.dataframe(df)
+
+
 if __name__ == "__main__":
     main()
