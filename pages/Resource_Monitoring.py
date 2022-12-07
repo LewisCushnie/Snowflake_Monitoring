@@ -18,6 +18,7 @@ def main():
     # Credits used running queries through streamlit
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
+    st.write(STREAMLIT_CREDITS_USED_df)
     metric=round(STREAMLIT_CREDITS_USED_df['credits_used_streamlit'].iloc[0],5)
     remaining=round(100-metric,3)
     st.sidebar.metric(label='Credits used by Streamlit', value =metric, delta=f'{remaining} remaining')
