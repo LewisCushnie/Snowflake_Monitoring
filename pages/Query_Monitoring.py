@@ -19,8 +19,8 @@ def main():
     df = sf.sql_to_dataframe(query)
     df = df.transpose()
 
-    current_user = df.loc['CURRENT_USER'] 
-    st.write(f'Hello, {current_user}')
+    current_user = df.loc['CURRENT_USER'][0] 
+    st.sidebar.write(f'Hello, {current_user}')
 
     st.sidebar.dataframe(df)
 
