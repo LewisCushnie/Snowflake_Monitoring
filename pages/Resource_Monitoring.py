@@ -83,7 +83,7 @@ def main():
 
     metric=round(WH_USAGE_LAST_7_DAYS_df['CREDITS_USED_LAST_PERIOD'].iloc[0],5)
     pct_change=round(WH_USAGE_LAST_7_DAYS_df['PCT_CHANGE'].iloc[0],3)
-    st.sidebar.metric(label='Credits used by Streamlit', value =metric, delta=f'{pct_change}%')
+    st.metric(label='Credit usage over last 7 period', value= metric, delta= f'{pct_change}%', delta_color= "inverse")
 
 
 if __name__ == "__main__":
