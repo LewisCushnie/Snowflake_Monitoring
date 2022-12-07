@@ -68,7 +68,7 @@ def main():
     # metering_top_10_df['Credits Used'] = metering_top_10_df['Credits Used'].astype(float)
 
     METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
-    METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['SUM(CREDITS_USED)'].astype(float)
+    METERING_TOP_10_df['SUM(CREDITS_USED)'] = METERING_TOP_10_df['SUM(CREDITS_USED)'].astype(float)
 
     # # Multiselect list
     wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
