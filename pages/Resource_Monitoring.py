@@ -17,8 +17,8 @@ def main():
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
     st.write(STREAMLIT_CREDITS_USED_df)
 
-    st.stop()
-    streamlit_credits = STREAMLIT_CREDITS_USED_df.iloc[0][0]
+
+    streamlit_credits = STREAMLIT_CREDITS_USED_df.iloc[0]['SUM(CREDITS_USED_CLOUD_SERVICES)']
     streamlit_credits = round(STREAMLIT_CREDITS_USED_df, 5)
     st.sidebar.metric("Credits used from streamlit queries", streamlit_credits)
     
