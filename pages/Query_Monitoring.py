@@ -17,7 +17,8 @@ def main():
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
     st.sidebar.dataframe(STREAMLIT_CREDITS_USED_df)
-    st.sidebar.write(STREAMLIT_CREDITS_USED_df.iloc[0]['SUM(CREDITS_USED_CLOUD_SERVICES)'])
+    metric=STREAMLIT_CREDITS_USED_df['SUM(CREDITS_USED_CLOUD_SERVICES)'].iloc[0]
+    st.sidebar.write(metric)
     
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
     SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
