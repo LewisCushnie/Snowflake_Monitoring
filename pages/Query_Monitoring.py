@@ -95,8 +95,9 @@ def main():
         '''
 
     if DOMAIN:
-        df = sf.sql_to_dataframe(DOMAIN_QUERY_USAGE)
-        st.dataframe(df)
+        with st.spinner('Executing Query'):
+            df = sf.sql_to_dataframe(DOMAIN_QUERY_USAGE)
+            st.dataframe(df)
 
 
 if __name__ == "__main__":
