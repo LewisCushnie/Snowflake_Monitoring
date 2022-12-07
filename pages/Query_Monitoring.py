@@ -56,18 +56,27 @@ def main():
 
     query = sql.USER_QUERY_HISTORY
     df = sf.sql_to_dataframe(query)
-    st.subheader('DF')
-    st.dataframe(df)
-
     df = df.set_index('USER_NAME')
+
+    df = df.rename(columns = {'AVG(PERCENTAGE_SCANNED_FROM_CACHE)':'Scanned From Cache (%)',
+                        'AVG(PARTITIONS_SCANNED)':'Avg Partitions Scanned',
+                        'AVG(PARTITIONS_TOTAL)':'Avg Total Partitions',
+                        'AVG(EXECUTION_TIME)':'Avg Execution Time',
+                        'AVG(QUERY_LOAD_PERCENT)':'Avg Query Load (%)'}, inplace = True)
+
+    df['Scanned From Cache (%)'] = df['Scanned From Cache (%)'].astype(int)              
+    df['Avg Paritions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
+    df['Avg Total Partitions'] = df['Avg Total Partitions'].astype(float)     
+    df['Avg Execution time'] = df['Avg Execution time'].astype(float)  
+    df['Avg Query Load (%)'] = df['Avg Query Load (%)'].astype(int) 
 
     selected_username = st.multiselect('Select a user', clean_users)
     df = df.loc[selected_username]                    
 
     if selected_username:
         st.dataframe(df)
-        # st.bar_chart(data = df, y=['Avg Partitions Scanned', 'Percent from cache'])
-        # st.bar_chart(data = df, y=['Execution time'])
+        st.bar_chart(data = df, y=['Avg Partitions Scanned', 'Percent from cache'])
+        st.bar_chart(data = df, y=['Execution time'])
 
 
 if __name__ == "__main__":

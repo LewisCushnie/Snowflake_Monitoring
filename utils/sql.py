@@ -53,7 +53,6 @@ SELECT user_name
     , avg(partitions_total)
     , avg(execution_time)
     , avg(query_load_percent)
-    , avg(credits_used_cloud_services)
 FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY 
 GROUP BY user_name
 ORDER BY avg(partitions_total) DESC
