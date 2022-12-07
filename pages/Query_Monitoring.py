@@ -12,22 +12,24 @@ st.set_page_config(
 def main():
 
     #------------------------------- SIDEBAR ----------------------------------- 
-    st.sidebar.header('Snowflake session')
+    st.sidebar.header('Snowflake Session Info')
+    
+    query = sql.SNOWFLAKE_ACCOUNT_PARAMS
+
+    SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
+    SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
+
+    current_user=SNOWFLAKE_ACCOUNT_PARAMS_df['CURRENT_USER'].iloc[0]
+    st.write(f'Hello, {current_user}')
+
+
+    st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
 
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
     metric=round(STREAMLIT_CREDITS_USED_df['CREDITS_USED_STREAMLIT'].iloc[0],5)
     remaining=round(100-metric,3)
     st.sidebar.metric(label='Credits used by Streamlit', value =metric, delta=f'{remaining} remaining')
-    
-    query = sql.SNOWFLAKE_ACCOUNT_PARAMS
-    SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
-    SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
-    st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
-
-    # credits = SNOWFLAKE_ACCOUNT_PARAMS_df.iloc[0]['Streamlit_Credits_Used']
-    # rounded_credits = round(credits, 5)
-    # st.sidebar.metric("Credits used from streamlit queries", rounded_credits)
 
     #------------------------------- SIDEBAR ----------------------------------- 
 
