@@ -29,6 +29,13 @@ def main():
     SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
     st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
 
+    st.sidebar.header('Total warehouse usage over last 7 days')
+    query = sql.WH_USAGE_LAST_7_DAYS
+    WH_USAGE_LAST_7_DAYS_df = sf.sql_to_dataframe(query)
+    metric=round(WH_USAGE_LAST_7_DAYS_df['CREDITS_USED_LAST_PERIOD'].iloc[0],5)
+    pct_change=round(WH_USAGE_LAST_7_DAYS_df['PCT_CHANGE'].iloc[0],3)
+    st.sidebar.metric(label='Credit usage over last 7 period', value= metric, delta= f'{pct_change}%', delta_color= "inverse")
+
     #------------------------------- SIDEBAR ----------------------------------- 
 
     # Apply formatting from the style.css file to the page
@@ -75,15 +82,6 @@ def main():
     wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
     # Display the filtered df on the page.
     st.bar_chart(wh_to_show_df)
-
-    st.header('Total warehouse usage over last 7 days')
-    query = sql.WH_USAGE_LAST_7_DAYS
-    WH_USAGE_LAST_7_DAYS_df = sf.sql_to_dataframe(query)    
-    st.dataframe(WH_USAGE_LAST_7_DAYS_df)
-
-    metric=round(WH_USAGE_LAST_7_DAYS_df['CREDITS_USED_LAST_PERIOD'].iloc[0],5)
-    pct_change=round(WH_USAGE_LAST_7_DAYS_df['PCT_CHANGE'].iloc[0],3)
-    st.metric(label='Credit usage over last 7 period', value= metric, delta= f'{pct_change}%', delta_color= "inverse")
 
 
 if __name__ == "__main__":
