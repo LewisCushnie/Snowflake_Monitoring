@@ -63,6 +63,8 @@ def main():
                         'AVG(PARTITIONS_TOTAL)':'Avg Total Partitions',
                         'AVG(EXECUTION_TIME)':'Avg Execution Time',
                         'AVG(QUERY_LOAD_PERCENT)':'Avg Query Load (%)'}, inplace = True)
+    
+    st.dataframe(df)
 
     df['Scanned From Cache (%)'] = df['Scanned From Cache (%)'].astype(float)              
     df['Avg Paritions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
