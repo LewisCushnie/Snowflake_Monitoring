@@ -37,11 +37,6 @@ def main():
     pct_change=round(WH_USAGE_LAST_7_DAYS_df['PCT_CHANGE'].iloc[0],3)
     st.sidebar.metric(label='Credit usage over last 7 day period', value= metric, delta= f'{pct_change}%', delta_color= "inverse")
 
-
-    most_used_wh = STREAMLIT_CREDITS_USED_df['SUM(CREDITS_USED_CLOUD_SERVICES)'].idxmax()
-    #st.write(WH_USAGE_LAST_7_DAYS_df['NAME'].iloc[most_used_wh])
-    st.write(WH_USAGE_LAST_7_DAYS_df['CREDITS_USED_LAST_PERIOD'].iloc[most_used_wh])
-
     #------------------------------- SIDEBAR ----------------------------------- 
 
     # Apply formatting from the style.css file to the page
@@ -78,6 +73,10 @@ def main():
     with left_column:
         st.header('Warehouse Usage')
         st.dataframe(METERING_TOP_10_df)
+
+    most_used_wh = METERING_TOP_10_df['SUM(CREDITS_USED)'].idxmax()
+    st.write(WH_USAGE_LAST_7_DAYS_df['NAME'].iloc[most_used_wh])
+    st.write(WH_USAGE_LAST_7_DAYS_df['SUM(CREDITS_USED)'].iloc[most_used_wh])
 
     st.header('Warehouse usage comparison chart')
     METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
