@@ -80,7 +80,10 @@ def main():
     query = sql.WH_USAGE_LAST_7_DAYS
     WH_USAGE_LAST_7_DAYS_df = sf.sql_to_dataframe(query)    
     st.dataframe(WH_USAGE_LAST_7_DAYS_df)
-    
+
+    metric=round(WH_USAGE_LAST_7_DAYS_df['CREDITS_USED_LAST_PERIOD'].iloc[0],5)
+    pct_change=round(WH_USAGE_LAST_7_DAYS_df['PCT_CHANGE'].iloc[0],3)
+    st.sidebar.metric(label='Credits used by Streamlit', value =metric, delta=f'{pct_change}%')
 
 
 if __name__ == "__main__":
