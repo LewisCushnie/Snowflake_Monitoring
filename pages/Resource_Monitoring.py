@@ -13,13 +13,14 @@ def main():
     #------------------------------- SIDEBAR ----------------------------------- 
     st.sidebar.header('Snowflake session')
 
-    query = sql.SNOWFLAKE_ACCOUNT_PARAMS
-    SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
-    st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
-
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
     st.sidebar.dataframe(STREAMLIT_CREDITS_USED_df)
+    
+    query = sql.SNOWFLAKE_ACCOUNT_PARAMS
+    SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
+    SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
+    st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
 
     # streamlit_credits_used_df = pd.DataFrame(streamlit_credits_used, columns=['Streamlit_Credits_Used'])
     # credits = streamlit_credits_used_df.iloc[0]['Streamlit_Credits_Used']
