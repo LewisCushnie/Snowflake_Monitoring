@@ -75,9 +75,7 @@ def main():
 
     if selected_username:
         st.dataframe(df)
-        st.bar_chart(data = df, y='Avg Partitions Scanned')
-        st.bar_chart(data = df, y='Avg Execution Time')
-
+        st.bar_chart(data = df, y=['Avg Partitions Scanned','Avg Execution Time'])
 
 if __name__ == "__main__":
     main()
