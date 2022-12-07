@@ -1,24 +1,12 @@
-#-------------------- SIDEBAR ------------------------
-SNOWFLAKE_ACCOUNT_PARAMS = '''
-select current_database() 
-,current_schema()
-,current_role()
-,current_session()
-,current_user()
-,current_warehouse()
-,current_region()
-,current_time();'''
-
+#-------------- RESOURCE MONITORING ------------------
 STREAMLIT_CREDITS_USED = '''
 select
 sum(credits_used_cloud_services)
 from query_history
 where query_tag = 'StreamlitQuery';'''
 
-#-------------- RESOURCE MONITORING ------------------
-SNOWFLAKE_SESSION_VARIABLES = '''
-select 
-current_database() 
+SNOWFLAKE_ACCOUNT_PARAMS = '''
+select current_database() 
 ,current_schema()
 ,current_role()
 ,current_session()
