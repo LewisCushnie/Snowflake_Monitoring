@@ -85,7 +85,9 @@ def main():
     DOMAIN = st.selectbox('Choose business domain', ('FINANCE', 'UNDERWRITING'))
 
     DOMAIN_QUERY_USAGE = f'''
-        select q.schema_name, sum(w.credits_used), sum(w.credits_used_compute) 
+        select q.schema_name as "Schema"
+        , sum(w.credits_used) as "Total Credits Used"
+        , sum(w.credits_used_compute) as "Total Compute Credits Used"
         from snowflake.account_usage.query_history as q
         join snowflake.account_usage.warehouse_metering_history as w
         on q.warehouse_id = w.warehouse_id
@@ -98,6 +100,7 @@ def main():
         with st.spinner('Executing Query'):
             df = sf.sql_to_dataframe(DOMAIN_QUERY_USAGE)
             st.dataframe(df)
+            st.bar_chart(df, x='Schema', y=['Total Compute Credits Used', 'Total Credits Used'])
 
 
 if __name__ == "__main__":
