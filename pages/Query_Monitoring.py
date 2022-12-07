@@ -64,11 +64,11 @@ def main():
                         'AVG(EXECUTION_TIME)':'Avg Execution Time',
                         'AVG(QUERY_LOAD_PERCENT)':'Avg Query Load (%)'}, inplace = True)
 
-    df['Scanned From Cache (%)'] = df['Scanned From Cache (%)'].astype(int)              
+    df['Scanned From Cache (%)'] = df['Scanned From Cache (%)'].astype(float)              
     df['Avg Paritions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
     df['Avg Total Partitions'] = df['Avg Total Partitions'].astype(float)     
     df['Avg Execution time'] = df['Avg Execution time'].astype(float)  
-    df['Avg Query Load (%)'] = df['Avg Query Load (%)'].astype(int) 
+    df['Avg Query Load (%)'] = df['Avg Query Load (%)'].astype(float) 
 
     selected_username = st.multiselect('Select a user', clean_users)
     df = df.loc[selected_username]                    
