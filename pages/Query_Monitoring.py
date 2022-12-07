@@ -11,16 +11,22 @@ st.set_page_config(
 
 def main():
 
-    #------------------------------- SIDEBAR ----------------------------------- 
-    st.sidebar.header('Snowflake Session Info')
-    
+    #------------------------------- SIDEBAR -----------------------------------     
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
 
     df = sf.sql_to_dataframe(query)
     df = df.transpose()
 
     current_user = df.loc['CURRENT_USER'].iloc[0]
-    st.sidebar.write(f'Hello, {current_user}')
+    st.sidebar.header(f'Hello, {current_user} ❄️')
+
+    st.sidebar.subheader('Session Info')
+
+    role = df.loc['CURRENT_ROLE'].iloc[0]
+    st.sidebar.text(f'Current role - {role}')
+
+    wh = df.loc['WAREHOUSE'].iloc[0]
+    st.sidebar.text(f'Warehouse - {wh}')
 
     st.sidebar.dataframe(df)
 
