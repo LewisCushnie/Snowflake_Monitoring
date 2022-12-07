@@ -66,28 +66,16 @@ def main():
         st.header('Warehouse Usage')
         st.dataframe(METERING_TOP_10_df)
 
+    st.header('Warehouse usage comparison chart')
     METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
     METERING_TOP_10_df['SUM(CREDITS_USED)'] = METERING_TOP_10_df['SUM(CREDITS_USED)'].astype(float)
-
-    # # Multiselect list
+    # Multiselect list
     wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
     # filter using panda's .loc
     wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
-
     # Display the filtered df on the page.
     st.bar_chart(wh_to_show_df)
-
-    # st.text('On/Off grid')
-    # col1, col2, col3 = st.columns(3)
-    # col1.metric("COMPUTE_WH", metering_top_10_df.loc['COMPUTE_WH', 'Credits Used'], 10)
-    # col2.metric("Wind", "9 mph", "-8%")
-    # col3.metric("Humidity", "86%", "4%")
-
-    click = st.button('Snow baby!')
-
-    if click:
-        st.snow()
-        click = False
+    
 
 
 if __name__ == "__main__":
