@@ -28,7 +28,7 @@ name
 ,sum(credits_used) AS CREDITS_USED
 from metering_history 
 group by name
-order by sum(credits_used) desc; '''
+order by CREDITS_USED desc; '''
 
 WH_USAGE_LAST_7_DAYS = '''
 -- WAREHOUSE USAGE OVER LAST 7 DAYS
