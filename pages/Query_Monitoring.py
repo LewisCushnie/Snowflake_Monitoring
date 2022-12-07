@@ -22,13 +22,13 @@ def main():
 
     st.sidebar.subheader('Session Info')
 
-    role = df.loc['CURRENT_ROLE'].iloc[0]
-    st.sidebar.text(f'Current role - {role}')
+    # role = df.loc['CURRENT_ROLE'].iloc[0]
+    # st.sidebar.text(f'Current role - {role}')
 
-    wh = df.loc['WAREHOUSE'].iloc[0]
-    st.sidebar.text(f'Warehouse - {wh}')
+    # wh = df.loc['WAREHOUSE'].iloc[0]
+    # st.sidebar.text(f'Warehouse - {wh}')
 
-    st.markdown(
+    st.sidebar.markdown(
     f'''**Current Role** - {role} | **Current Warehouse** - {wh}'''
     )
 
