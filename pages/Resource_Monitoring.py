@@ -63,7 +63,7 @@ def main():
     query = sql.METERING_TOP_10
     METERING_TOP_10_df = sf.sql_to_dataframe(query)
     with left_column:
-        st.header('Warehouse credit usage')
+        st.header('Warehouse Usage')
         st.dataframe(METERING_TOP_10_df)
 
     METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
