@@ -1,5 +1,4 @@
 #-------------------- SIDEBAR ------------------------
-
 SNOWFLAKE_ACCOUNT_PARAMS = '''select current_database() 
 ,current_schema()
 ,current_role()
@@ -15,7 +14,6 @@ from query_history
 where query_tag = 'StreamlitQuery';'''
 
 #-------------- RESOURCE MONITORING ------------------
-
 SNOWFLAKE_SESSION_VARIABLES = '''select 
 current_database() 
 ,current_schema()
@@ -38,6 +36,13 @@ from metering_history
 group by name; '''
 
 #-------------- RBAC SUMMARY ------------------
+ALL_RBAC_ROLES = '''
+select 
+CREATED_ON
+,NAME 
+,COMMENT
+,OWNER 
+from roles;'''
 
 #-------------- QUERY MONITORING ------------------
 USER_LIST = ''' 
