@@ -34,7 +34,7 @@ name
 ,sum(credits_used)
 from metering_history 
 group by name
-order by sum(credits_used); '''
+order by sum(credits_used) asc; '''
 
 #-------------- RBAC SUMMARY ------------------
 ALL_RBAC_ROLES = '''
