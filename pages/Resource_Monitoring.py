@@ -19,8 +19,7 @@ def main():
 
 
     streamlit_credits = STREAMLIT_CREDITS_USED_df.iloc[0]['SUM(CREDITS_USED_CLOUD_SERVICES)']
-    st.write(streamlit_credits)
-    streamlit_credits = round(STREAMLIT_CREDITS_USED_df, 5)
+    streamlit_credits = round(streamlit_credits, 5)
     st.sidebar.metric("Credits used from streamlit queries", streamlit_credits)
     
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
