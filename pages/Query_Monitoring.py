@@ -60,11 +60,10 @@ def main():
     df = sf.sql_to_dataframe(query)
     df = df.set_index('Username')
 
-    df['Scanned From Cache (%)'] = df['Scanned From Cache (%)'].astype(float)              
+    df['Avg Scanned from Cache (%)'] = df['Avg Scanned from Cache (%)'].astype(float)              
     df['Avg Partitions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
-    df['Avg Total Partitions'] = df['Avg Total Partitions'].astype(float)     
-    df['Avg Query Load (%)'] = df['Avg Query Load (%)'].astype(float) 
-
+    df['Avg Partitions Used'] = df['Avg Partitions Used'].astype(float)     
+    
     selected_username = st.multiselect('Select a user', clean_users)
     df = df.loc[selected_username]      
     download_data = df.to_csv()              
