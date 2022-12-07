@@ -29,12 +29,17 @@ def main():
     SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
     st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
 
-    st.sidebar.header('Total warehouse usage over last 7 days')
+    st.sidebar.header('Warehouse usage summary stats')
+
     query = sql.WH_USAGE_LAST_7_DAYS
     WH_USAGE_LAST_7_DAYS_df = sf.sql_to_dataframe(query)
     metric=round(WH_USAGE_LAST_7_DAYS_df['CREDITS_USED_LAST_PERIOD'].iloc[0],5)
     pct_change=round(WH_USAGE_LAST_7_DAYS_df['PCT_CHANGE'].iloc[0],3)
-    st.sidebar.metric(label='Credit usage over last 7 period', value= metric, delta= f'{pct_change}%', delta_color= "inverse")
+    st.sidebar.metric(label='Credit usage over last 7 day period', value= metric, delta= f'{pct_change}%', delta_color= "inverse")
+
+
+    most_used_wh = STREAMLIT_CREDITS_USED_df['SUM(CREDITS_USED_CLOUD_SERVICES)'].idxmax()
+    st.write(most_used_wh)
 
     #------------------------------- SIDEBAR ----------------------------------- 
 
