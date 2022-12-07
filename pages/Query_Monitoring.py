@@ -71,11 +71,12 @@ def main():
     df['Avg Query Load (%)'] = df['Avg Query Load (%)'].astype(float) 
 
     selected_username = st.multiselect('Select a user', clean_users)
-    df = df.loc[selected_username]                    
+    df = df.loc[selected_username]      
+    download_data = df.to_csv()              
 
     if selected_username:
         st.dataframe(df)
-        st.download_button('Download Results', df, help='Click to download user query history as a csv')
+        st.download_button('Download Results', download_data, help='Click to download user query history as a csv')
         st.bar_chart(data = df, y=['Avg Partitions Scanned','Avg Execution Time'])
 
 if __name__ == "__main__":
