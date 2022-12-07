@@ -1,8 +1,6 @@
-#[theme]
-#primaryColor = "#dc199b"
-#backgroundColor = "4b0050"
-#secondaryBackgroundColor= "c8c3cd"
-#textColor = "#f0f0f0"
 [theme]
-base="dark"
-primaryColor="#dc199b"
+primaryColor = "#dc199b"
+backgroundColor = "4b0050"
+secondaryBackgroundColor= "c8c3cd"
+textColor = "#f0f0f0"
+
