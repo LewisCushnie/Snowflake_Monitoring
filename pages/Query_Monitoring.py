@@ -28,7 +28,9 @@ def main():
     wh = df.loc['WAREHOUSE'].iloc[0]
     st.sidebar.text(f'Warehouse - {wh}')
 
-    st.sidebar.dataframe(df)
+    st.markdown(
+    f'''**Current Role** - {role} | **Current Warehouse** - {wh}'''
+    )
 
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
