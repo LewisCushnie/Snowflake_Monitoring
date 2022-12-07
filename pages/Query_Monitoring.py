@@ -87,6 +87,7 @@ def main():
 #==========================#
 # DOMAIN QUERY PERFORMANCE #
 #==========================#
+    st.header('Domain Performance')
 
     DOMAIN = st.selectbox('Choose business domain', ('FINANCE', 'UNDERWRITING'))
     query = sql.DOMAIN_QUERY_USAGE
