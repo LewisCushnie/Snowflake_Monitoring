@@ -9,8 +9,9 @@ st.set_page_config(
 )
 
 def main():
-
-    return st.write('Hello')
+    query = sql.TEST_QUERY
+    test_df = sf.sql_to_dataframe(query)
+    return st.write('Hello'), st.dataframe(test_df)
 
 
 if __name__ == "__main__":
