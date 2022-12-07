@@ -75,15 +75,15 @@ def main():
         st.dataframe(METERING_TOP_10_df)
 
     # SIDEBAR - MOST USED WAREHOUSE
-    most_used_loc = METERING_TOP_10_df['SUM(CREDITS_USED)'].idxmax()
+    most_used_loc = METERING_TOP_10_df['CREDITS_USED'].idxmax()
     most_used_wh = METERING_TOP_10_df['NAME'].iloc[most_used_loc]
-    amount_used = round(METERING_TOP_10_df['SUM(CREDITS_USED)'].iloc[most_used_loc], 3)
+    amount_used = round(METERING_TOP_10_df['CREDITS_USED'].iloc[most_used_loc], 3)
     st.sidebar.metric(label='Most used warehouse', value= most_used_wh, delta= f'{amount_used} Credits', delta_color= "normal")
 
     # MAIN PAGE - WAREHOUSE USAGE COMPARISON BAR CHART
     st.header('Warehouse usage comparison chart')
     METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
-    METERING_TOP_10_df['SUM(CREDITS_USED)'] = METERING_TOP_10_df['SUM(CREDITS_USED)'].astype(float)
+    METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
     # Multiselect list
     wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
     # filter using panda's .loc

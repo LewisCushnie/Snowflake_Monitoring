@@ -1,7 +1,7 @@
 #-------------- RESOURCE MONITORING ------------------
 STREAMLIT_CREDITS_USED = '''
 select
-sum(credits_used_cloud_services) as credits_used_streamlit
+sum(credits_used_cloud_services) as CREDITS_USED_STREAMLIT
 from query_history
 where query_tag = 'StreamlitQuery';'''
 
@@ -25,7 +25,7 @@ from metering_history;'''
 METERING_TOP_10 = '''
 select top 10 
 name 
-,sum(credits_used)
+,sum(credits_used) AS CREDITS_USED
 from metering_history 
 group by name
 order by sum(credits_used) desc; '''
