@@ -11,7 +11,7 @@ st.set_page_config(
 def main():
 
     # Variables
-    default_table_width = 500
+    default_width = 500
 
     #------------------------------- SIDEBAR ----------------------------------- 
     st.sidebar.header('Snowflake session')
@@ -55,12 +55,12 @@ def main():
     st.header("Metering Summary:")
     query = sql.METERING_HISTORY
     METERING_HISTORY_df = sf.sql_to_dataframe(query)
-    st.dataframe(METERING_HISTORY_df, width= default_table_width)
+    st.dataframe(METERING_HISTORY_df, width= default_width)
 
     st.header('Warehouse credit usage')
     query = sql.METERING_TOP_10
     METERING_TOP_10_df = sf.sql_to_dataframe(query)
-    st.dataframe(METERING_TOP_10_df, width= default_table_width)
+    st.dataframe(METERING_TOP_10_df, width= default_width)
 
     # # Convert to pandas dataframe
     # metering_top_10_df = pd.DataFrame(metering_top_10, columns=['WH_Name', 'Credits Used'])
@@ -76,7 +76,7 @@ def main():
     wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
 
     # Display the filtered df on the page.
-    st.bar_chart(wh_to_show_df, height= default_table_width)
+    st.bar_chart(wh_to_show_df, width= default_width)
 
     # st.text('On/Off grid')
     # col1, col2, col3 = st.columns(3)
