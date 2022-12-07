@@ -73,7 +73,7 @@ def main():
     # # Multiselect list
     wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
     # filter using panda's .loc
-    wh_to_show_df = metering_top_10_df.loc[wh_selected]
+    wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
 
     # Display the filtered df on the page.
     st.bar_chart(wh_to_show_df, height= default_table_width)
