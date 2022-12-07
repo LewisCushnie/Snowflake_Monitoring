@@ -58,7 +58,7 @@ def main():
     df = sf.sql_to_dataframe(query)
     df = df.set_index('USER_NAME')
 
-    df = df.rename(columns = {'AVG(PERCENTAGE_SCANNED_FROM_CACHE)':'Scanned From Cache (%)',
+    df.rename(columns = {'AVG(PERCENTAGE_SCANNED_FROM_CACHE)':'Scanned From Cache (%)',
                         'AVG(PARTITIONS_SCANNED)':'Avg Partitions Scanned',
                         'AVG(PARTITIONS_TOTAL)':'Avg Total Partitions',
                         'AVG(EXECUTION_TIME)':'Avg Execution Time',
