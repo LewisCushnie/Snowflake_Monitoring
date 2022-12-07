@@ -74,9 +74,11 @@ def main():
         st.header('Warehouse Usage')
         st.dataframe(METERING_TOP_10_df)
 
-    most_used_wh = METERING_TOP_10_df['SUM(CREDITS_USED)'].idxmax()
-    st.write(METERING_TOP_10_df['NAME'].iloc[most_used_wh])
-    st.write(METERING_TOP_10_df['SUM(CREDITS_USED)'].iloc[most_used_wh])
+    # SIDEBAR - MOST USED WAREHOUSE
+    most_used_loc = METERING_TOP_10_df['SUM(CREDITS_USED)'].idxmax()
+    most_used_wh = METERING_TOP_10_df['NAME'].iloc[most_used_loc]
+    amount_used = round(METERING_TOP_10_df['SUM(CREDITS_USED)'].iloc[most_used_loc], 3)
+    st.sidebar.metric(label='Most used warehouse', value= most_used_wh, delta= f'{amount_used} Credits', delta_color= "normal")
 
     st.header('Warehouse usage comparison chart')
     METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
