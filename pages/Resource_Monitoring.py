@@ -10,32 +10,28 @@ st.set_page_config(
 
 def main():
 
+    # Variables
+    default_width = 500
+
     #------------------------------- SIDEBAR ----------------------------------- 
     st.sidebar.header('Snowflake session')
 
+    # Credits used running queries through streamlit
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
-    streamlit_credits = STREAMLIT_CREDITS_USED_df.iloc[0][0]
-    streamlit_credits = round(STREAMLIT_CREDITS_USED_df, 5)
-    st.sidebar.metric("Credits used from streamlit queries", streamlit_credits)
+    metric=round(STREAMLIT_CREDITS_USED_df['SUM(CREDITS_USED_CLOUD_SERVICES)'].iloc[0],5)
+    remaining=round(100-metric,3)
+    st.sidebar.metric(label='Credits used by Streamlit', value =metric, delta=f'{remaining} remaining')
     
+    # Account parameters of the account being accessed through streamlit
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
     SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
     SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
     st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
 
-    # streamlit_credits_used_df = pd.DataFrame(streamlit_credits_used, columns=['Streamlit_Credits_Used'])
-    # credits = streamlit_credits_used_df.iloc[0]['Streamlit_Credits_Used']
-    # rounded_credits = round(credits, 5)
-    # st.sidebar.metric("Credits used from streamlit queries", rounded_credits)
-
-    # snowflake_session_variables_df = pd.DataFrame(snowflake_session_variables, 
-    # columns=['Database', 'Schema', 'Current role', 'Session ID', 'Current user', 'Warehouse', 'Region', 'Region time'])
-    # transposed_session_variables_df = snowflake_session_variables_df.transpose().reset_index()
-    # transposed_session_variables_df = transposed_session_variables_df.rename(columns={"index": "Session Parameter", 0: "Value"})
-    # st.sidebar.dataframe(transposed_session_variables_df)
     #------------------------------- SIDEBAR ----------------------------------- 
 
+    # Apply formatting from the style.css file to the page
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
@@ -56,28 +52,30 @@ def main():
     '''
     )
 
-    st.header("Metering Summary:")
+    left_column, right_column = st.columns(2)
+
     query = sql.METERING_HISTORY
     METERING_HISTORY_df = sf.sql_to_dataframe(query)
-    st.dataframe(METERING_HISTORY_df)
+    with right_column:
+        st.header("Metering Summary:")
+        st.dataframe(METERING_HISTORY_df)
 
-    st.header('Warehouse credit usage')
     query = sql.METERING_TOP_10
     METERING_TOP_10_df = sf.sql_to_dataframe(query)
-    st.dataframe(METERING_TOP_10_df)
+    with left_column:
+        st.header('Warehouse Usage')
+        st.dataframe(METERING_TOP_10_df)
 
-    # # Convert to pandas dataframe
-    # metering_top_10_df = pd.DataFrame(metering_top_10, columns=['WH_Name', 'Credits Used'])
-    # metering_top_10_df = metering_top_10_df.set_index('WH_Name')
-    # metering_top_10_df['Credits Used'] = metering_top_10_df['Credits Used'].astype(float)
+    METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
+    METERING_TOP_10_df['SUM(CREDITS_USED)'] = METERING_TOP_10_df['SUM(CREDITS_USED)'].astype(float)
 
     # # Multiselect list
-    # wh_selected = st.multiselect("Pick Warehouse:", list(metering_top_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
-    # # filter using panda's .loc
-    # WH_to_show_df = metering_top_10_df.loc[wh_selected]
+    wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
+    # filter using panda's .loc
+    wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
 
-    # # Display the filtered df on the page.
-    # st.bar_chart(WH_to_show_df, height= 500)
+    # Display the filtered df on the page.
+    st.bar_chart(wh_to_show_df)
 
     # st.text('On/Off grid')
     # col1, col2, col3 = st.columns(3)
