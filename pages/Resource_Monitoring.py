@@ -33,7 +33,7 @@ def main():
     # st.sidebar.dataframe(transposed_session_variables_df)
     #------------------------------- SIDEBAR ----------------------------------- 
 
-    with open("style/style.css") as f:
+    with open("utils/style/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
     st.title('Resource Monitoring Summary')
