@@ -2,16 +2,12 @@ import streamlit as st
 
 st.set_page_config(page_title="Usage Insights app", page_icon="🌀", layout="centered")
 
-from utils import gui
-
-gui.icon("🌀")
-
 # Make sure session state is preserved
 for key in st.session_state:
     st.session_state[key] = st.session_state[key]
 
 st.title("Welcome to the Usage Insights app!")
-st.sidebar.text(f"Account: {st.secrets.sf_usage_app.account}")
+# st.sidebar.text(f"Account: {st.secrets.sf_usage_app.account}")
 st.sidebar.info("Choose a page!")
 st.markdown(
     """
