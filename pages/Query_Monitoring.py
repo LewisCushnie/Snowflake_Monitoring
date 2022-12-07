@@ -92,9 +92,9 @@ def main():
     query = sql.DOMAIN_QUERY_USAGE
     st.write(query)
 
-    if DOMAIN:
-        df = sf.sql_to_dataframe(query)
-        st.dataframe(df)
+    # if DOMAIN:
+    #     df = sf.sql_to_dataframe(query)
+    #     st.dataframe(df)
 
 
 if __name__ == "__main__":
