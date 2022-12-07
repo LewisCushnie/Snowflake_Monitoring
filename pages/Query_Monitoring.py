@@ -29,7 +29,8 @@ def main():
     #st.sidebar.text(f'Warehouse - {wh}')
 
     st.sidebar.markdown(
-    f'''**Current Role** - {role} | **Current Warehouse** - {wh}'''
+    f'''**Current Role** - {role}
+     **Current Warehouse** - {wh}'''
     )
 
     query = sql.STREAMLIT_CREDITS_USED
