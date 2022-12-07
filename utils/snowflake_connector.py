@@ -37,7 +37,7 @@ def run_query(query):
 
 
 
-# TIME_TO_LIVE = 60 * 60 * 6  # 6 hours caching
+TIME_TO_LIVE = 60 * 60 * 6  # 6 hours caching
 
 
 # # Share the connector across all users connected to the app
@@ -89,7 +89,7 @@ def run_query(query):
 # cur.execute(f"use warehouse {st.secrets.sf_usage_app.warehouse};")
 
 
-@st.experimental_memo(ttl=TIME_TO_LIVE)
+@st.experimental_memo(ttl=600)
 def sql_to_dataframe(sql_query: str) -> pd.DataFrame:
     data = pd.read_sql(
         sql_query,
