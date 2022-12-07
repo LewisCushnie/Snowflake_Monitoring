@@ -90,6 +90,7 @@ def main():
 
     DOMAIN = st.selectbox('Choose business domain', ('FINANCE', 'UNDERWRITING'))
     query = sql.DOMAIN_QUERY_USAGE
+    st.write(query)
 
     if DOMAIN:
         df = sf.sql_to_dataframe(query)
