@@ -34,6 +34,9 @@ def main():
      **Current Warehouse** - {wh}'''
     )
 
+    line = '---'
+    st.markdown(line)
+
     # SIDEBAR - CREDITS USED THROUGH STREAMLIT
     # Credits used running queries through streamlit
     query = sql.STREAMLIT_CREDITS_USED
