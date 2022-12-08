@@ -94,6 +94,7 @@ def main():
 
     query = sql.COMPUTE_CREDITS_PER_DAY
     COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
+    COMPUTE_CREDITS_PER_DAY_df['Usage Week'] = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].astype({'date': 'datetime64[ns]'})
     st.dataframe(COMPUTE_CREDITS_PER_DAY_df)
     st.bar_chart(COMPUTE_CREDITS_PER_DAY_df, x= 'Usage Week', y= 'Compute Credits Used')
 
