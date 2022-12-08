@@ -93,8 +93,25 @@ def main():
 
     query = sql.COMPUTE_CREDITS_PER_DAY
     COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
+    COMPUTE_CREDITS_PER_DAY_df = COMPUTE_CREDITS_PER_DAY_df.set_index('Usage Week')
     st.dataframe(COMPUTE_CREDITS_PER_DAY_df)
-    st.bar_chart(COMPUTE_CREDITS_PER_DAY_df, x= 'Usage Week', y= 'Compute Credits Used')
+    st.bar_chart(COMPUTE_CREDITS_PER_DAY_df)
+    #, x= 'Usage Week', y= 'Compute Credits Used'
+    st.stop()
+
+    # Add a slider to the sidebar:
+    min_date = 
+
+    slider = st.slider(
+    'Select date range',
+    0.0, 100.0, (25.0, 75.0)
+)
+    # Multiselect list
+    wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
+    # filter using panda's .loc
+    wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
+    # Display the filtered df on the page.
+    st.bar_chart(wh_to_show_df)
     
     
 
