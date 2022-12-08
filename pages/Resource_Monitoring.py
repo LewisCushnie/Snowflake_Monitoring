@@ -1,3 +1,4 @@
+import pandas as pd
 import streamlit as st
 from utils import snowflake_connector as sf
 from utils import sql
