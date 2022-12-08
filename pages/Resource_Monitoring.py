@@ -1,6 +1,7 @@
 import streamlit as st
 from utils import snowflake_connector as sf
 from utils import sql
+import datetime
 
 st.set_page_config(
     page_title="Usage Insights app - Data Transfer",
@@ -99,10 +100,12 @@ def main():
     # Add a slider to the sidebar:
     min_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].min()
     max_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].max()
+    auto_date_lower = datetime.datetime(2022, 11, 11)
+    auto_date_higher = datetime.datetime(2022, 11, 14)
 
     slider = st.slider(
     'Select date range',
-    min_date, max_date, ('2022-11-11', '2022-11-14')
+    min_date, max_date, (auto_date_lower, auto_date_higher)
     )
     #, (25.0, 75.0)
 
