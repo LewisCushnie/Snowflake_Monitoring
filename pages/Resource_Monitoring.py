@@ -115,6 +115,7 @@ def main():
     st.write(date_range)
 
     st.write(COMPUTE_CREDITS_PER_DAY_df['Usage Week'].isin(date_range))
+    st.write(COMPUTE_CREDITS_PER_DAY_df['Usage Week'].loc[date_range])
     st.write(COMPUTE_CREDITS_PER_DAY_df[COMPUTE_CREDITS_PER_DAY_df['Usage Week'].isin(date_range)])
 
     st.stop()
