@@ -93,7 +93,7 @@ def main():
 
     query = sql.COMPUTE_CREDITS_PER_DAY
     COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
-    sf.dataframe(COMPUTE_CREDITS_PER_DAY_df)
+    st.dataframe(COMPUTE_CREDITS_PER_DAY_df)
     
     
 
