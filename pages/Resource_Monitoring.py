@@ -137,11 +137,10 @@ def main():
     daily_creds_right_column.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df)
 
     # COMPUTE AVAILABILITY VS EXECUTION TIME
-    st.header('Compute availablity v.s execution time')
+    st.header('Compute availablity v.s execution time (**currently divided by 60**)')
     query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
     COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
     COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df['COMPUTE_AVAILABILITY_SEC'] = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df['COMPUTE_AVAILABILITY_SEC'].div(60)
-    st.dataframe(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df)
     st.bar_chart(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']], x= 'HOUR')
     
 
