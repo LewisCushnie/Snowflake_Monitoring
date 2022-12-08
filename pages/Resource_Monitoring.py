@@ -80,7 +80,7 @@ def main():
     - Snowpipe monitoring
     '''
     )
-    
+
     # MAIN PAGE - METERING SUMMARY
     metering_left_column, metering_right_column = st.columns(2)
     query = sql.METERING_HISTORY
@@ -135,6 +135,12 @@ def main():
     daily_creds_left_column, daily_creds_right_column = st.columns(2)
     daily_creds_left_column.bar_chart(COMPUTE_CREDITS_PER_DAY_FILTERED_df, x= 'Usage Week', y= 'Compute Credits Used')
     daily_creds_right_column.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df)
+
+    # COMPUTE AVAILABILITY VS EXECUTION TIME
+    st.header('Compute availablity v.s execution time')
+    query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
+    COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
+    st.dataframe(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df)
     
 
 if __name__ == "__main__":
