@@ -93,6 +93,7 @@ def main():
     # Display the filtered df on the page.
     st.bar_chart(wh_to_show_df)
 
+    # MAIN PAGE: COMPUTE_CREDITS_PER_DAY BAR CHART
     query = sql.COMPUTE_CREDITS_PER_DAY
     COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
     st.dataframe(COMPUTE_CREDITS_PER_DAY_df)
@@ -103,37 +104,17 @@ def main():
     max_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].max()
     auto_date_lower = min_date
     auto_date_higher = max_date
-
     slider_values = st.slider(
     'Select date range',
     min_date, max_date, (auto_date_lower, auto_date_higher)
     )
 
-    st.write(slider_values)
-
     # Select DataFrame rows between two dates
     date_mask = (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] > slider_values[0]) & (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= slider_values[1])
     COMPUTE_CREDITS_PER_DAY_FILTERED_df = COMPUTE_CREDITS_PER_DAY_df.loc[date_mask]
-    st.bar_chart(COMPUTE_CREDITS_PER_DAY_FILTERED_df, x= 'Usage Week', y= 'Compute Credits Used')
-
-    st.stop()
-
-    date_range = pd.date_range(slider_values[0], slider_values[1])
-    st.write(date_range)
-
-    st.write(COMPUTE_CREDITS_PER_DAY_df['Usage Week'].isin(date_range))
-    st.write(COMPUTE_CREDITS_PER_DAY_df['Usage Week'].loc[date_range])
-    st.write(COMPUTE_CREDITS_PER_DAY_df[COMPUTE_CREDITS_PER_DAY_df['Usage Week'].isin(date_range)])
-
-    st.stop()
-
-    # Multiselect list
-    wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
-    # filter using panda's .loc
-    wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
-    # Display the filtered df on the page.
-    st.bar_chart(wh_to_show_df)
-    
+    # Create the bar chart with filtered values
+    left_column.bar_chart(COMPUTE_CREDITS_PER_DAY_FILTERED_df, x= 'Usage Week', y= 'Compute Credits Used')
+    right_column.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df)
     
 
 if __name__ == "__main__":
