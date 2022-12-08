@@ -103,9 +103,15 @@ def main():
     auto_date_lower = min_date
     auto_date_higher = max_date
 
-    d = st.date_input(
-    "Date range start:",
-    datetime.date(2019, 7, 6))
+    with left_column:
+        lower_date_input = st.date_input(
+        "Enter date range start:",
+        datetime.date(2019, 7, 6))
+
+    with right_column:
+        higher_date_input = st.date_input(
+        "Enter date range end:",
+        datetime.date(2019, 7, 6))
 
     slider = st.slider(
     'Select date range',
