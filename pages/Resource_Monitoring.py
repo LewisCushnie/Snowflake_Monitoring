@@ -90,6 +90,8 @@ def main():
     wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
     # Display the filtered df on the page.
     st.bar_chart(wh_to_show_df)
+
+    
     
 
 if __name__ == "__main__":
