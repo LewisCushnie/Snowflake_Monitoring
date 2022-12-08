@@ -60,19 +60,20 @@ def main():
     '''
     )
 
-    left_column, right_column = st.columns(2)
+
 
     # MAIN PAGE - METERING SUMMARY
+    metering_left_column, metering_right_column = st.columns(2)
     query = sql.METERING_HISTORY
     METERING_HISTORY_df = sf.sql_to_dataframe(query)
-    with right_column:
+    with metering_right_column:
         st.header("Metering Summary:")
         st.dataframe(METERING_HISTORY_df)
 
     # MAIN PAGE - WAREHOUSE USAGE TABLE
     query = sql.METERING_TOP_10
     METERING_TOP_10_df = sf.sql_to_dataframe(query)
-    with left_column:
+    with metering_left_column:
         st.header('Warehouse Usage')
         st.dataframe(METERING_TOP_10_df)
 
@@ -94,10 +95,9 @@ def main():
     st.bar_chart(wh_to_show_df)
 
     # MAIN PAGE: COMPUTE_CREDITS_PER_DAY BAR CHART
+    daily_creds_left_column, daily_creds_left_column = st.columns(2)
     query = sql.COMPUTE_CREDITS_PER_DAY
     COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
-    st.dataframe(COMPUTE_CREDITS_PER_DAY_df)
-    st.bar_chart(COMPUTE_CREDITS_PER_DAY_df, x= 'Usage Week', y= 'Compute Credits Used')
 
     # Add slider:
     min_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].min()
@@ -113,8 +113,8 @@ def main():
     date_mask = (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] > slider_values[0]) & (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= slider_values[1])
     COMPUTE_CREDITS_PER_DAY_FILTERED_df = COMPUTE_CREDITS_PER_DAY_df.loc[date_mask]
     # Create the bar chart with filtered values
-    left_column.bar_chart(COMPUTE_CREDITS_PER_DAY_FILTERED_df, x= 'Usage Week', y= 'Compute Credits Used')
-    right_column.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df)
+    daily_creds_left_column.bar_chart(COMPUTE_CREDITS_PER_DAY_FILTERED_df, x= 'Usage Week', y= 'Compute Credits Used')
+    daily_creds_left_column.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df)
     
 
 if __name__ == "__main__":
