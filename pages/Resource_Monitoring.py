@@ -91,6 +91,9 @@ def main():
     # Display the filtered df on the page.
     st.bar_chart(wh_to_show_df)
 
+    query = sql.COMPUTE_CREDITS_PER_DAY
+    COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
+    sf.dataframe(COMPUTE_CREDITS_PER_DAY_df)
     
     
 
