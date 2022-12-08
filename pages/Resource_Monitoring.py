@@ -80,9 +80,7 @@ def main():
     - Snowpipe monitoring
     '''
     )
-
-
-
+    
     # MAIN PAGE - METERING SUMMARY
     metering_left_column, metering_right_column = st.columns(2)
     query = sql.METERING_HISTORY
