@@ -100,7 +100,7 @@ def main():
     st.stop()
 
     # Add a slider to the sidebar:
-    min_date = 
+    #min_date = 
 
     slider = st.slider(
     'Select date range',
