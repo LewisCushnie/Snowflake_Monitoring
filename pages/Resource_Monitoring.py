@@ -97,26 +97,18 @@ def main():
     st.dataframe(COMPUTE_CREDITS_PER_DAY_df)
     st.bar_chart(COMPUTE_CREDITS_PER_DAY_df, x= 'Usage Week', y= 'Compute Credits Used')
 
-    # Add a slider to the sidebar:
+    # Add slider:
     min_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].min()
     max_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].max()
     auto_date_lower = min_date
     auto_date_higher = max_date
 
-
-    lower_date_input = left_column.date_input(
-    "Enter date range start:",
-    datetime.date(2019, 7, 6))
-
-    higher_date_input = right_column.date_input(
-    "Enter date range end:",
-    datetime.date(2019, 7, 6))
-
-    slider = st.slider(
+    slider_values = st.slider(
     'Select date range',
     min_date, max_date, (auto_date_lower, auto_date_higher)
     )
-    #, (25.0, 75.0)
+
+    st.write(slider_values)
 
     st.stop()
 
