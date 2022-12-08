@@ -102,7 +102,7 @@ def main():
 
     slider = st.slider(
     'Select date range',
-    min_date, max_date
+    min_date, max_date, ('2022-11-11', '2022-11-14')
     )
     #, (25.0, 75.0)
 
