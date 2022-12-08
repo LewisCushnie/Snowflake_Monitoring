@@ -110,6 +110,9 @@ def main():
 
     st.write(slider_values)
 
+    date_range = pd.date_range(slider_values[0], slider_values[1])
+    st.write(date_range)
+
     st.stop()
 
     # Multiselect list
