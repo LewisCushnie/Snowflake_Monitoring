@@ -15,8 +15,26 @@ def main():
     # VARAIBLES
     default_width = 500
 
+    # SIDEBAR - SNOWFLAKE ACCOUNT PARAMETERS
+    query = sql.SNOWFLAKE_ACCOUNT_PARAMS
+    df = sf.sql_to_dataframe(query)
+    df = df.transpose()
+
+    current_user = df.loc['CURRENT_USER'].iloc[0]
+    st.sidebar.header(f'Hello, {current_user} ❄️')
+
+    role = df.loc['CURRENT_ROLE'].iloc[0]
+    #st.sidebar.text(f'Current role - {role}')
+
+    wh = df.loc['WAREHOUSE'].iloc[0]
+    #st.sidebar.text(f'Warehouse - {wh}')
+
+    st.sidebar.markdown(
+    f'''**Current Role** - {role}
+     **Current Warehouse** - {wh}'''
+    )
+
     # SIDEBAR - CREDITS USED THROUGH STREAMLIT
-    st.sidebar.header('Snowflake session')
     # Credits used running queries through streamlit
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
@@ -24,11 +42,11 @@ def main():
     remaining=round(100-metric,3)
     st.sidebar.metric(label='Credits used by Streamlit', value =metric, delta=f'{remaining} remaining')
     
-    # SIDEBAR - ACCOUNT PARAMETERS OF LINKED ACCOUNT
-    query = sql.SNOWFLAKE_ACCOUNT_PARAMS
-    SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
-    SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
-    st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
+    # # SIDEBAR - ACCOUNT PARAMETERS OF LINKED ACCOUNT
+    # query = sql.SNOWFLAKE_ACCOUNT_PARAMS
+    # SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
+    # SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
+    # st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
 
     # SIDEBAR - WAREHOUSE USAGE SUMMARY STATS
     st.sidebar.header('Warehouse usage summary stats')
