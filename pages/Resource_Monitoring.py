@@ -34,9 +34,6 @@ def main():
      **Current Warehouse** - {wh}'''
     )
 
-    line = '---'
-    st.sidebar.markdown(line)
-
     # SIDEBAR - CREDITS USED THROUGH STREAMLIT
     # Credits used running queries through streamlit
     query = sql.STREAMLIT_CREDITS_USED
@@ -44,6 +41,9 @@ def main():
     metric=round(STREAMLIT_CREDITS_USED_df['CREDITS_USED_STREAMLIT'].iloc[0],5)
     remaining=round(100-metric,3)
     st.sidebar.metric(label='Credits used by Streamlit', value =metric, delta=f'{remaining} remaining')
+
+    line = '---'
+    st.sidebar.markdown(line)
     
     # # SIDEBAR - ACCOUNT PARAMETERS OF LINKED ACCOUNT
     # query = sql.SNOWFLAKE_ACCOUNT_PARAMS
