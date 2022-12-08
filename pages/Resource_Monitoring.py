@@ -35,7 +35,7 @@ def main():
     )
 
     line = '---'
-    st.markdown(line)
+    st.sidebar.markdown(line)
 
     # SIDEBAR - CREDITS USED THROUGH STREAMLIT
     # Credits used running queries through streamlit
