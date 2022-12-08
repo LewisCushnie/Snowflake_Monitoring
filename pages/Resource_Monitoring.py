@@ -112,7 +112,7 @@ def main():
     st.write(slider_values)
 
     # Select DataFrame rows between two dates
-    mask = (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] > min_date) & (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= max_date)
+    mask = (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] > slider_values[0]) & (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= slider_values[1])
     COMPUTE_CREDITS_PER_DAY_df = COMPUTE_CREDITS_PER_DAY_df.loc[mask]
     st.write(COMPUTE_CREDITS_PER_DAY_df)
 
