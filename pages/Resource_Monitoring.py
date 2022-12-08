@@ -95,7 +95,7 @@ def main():
     st.bar_chart(wh_to_show_df)
 
     # MAIN PAGE: COMPUTE_CREDITS_PER_DAY BAR CHART
-    daily_creds_left_column, daily_creds_left_column = st.columns(2)
+    daily_creds_left_column, daily_creds_right_column = st.columns(2)
     query = sql.COMPUTE_CREDITS_PER_DAY
     COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
 
