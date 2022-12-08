@@ -114,6 +114,8 @@ def main():
     date_range = pd.date_range(slider_values[0], slider_values[1])
     st.write(date_range)
 
+    st.write(COMPUTE_CREDITS_PER_DAY_df[COMPUTE_CREDITS_PER_DAY_df['Usage Week'].isin(myDates)])
+
     st.stop()
 
     # Multiselect list
