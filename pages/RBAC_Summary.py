@@ -24,13 +24,9 @@ def main():
     selection = st.selectbox('Choose business domain', ('FINANCE', 'UNDERWRITING'))
 
     RBAC = f'''
-        select 
-        CREATED_ON as "DATE CREATED"
-        ,NAME 
-        --,ASSIGNED_TO_USERS as "ASSIGNED TO USERS"
-        ,GRANTED_TO_ROLES as "GRANTED TO ROLES"
-        ,OWNER 
-        from roles
+        show roles;
+        select *
+        from table(result_scan(last_query_id()))
         where name like '%{selection}%';'''
 
     if selection:
