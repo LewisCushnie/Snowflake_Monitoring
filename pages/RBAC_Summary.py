@@ -27,7 +27,7 @@ def main():
         select 
         CREATED_ON as "DATE CREATED"
         ,NAME 
-        ,ASSIGNED_TO_USERS as "ASSIGNED TO USERS"
+        --,ASSIGNED_TO_USERS as "ASSIGNED TO USERS"
         ,GRANTED_TO_ROLES as "GRANTED TO ROLES"
         ,OWNER 
         from roles
