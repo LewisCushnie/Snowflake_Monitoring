@@ -25,8 +25,8 @@ def main():
 
     RBAC = f'''
         select *
-        from table(result_scan(last_query_id()))
-        where name like '%{selection}%';'''
+        from table(result_scan(last_query_id()))'''
+        #where name like '%{selection}%';'''
 
     if selection:
         sf.run_query('''show roles;''')
