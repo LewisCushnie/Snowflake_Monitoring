@@ -97,7 +97,7 @@ def main():
 
     st.header('Compare Domain Query Performance')
 
-    DOMAIN = st.selectbox('Choose business domain', ('FINANCE', 'UNDERWRITING'))
+    DOMAIN = st.multiselect('Choose business domain', ('FINANCE', 'UNDERWRITING'))
 
     DOMAIN_QUERY_USAGE = f'''
         select q.schema_name as "Schema"
