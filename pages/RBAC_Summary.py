@@ -29,6 +29,8 @@ def main():
 
     if selection:
 
+        col1 = st.columns(1)
+
         if selection=='Business Domain':
 
             domain = st.radio(label='Choose Business Domain', options=('FINANCE', 'UNDERWRITING'))
@@ -36,7 +38,7 @@ def main():
             df = sf.sql_to_dataframe(RBAC)
             df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
             df= df[df['name'].str.contains(domain)]
-            st.dataframe(df, use_container_width=True)
+            col1.dataframe(df, use_container_width=True)
 
         if selection =='Environment':
 
@@ -45,7 +47,7 @@ def main():
             df = sf.sql_to_dataframe(RBAC)
             df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
             df= df[df['name'].str.contains(environment)]
-            st.dataframe(df, use_container_width=True)
+            col1.dataframe(df, use_container_width=True)
 
 if __name__ == "__main__":
     main()            
