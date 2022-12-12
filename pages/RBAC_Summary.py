@@ -31,7 +31,12 @@ def main():
 
         if selection=='PROD':
 
-            domain = st.radio(label='Choose Business Domain', options=('FINANCE', 'UNDERWRITING'))
+            df= df[df['name'].str.contains(selection)]
+
+            domain = st.radio(label='Choose Business Domain', options=('ALL','FINANCE', 'UNDERWRITING'))
+
+            if domain == 'ALL':
+                st.dataframe(df)
 
             df = sf.sql_to_dataframe(RBAC)
             df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
@@ -42,7 +47,12 @@ def main():
 
         if selection=='TEST':
 
-            domain = st.radio(label='Choose Business Domain', options=('FINANCE', 'UNDERWRITING'))
+            df= df[df['name'].str.contains(selection)]
+
+            domain = st.radio(label='Choose Business Domain', options=('ALL','FINANCE', 'UNDERWRITING'))
+
+            if domain == 'ALL':
+                st.dataframe(df)
 
             df = sf.sql_to_dataframe(RBAC)
             df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
@@ -53,11 +63,15 @@ def main():
 
         if selection=='DEV':
 
-            domain = st.radio(label='Choose Business Domain', options=('FINANCE', 'UNDERWRITING'))
+            df= df[df['name'].str.contains(selection)]
+
+            domain = st.radio(label='Choose Business Domain', options=('ALL','FINANCE', 'UNDERWRITING'))
+
+            if domain == 'ALL':
+                st.dataframe(df)
 
             df = sf.sql_to_dataframe(RBAC)
             df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
-            df= df[df['name'].str.contains(selection)]
             df= df[df['name'].str.contains(domain)]
             df = df.set_index('name')
             st.dataframe(df)
