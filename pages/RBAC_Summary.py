@@ -31,7 +31,7 @@ def main():
 
         if selection=='Business Domain':
 
-            domain = st.radiobox(options=('FINANCE', 'UNDERWRITING'))
+            domain = st.radio(options=('FINANCE', 'UNDERWRITING'))
 
             df = sf.sql_to_dataframe(RBAC)
             df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
@@ -40,7 +40,7 @@ def main():
 
         if selection =='Environment':
 
-            environment = st.radiobox(options=('DEV', 'TEST', 'PROD'))
+            environment = st.radio(options=('DEV', 'TEST', 'PROD'))
 
             df = sf.sql_to_dataframe(RBAC)
             df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
