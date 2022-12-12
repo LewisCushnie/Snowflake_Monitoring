@@ -19,7 +19,7 @@ def main():
     # USER QUERY PERFORMANCE #
     #==========================#
 
-    st.header('Roles by Domain and Environment')
+    st.header('Roles by Environment & Domain')
 
     selection = st.selectbox('Filter by Environment', ('PROD', 'TEST', 'DEV'))
 
@@ -31,6 +31,7 @@ def main():
 
         df = sf.sql_to_dataframe(RBAC)
         df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
+        df.set_index('name')
 
 
         if selection=='PROD':
