@@ -21,17 +21,31 @@ def main():
 
     st.header('Roles by Domain and Environment')
 
-    selection = st.selectbox('Choose business domain', ('FINANCE', 'UNDERWRITING'))
+    selection = st.selectbox('Filter by', ('Business Domain', 'Environment'))
 
     RBAC = '''
         show roles;
             '''
 
     if selection:
-        df = sf.sql_to_dataframe(RBAC)
-        df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
-        df= df[df['name'].str.contains(selection)]
-        st.dataframe(df, use_container_width=True)
+
+        if selection=='Business Domain':
+
+            domain = st.radiobox(options=('FINANCE', 'UNDERWRITING'))
+
+            df = sf.sql_to_dataframe(RBAC)
+            df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
+            df= df[df['name'].str.contains(domain)]
+            st.dataframe(df, use_container_width=True)
+
+        if selection =='Environment':
+
+            environment = st.radiobox(options=('DEV', 'TEST', 'PROD'))
+
+            df = sf.sql_to_dataframe(RBAC)
+            df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
+            df= df[df['name'].str.contains(environment)]
+            st.dataframe(df, use_container_width=True)
 
 if __name__ == "__main__":
     main()            
