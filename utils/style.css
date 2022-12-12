@@ -8,8 +8,14 @@ h1 {
     font-size: 48px;
 }
 
+h2 {
+    color: #dc199b;
+    font-family: tiempos fine medium;
+    font-size: 34px;
+}
+
 p {
-    color: white;
+    color: black;
     font-family: arial;
     font-size: 18px;
 }
