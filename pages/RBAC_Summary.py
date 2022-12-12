@@ -36,7 +36,7 @@ def main():
             df = sf.sql_to_dataframe(RBAC)
             df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
             df= df[df['name'].str.contains(domain)]
-            st.dataframe.write(df)
+            st.dataframe(df)
 
         if selection =='Environment':
 
