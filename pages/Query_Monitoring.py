@@ -85,7 +85,7 @@ def main():
 
     if selected_username:
 
-        st.dataframe(df)
+        st.dataframe(df, width=1000)
         st.bar_chart(data = df, y=['Avg Partitions Scanned','Avg Execution Time'])
 
         st.download_button('Download Results', download_data, 
