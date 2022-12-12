@@ -31,7 +31,7 @@ def main():
 
         if selection=='Business Domain':
 
-            domain = st.radio(label='Choose Business Domain' options=('FINANCE', 'UNDERWRITING'))
+            domain = st.radio(label='Choose Business Domain', options=('FINANCE', 'UNDERWRITING'))
 
             df = sf.sql_to_dataframe(RBAC)
             df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
