@@ -97,24 +97,21 @@ def main():
 
     st.header('Compare Domain Query Performance')
 
-    selected = st.multiselect('Choose business domain', ('FINANCE', 'UNDERWRITING'))
+    DOMAIN = st.selectbox('Choose business domain', ('FINANCE', 'UNDERWRITING'))
 
-    if DOMAIN:
-
-        DOMAIN_QUERY_USAGE = f'''
+    DOMAIN_QUERY_USAGE = f'''
         select q.schema_name as "Schema"
         , sum(w.credits_used) as "Total Credits Used"
         , sum(w.credits_used_compute) as "Total Compute Credits Used"
         from snowflake.account_usage.query_history as q
         join snowflake.account_usage.warehouse_metering_history as w
         on q.warehouse_id = w.warehouse_id
-        where q.database_name like 'PROD_DB' and q.schema_name like '%{selected}%'
+        where q.database_name like 'PROD_DB' and q.schema_name like '%{DOMAIN}%'
         group by q.database_name, q.schema_name
         order by sum(w.credits_used) desc;
         '''
 
-        st.wrtie(DOMAIN_QUERY_USAGE)
-
+    if DOMAIN:
         df = sf.sql_to_dataframe(DOMAIN_QUERY_USAGE)
         st.dataframe(df, width=500)
         st.bar_chart(df, x='Schema', y=['Total Compute Credits Used', 'Total Credits Used'])
