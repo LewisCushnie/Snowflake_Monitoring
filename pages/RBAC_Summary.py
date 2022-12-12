@@ -23,13 +23,14 @@ def main():
 
     selection = st.selectbox('Choose business domain', ('FINANCE', 'UNDERWRITING'))
 
-    RBAC = f'''
+    RBAC = '''
         show roles;
             '''
 
     if selection:
         df = sf.sql_to_dataframe(RBAC)
         df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
+        df= df[df['name'].str.contains(selection)]
         st.dataframe(df, use_container_width=True)
 
 if __name__ == "__main__":
