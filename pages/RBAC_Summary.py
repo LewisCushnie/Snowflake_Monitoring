@@ -29,7 +29,7 @@ def main():
 
     if selection:
 
-        col1 = st.columns(1)
+        col1 = st.columns([1])
 
         if selection=='Business Domain':
 
