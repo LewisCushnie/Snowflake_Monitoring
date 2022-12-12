@@ -21,7 +21,7 @@ def main():
 
     st.header('Roles by Domain and Environment')
 
-    selection = st.selectbox('Filter by', ('Business Domain', 'Environment'))
+    selection = st.selectbox('Filter by Environment', ('PROD', 'TEST', 'DEV'))
 
     RBAC = '''
         show roles;
@@ -29,23 +29,36 @@ def main():
 
     if selection:
 
-        if selection=='Business Domain':
+        if selection=='PROD':
 
             domain = st.radio(label='Choose Business Domain', options=('FINANCE', 'UNDERWRITING'))
 
             df = sf.sql_to_dataframe(RBAC)
             df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
+            df= df[df['name'].str.contains(selection)]
             df= df[df['name'].str.contains(domain)]
             df = df.set_index('name')
             st.dataframe(df)
 
-        if selection =='Environment':
+        if selection=='TEST':
 
-            environment = st.radio(label='Choose Environment',options=('DEV', 'TEST', 'PROD'))
+            domain = st.radio(label='Choose Business Domain', options=('FINANCE', 'UNDERWRITING'))
 
             df = sf.sql_to_dataframe(RBAC)
             df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
-            df= df[df['name'].str.contains(environment)]
+            df= df[df['name'].str.contains(selection)]
+            df= df[df['name'].str.contains(domain)]
+            df = df.set_index('name')
+            st.dataframe(df)
+
+        if selection=='DEV':
+
+        domain = st.radio(label='Choose Business Domain', options=('FINANCE', 'UNDERWRITING'))
+
+            df = sf.sql_to_dataframe(RBAC)
+            df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
+            df= df[df['name'].str.contains(selection)]
+            df= df[df['name'].str.contains(domain)]
             df = df.set_index('name')
             st.dataframe(df)
 
