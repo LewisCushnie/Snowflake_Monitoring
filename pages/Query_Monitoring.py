@@ -99,7 +99,9 @@ def main():
 
     DOMAIN = st.multiselect('Choose business domain', ('FINANCE', 'UNDERWRITING'))
 
-    DOMAIN_QUERY_USAGE = f'''
+    if DOMAIN:
+
+        DOMAIN_QUERY_USAGE = f'''
         select q.schema_name as "Schema"
         , sum(w.credits_used) as "Total Credits Used"
         , sum(w.credits_used_compute) as "Total Compute Credits Used"
@@ -111,7 +113,6 @@ def main():
         order by sum(w.credits_used) desc;
         '''
 
-    if DOMAIN:
         df = sf.sql_to_dataframe(DOMAIN_QUERY_USAGE)
         st.dataframe(df, width=500)
         st.bar_chart(df, x='Schema', y=['Total Compute Credits Used', 'Total Credits Used'])
