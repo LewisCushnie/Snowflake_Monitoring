@@ -24,12 +24,10 @@ def main():
     selection = st.selectbox('Choose business domain', ('FINANCE', 'UNDERWRITING'))
 
     RBAC = f'''
-        select *
-        from table(result_scan(last_query_id()))'''
-        #where name like '%{selection}%';'''
+        show roles;
+            '''
 
     if selection:
-        sf.run_query('''show roles;''')
         df = sf.sql_to_dataframe(RBAC)
         st.dataframe(df, width=1000)
 
