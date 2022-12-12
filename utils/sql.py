@@ -98,9 +98,10 @@ query_time qt ON at.hour = qt.hour;
 #-------------- RBAC SUMMARY ------------------
 ALL_RBAC_ROLES = '''
 select 
-CREATED_ON
+CREATED_ON as "DATE CREATED"
 ,NAME 
-,COMMENT
+,ASSIGNED_TO_USERS as "ASSIGNED TO USERS"
+,GRANTED_TO_ROLES as "GRANTED TO ROLES"
 ,OWNER 
 from roles;'''
 
