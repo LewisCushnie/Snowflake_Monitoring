@@ -31,7 +31,6 @@ def main():
 
         df = sf.sql_to_dataframe(RBAC)
         df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
-        df = df.set_index('name')
 
 
         if selection=='PROD':
