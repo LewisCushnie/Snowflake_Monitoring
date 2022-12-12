@@ -30,7 +30,7 @@ def main():
     if selection:
         df = sf.sql_to_dataframe(RBAC)
         df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
-        st.dataframe(df, use_container_wifth=True)
+        st.dataframe(df, use_container_widath=True)
 
 if __name__ == "__main__":
     main()            
