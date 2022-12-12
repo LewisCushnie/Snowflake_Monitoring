@@ -113,7 +113,7 @@ def main():
 
     if DOMAIN:
         df = sf.sql_to_dataframe(DOMAIN_QUERY_USAGE)
-        st.dataframe(df, fill_container_width=True)
+        st.dataframe(df, use_container_width=True)
         st.bar_chart(df, x='Schema', y=['Total Compute Credits Used', 'Total Credits Used'])
 
 
