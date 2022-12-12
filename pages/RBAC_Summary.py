@@ -41,9 +41,10 @@ def main():
                 df= df[df['name'].str.contains(selection)]
                 st.dataframe(df)
 
-            df= df[df['name'].str.contains(domain)]
-            df= df[df['name'].str.contains(selection)]
-            st.dataframe(df)
+            else:
+                df= df[df['name'].str.contains(domain)]
+                df= df[df['name'].str.contains(selection)]
+                st.dataframe(df)
 
         if selection=='TEST':
 
@@ -53,11 +54,10 @@ def main():
                 df= df[df['name'].str.contains(selection)]
                 st.dataframe(df)
 
-            df = sf.sql_to_dataframe(RBAC)
-            df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
-            df= df[df['name'].str.contains(domain)]
-            df= df[df['name'].str.contains(selection)]
-            st.dataframe(df)
+            else:
+                df= df[df['name'].str.contains(domain)]
+                df= df[df['name'].str.contains(selection)]
+                st.dataframe(df)
 
         if selection=='DEV':
             
@@ -67,11 +67,10 @@ def main():
                 df= df[df['name'].str.contains(selection)]
                 st.dataframe(df)
 
-            df = sf.sql_to_dataframe(RBAC)
-            df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
-            df= df[df['name'].str.contains(domain)]
-            df= df[df['name'].str.contains(selection)]
-            st.dataframe(df)
+            else:
+                df= df[df['name'].str.contains(domain)]
+                df= df[df['name'].str.contains(selection)]
+                st.dataframe(df)
 
 if __name__ == "__main__":
     main()            
