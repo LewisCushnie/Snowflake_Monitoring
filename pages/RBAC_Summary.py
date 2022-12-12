@@ -36,6 +36,7 @@ def main():
             df = sf.sql_to_dataframe(RBAC)
             df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
             df= df[df['name'].str.contains(domain)]
+            df = df.set_index('name')
             st.dataframe(df)
 
         if selection =='Environment':
@@ -45,6 +46,7 @@ def main():
             df = sf.sql_to_dataframe(RBAC)
             df = df[['name', 'assigned_to_users', 'granted_to_roles', 'granted_roles']]
             df= df[df['name'].str.contains(environment)]
+            df = df.set_index('name')
             st.dataframe(df)
 
 if __name__ == "__main__":
