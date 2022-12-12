@@ -56,7 +56,7 @@ def main():
     # USER QUERY PERFORMANCE #
     #==========================#
 
-    st.header('User Query Performance')
+    st.header('Compare User Query Performance')
 
     # Get clean list of USERS from ACCOUNT_USAGE
 
@@ -95,7 +95,7 @@ def main():
     # DOMAIN QUERY PERFORMANCE #
     #==========================#
 
-    st.header('Domain Query Performance')
+    st.header('Compare Domain Query Performance')
 
     DOMAIN = st.selectbox('Choose business domain', ('FINANCE', 'UNDERWRITING'))
 
