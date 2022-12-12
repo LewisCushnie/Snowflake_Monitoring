@@ -10,15 +10,26 @@ st.set_page_config(
 )
 
 def main():
+    with open("utils/style.css") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    #------------------------------- SIDEBAR -----------------------------------     
+    st.title('Query Monitoring')
+
+    st.markdown(
+    '''The **Query Monitoring** page aims to show a breakdown and analysis of frequently called 
+    and most expensive queries. The aim is to allow business domains and users to track query history and 
+    optimise caching and warehouse compute'''
+    )
+
+    #------------------------------- SIDEBAR -----------------------------------    
+    
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
 
     df = sf.sql_to_dataframe(query)
     df = df.transpose()
 
     current_user = df.loc['CURRENT_USER'].iloc[0]
-    st.sidebar.header(f'Hello, {current_user} ❄️')
+    st.sidebar.header(f'Hello, {current_user}')
 
     st.sidebar.subheader('Session Info')
 
@@ -39,18 +50,7 @@ def main():
     remaining=round(100-metric,3)
     st.sidebar.metric(label='Credits used by Streamlit', value =metric, delta=f'{remaining} remaining')
 
-    #------------------------------- SIDEBAR ----------------------------------- 
-
-    with open("utils/style.css") as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
-    st.title('Query Monitoring')
-
-    st.markdown(
-    '''The **Query Monitoring** page aims to show a breakdown and analysis of frequently called 
-    and most expensive queries. The aim is to allow business domains and users to track query history and 
-    optimise caching and warehouse compute'''
-    )
+    #------------------------------- MAIN PAGE ----------------------------------- 
 
     #==========================#
     # USER QUERY PERFORMANCE #
