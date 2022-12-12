@@ -38,6 +38,7 @@ def main():
             domain = st.radio(label='Choose Business Domain', options=('ALL','FINANCE', 'UNDERWRITING'))
 
             if domain == 'ALL':
+                df= df[df['name'].str.contains(selection)]
                 st.dataframe(df)
 
             df= df[df['name'].str.contains(domain)]
@@ -49,6 +50,7 @@ def main():
             domain = st.radio(label='Choose Business Domain', options=('ALL','FINANCE', 'UNDERWRITING'))
 
             if domain == 'ALL':
+                df= df[df['name'].str.contains(selection)]
                 st.dataframe(df)
 
             df = sf.sql_to_dataframe(RBAC)
@@ -62,6 +64,7 @@ def main():
             domain = st.radio(label='Choose Business Domain', options=('ALL','FINANCE', 'UNDERWRITING'))
 
             if domain == 'ALL':
+                df= df[df['name'].str.contains(selection)]
                 st.dataframe(df)
 
             df = sf.sql_to_dataframe(RBAC)
