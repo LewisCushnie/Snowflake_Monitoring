@@ -97,7 +97,7 @@ def main():
 
     st.header('Compare Domain Query Performance')
 
-    DOMAIN = st.multiselect('Choose business domain', ('FINANCE', 'UNDERWRITING'))
+    selected = st.multiselect('Choose business domain', ('FINANCE', 'UNDERWRITING'))
 
     if DOMAIN:
 
@@ -108,10 +108,12 @@ def main():
         from snowflake.account_usage.query_history as q
         join snowflake.account_usage.warehouse_metering_history as w
         on q.warehouse_id = w.warehouse_id
-        where q.database_name like 'PROD_DB' and q.schema_name like '%{DOMAIN}%'
+        where q.database_name like 'PROD_DB' and q.schema_name like '%{selected}%'
         group by q.database_name, q.schema_name
         order by sum(w.credits_used) desc;
         '''
+
+        st.wrtie(DOMAIN_QUERY_USAGE)
 
         df = sf.sql_to_dataframe(DOMAIN_QUERY_USAGE)
         st.dataframe(df, width=500)
