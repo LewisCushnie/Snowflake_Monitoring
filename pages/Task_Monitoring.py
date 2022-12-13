@@ -87,7 +87,13 @@ def main():
     # # Display the filtered df on the page.
     # st.bar_chart(wh_to_show_df)
     # Raw data checkbox
-    raw_data = st.checkbox('Show raw task data:')
+    raw_data = st.checkbox('Show raw task history data:')
+    if raw_data:
+        st.dataframe(SHOW_TASKS_df)
+
+    query = sql.SHOW_TASKS
+    SHOW_TASKS_df = sf.sql_to_dataframe(query)
+    raw_data = st.checkbox('Show raw task activity data:')
     if raw_data:
         st.dataframe(SHOW_TASKS_df)
 
