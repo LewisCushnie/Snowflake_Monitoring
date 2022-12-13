@@ -134,9 +134,7 @@ from "SNOWFLAKE"."ACCOUNT_USAGE"."QUERY_HISTORY" where EXECUTION_STATUS = 'SUCCE
 
 #-------------- TASK MONITORING ------------------
 SHOW_TASKS = '''
-use database snowflake_monitoring_db;
-use schema acct_monitoring;
-show tasks;
+show tasks in database snowflake_monitoring_db;
 '''
 
 TASK_HISTORY = '''
