@@ -138,7 +138,12 @@ show tasks in database snowflake_monitoring_db;
 '''
 
 TASK_HISTORY = '''
-select * from snowflake.account_usage.task_history;
+select NAME
+,count(NAME) as runs
+,sum(case when STATE = 'SUCCEEDED'  then 1 else 0 end) as count_succeeded
+,sum(case when STATE = 'FAILED' then 1 else 0 end) as count_failed
+from snowflake.account_usage.task_history
+group by NAME;
 '''
 
 if __name__ == "__main__":
