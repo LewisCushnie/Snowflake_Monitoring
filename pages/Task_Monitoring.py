@@ -78,6 +78,12 @@ def main():
     st.header('Account task activity')
     query = sql.TASK_HISTORY
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
+    
+    def highlighter(cell_value):
+        if cell_value == 'started':
+            return "background-color: yellow"
+
+    SHOW_TASKS_df.style.applymap(highlighter)
     # METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
     # METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
     # # Multiselect list
