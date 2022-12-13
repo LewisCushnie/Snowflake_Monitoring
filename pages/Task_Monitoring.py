@@ -75,23 +75,20 @@ def main():
     # MAIN PAGE - WAREHOUSE USAGE COMPARISON BAR CHART
     line = '---'
     st.markdown(line)
-    st.header('Account task activity')
+    st.header('Account task run tracker')
     query = sql.TASK_HISTORY
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
+
+    st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= 'RUNS')
     
-    # METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
-    # METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
-    # # Multiselect list
-    # wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
-    # # filter using panda's .loc
-    # wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
-    # # Display the filtered df on the page.
-    # st.bar_chart(wh_to_show_df)
-    # Raw data checkbox
     raw_data = st.checkbox('Show raw task history data:')
     if raw_data:
         st.dataframe(SHOW_TASKS_df)
 
+    # MAIN PAGE - STATUS SUMMARY
+    line = '---'
+    st.markdown(line)
+    st.header('Account task status summary')
     query = sql.SHOW_TASKS
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
     SHOW_TASKS_df = SHOW_TASKS_df[['name', 'warehouse', 'schedule', 'state']]
