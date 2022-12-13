@@ -116,6 +116,10 @@ def main():
     wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
     # Display the filtered df on the page.
     st.bar_chart(wh_to_show_df)
+    # Raw data checkbox
+    raw_data = st.checkbox('Show raw data:')
+    if raw_data:
+        st.dataframe(wh_to_show_df)
 
     # MAIN PAGE: COMPUTE_CREDITS_PER_DAY BAR CHART
     line = '---'
@@ -139,7 +143,7 @@ def main():
     COMPUTE_CREDITS_PER_DAY_FILTERED_df = COMPUTE_CREDITS_PER_DAY_df.loc[date_mask]
     # Create the bar chart with filtered values
     st.bar_chart(COMPUTE_CREDITS_PER_DAY_FILTERED_df, x= 'Usage Week', y= 'Compute Credits Used')
-
+    # Raw data checkbox
     raw_data = st.checkbox('Show raw data:')
     if raw_data:
         st.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df)
@@ -152,7 +156,10 @@ def main():
     COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
     COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df['COMPUTE_AVAILABILITY_SEC'] = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df['COMPUTE_AVAILABILITY_SEC'].div(60)
     st.bar_chart(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']], x= 'HOUR')
-    
+    # Raw data checkbox
+    raw_data = st.checkbox('Show raw data:')
+    if raw_data:
+        st.dataframe(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df)
 
 if __name__ == "__main__":
     main()
