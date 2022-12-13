@@ -64,7 +64,7 @@ COMPUTE_AVAILABILITY_AND_EXECUTION_TIME = '''
 WITH availability_time AS 
 (SELECT
 TO_CHAR(convert_timezone('UTC', start_time::timestamp_ntz), 'MM/DD/YYYY HH24') as hour
-,ROUND(SUM(credits_used_compute),0) AS compute_credits_used
+,ROUND(SUM(credits_used_compute),2) AS compute_credits_used
 ,compute_credits_used * 60 * 60 AS compute_availability_sec
 FROM snowflake.account_usage.warehouse_metering_history
 WHERE start_time BETWEEN date_trunc('day', dateadd('day',-7,convert_timezone('UTC',current_timestamp()))) AND current_timestamp()
