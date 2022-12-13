@@ -132,6 +132,15 @@ AS EXEC_TIME,WAREHOUSE_NAME,USER_NAME,EXECUTION_STATUS
 from "SNOWFLAKE"."ACCOUNT_USAGE"."QUERY_HISTORY" where EXECUTION_STATUS = 'SUCCESS' order by EXECUTION_TIME desc;
 '''
 
+#-------------- TASK MONITORING ------------------
+SHOW_TASKS = '''
+SHOW TASKS
+;
+'''
+
+TASK_HISTORY = '''
+select * from snowflake.account_usage.task_history;
+'''
 
 if __name__ == "__main__":
     pass

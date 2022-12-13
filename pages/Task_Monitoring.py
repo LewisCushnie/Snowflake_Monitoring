@@ -63,102 +63,34 @@ def main():
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    st.title('Resource Monitoring Summary')
+    st.title('Task Monitoring Summary')
 
     # MAIN PAGE - INTRO
     st.text(
     '''
-    This page provides a breakdown of the resource useage within the Snowflake account to better understand
-    where and how credits are being consumed on the account. This will include a number of interactive charts,
-    as well as recomendaions for parameter changes within snowflake that aim to maximise resourcse consumption
-    efficiency.
-
-    This page will look at:
-
-    - Warehouse monitoring
-    - Task monitoring
-    - Snowpipe monitoring
+    This page provides a breakdown of tasks in the account
     '''
     )
-
-    # MAIN PAGE - METERING SUMMARY
-    line = '---'
-    st.markdown(line)
-    metering_left_column, metering_right_column = st.columns(2)
-    query = sql.METERING_HISTORY
-    METERING_HISTORY_df = sf.sql_to_dataframe(query)
-    with metering_right_column:
-        st.header("Metering Summary:")
-        st.dataframe(METERING_HISTORY_df)
-
-    # MAIN PAGE - WAREHOUSE USAGE TABLE
-    query = sql.METERING_TOP_10
-    METERING_TOP_10_df = sf.sql_to_dataframe(query)
-    with metering_left_column:
-        st.header('Warehouse Usage')
-        st.dataframe(METERING_TOP_10_df)
-
-    # SIDEBAR - MOST USED WAREHOUSE
-    most_used_loc = METERING_TOP_10_df['CREDITS_USED'].idxmax()
-    most_used_wh = METERING_TOP_10_df['NAME'].iloc[most_used_loc]
-    amount_used = round(METERING_TOP_10_df['CREDITS_USED'].iloc[most_used_loc], 3)
-    st.sidebar.metric(label='Most used warehouse', value= most_used_wh, delta= f'{amount_used} Credits', delta_color= "normal")
 
     # MAIN PAGE - WAREHOUSE USAGE COMPARISON BAR CHART
     line = '---'
     st.markdown(line)
-    st.header('Warehouse usage comparison chart')
-    METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
-    METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
-    # Multiselect list
-    wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
-    # filter using panda's .loc
-    wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
-    # Display the filtered df on the page.
-    st.bar_chart(wh_to_show_df)
+    st.header('Account task activity')
+    query = sql.SHOW_TASKS
+    SHOW_TASKS_df = sf.sql_to_dataframe(query)
+    # METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
+    # METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
+    # # Multiselect list
+    # wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
+    # # filter using panda's .loc
+    # wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
+    # # Display the filtered df on the page.
+    # st.bar_chart(wh_to_show_df)
     # Raw data checkbox
-    raw_data = st.checkbox('Show raw warehouse data:')
+    raw_data = st.checkbox('Show raw task data:')
     if raw_data:
-        st.dataframe(wh_to_show_df)
+        st.dataframe(SHOW_TASKS_df)
 
-    # MAIN PAGE: COMPUTE_CREDITS_PER_DAY BAR CHART
-    line = '---'
-    st.markdown(line)
-    st.header('Total compute credit usage per day')
-    query = sql.COMPUTE_CREDITS_PER_DAY
-    COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
-
-    # Add slider:
-    min_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].min()
-    max_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].max()
-    auto_date_lower = min_date
-    auto_date_higher = max_date
-    slider_values = st.slider(
-    'Select date range',
-    min_date, max_date, (auto_date_lower, auto_date_higher)
-    )
-
-    # Select DataFrame rows between two dates
-    date_mask = (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] > slider_values[0]) & (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= slider_values[1])
-    COMPUTE_CREDITS_PER_DAY_FILTERED_df = COMPUTE_CREDITS_PER_DAY_df.loc[date_mask]
-    # Create the bar chart with filtered values
-    st.bar_chart(COMPUTE_CREDITS_PER_DAY_FILTERED_df, x= 'Usage Week', y= 'Compute Credits Used')
-    # Raw data checkbox
-    raw_data = st.checkbox('Show raw compute data:')
-    if raw_data:
-        st.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df)
-
-    # COMPUTE AVAILABILITY VS EXECUTION TIME
-    line = '---'
-    st.markdown(line)
-    st.header('Compute availablity v.s execution time')
-    query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
-    COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
-    st.bar_chart(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']], x= 'HOUR')
-    # Raw data checkbox
-    raw_data = st.checkbox('Show raw availability data:')
-    if raw_data:
-        st.dataframe(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df)
 
 if __name__ == "__main__":
     main()
