@@ -138,9 +138,12 @@ def main():
     date_mask = (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] > slider_values[0]) & (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= slider_values[1])
     COMPUTE_CREDITS_PER_DAY_FILTERED_df = COMPUTE_CREDITS_PER_DAY_df.loc[date_mask]
     # Create the bar chart with filtered values
-    daily_creds_left_column, daily_creds_right_column = st.columns(2)
-    daily_creds_left_column.bar_chart(COMPUTE_CREDITS_PER_DAY_FILTERED_df, x= 'Usage Week', y= 'Compute Credits Used')
-    daily_creds_right_column.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df)
+    st.bar_chart(COMPUTE_CREDITS_PER_DAY_FILTERED_df, x= 'Usage Week', y= 'Compute Credits Used')
+    
+    raw_data = st.button('Show raw data:')
+    if raw_data:
+        st.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df)
+        raw_data = False
 
     # COMPUTE AVAILABILITY VS EXECUTION TIME
     line = '---'
