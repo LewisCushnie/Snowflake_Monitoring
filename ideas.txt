@@ -1,0 +1,11 @@
+data science ideas:
+
+- Predict expected warehouse usage to select optimal warehouse size (WH size does not auto scale)
+- What is the minimum guaranteed run-time for each WH each day (by looking at tasks, refresh rates, auto-suspend etc.)
+then compare this with actual run-time (due to people using it for things)
+- try to identify queries that should be converted into materialized views
+- cacheing vs auto-suspend
+- identify if any large files are being ingested using the copy command (this is bad)
+- monitor the usage of zero-copy cloning (this is good)
+
+
