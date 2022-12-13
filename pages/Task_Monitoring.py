@@ -76,7 +76,7 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Account task activity')
-    query = sql.SHOW_TASKS
+    query = sql.TASK_HISTORY
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
     # METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
     # METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
