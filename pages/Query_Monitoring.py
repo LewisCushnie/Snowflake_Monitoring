@@ -13,7 +13,7 @@ def main():
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    st.title('Query Monitoring')
+    st.title('Query_Monitoring')
 
     st.markdown(
     '''The **Query Monitoring** page aims to show a breakdown and analysis of frequently called 
