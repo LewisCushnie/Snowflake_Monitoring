@@ -83,7 +83,7 @@ def main():
 
     # MAIN PAGE - METERING SUMMARY
     line = '---'
-    st.sidebar.markdown(line)
+    st.markdown(line)
     metering_left_column, metering_right_column = st.columns(2)
     query = sql.METERING_HISTORY
     METERING_HISTORY_df = sf.sql_to_dataframe(query)
@@ -106,7 +106,7 @@ def main():
 
     # MAIN PAGE - WAREHOUSE USAGE COMPARISON BAR CHART
     line = '---'
-    st.sidebar.markdown(line)
+    st.markdown(line)
     st.header('Warehouse usage comparison chart')
     METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
     METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
@@ -119,7 +119,7 @@ def main():
 
     # MAIN PAGE: COMPUTE_CREDITS_PER_DAY BAR CHART
     line = '---'
-    st.sidebar.markdown(line)
+    st.markdown(line)
     st.header('Total compute credit usage per day')
     query = sql.COMPUTE_CREDITS_PER_DAY
     COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
@@ -144,7 +144,7 @@ def main():
 
     # COMPUTE AVAILABILITY VS EXECUTION TIME
     line = '---'
-    st.sidebar.markdown(line)
+    st.markdown(line)
     st.header('Compute availablity v.s execution time (**currently divided by 60**)')
     query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
     COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
