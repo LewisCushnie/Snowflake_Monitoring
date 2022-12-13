@@ -117,7 +117,7 @@ def main():
     # Display the filtered df on the page.
     st.bar_chart(wh_to_show_df)
     # Raw data checkbox
-    raw_data = st.checkbox('Show raw data:')
+    raw_data = st.checkbox('Show raw warehouse data:')
     if raw_data:
         st.dataframe(wh_to_show_df)
 
@@ -144,7 +144,7 @@ def main():
     # Create the bar chart with filtered values
     st.bar_chart(COMPUTE_CREDITS_PER_DAY_FILTERED_df, x= 'Usage Week', y= 'Compute Credits Used')
     # Raw data checkbox
-    raw_data = st.checkbox('Show raw data:')
+    raw_data = st.checkbox('Show raw compute data:')
     if raw_data:
         st.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df)
 
@@ -157,7 +157,7 @@ def main():
     COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df['COMPUTE_AVAILABILITY_SEC'] = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df['COMPUTE_AVAILABILITY_SEC'].div(60)
     st.bar_chart(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']], x= 'HOUR')
     # Raw data checkbox
-    raw_data = st.checkbox('Show raw data:')
+    raw_data = st.checkbox('Show raw availability data:')
     if raw_data:
         st.dataframe(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df)
 
