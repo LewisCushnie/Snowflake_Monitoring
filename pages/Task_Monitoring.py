@@ -79,11 +79,6 @@ def main():
     query = sql.TASK_HISTORY
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
     
-    def highlighter(cell_value):
-        if cell_value == 'started':
-            return "background-color: yellow"
-
-    SHOW_TASKS_df.style.applymap(highlighter)
     # METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
     # METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
     # # Multiselect list
@@ -100,6 +95,11 @@ def main():
     query = sql.SHOW_TASKS
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
     SHOW_TASKS_df = SHOW_TASKS_df[['name', 'warehouse', 'schedule', 'state']]
+    def highlighter(cell_value):
+        if cell_value == 'started':
+            return "background-color: yellow"
+
+    SHOW_TASKS_df.style.applymap(highlighter)
     raw_data = st.checkbox('Show raw task activity data:')
     if raw_data:
         st.dataframe(SHOW_TASKS_df)
