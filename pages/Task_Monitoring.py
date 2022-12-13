@@ -93,7 +93,7 @@ def main():
 
     query = sql.SHOW_TASKS
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
-    SHOW_TASKS_df = SHOW_TASKS_df['name', 'warehouse', 'schedule', 'state']
+    SHOW_TASKS_df = SHOW_TASKS_df[['name', 'warehouse', 'schedule', 'state']]
     raw_data = st.checkbox('Show raw task activity data:')
     if raw_data:
         st.dataframe(SHOW_TASKS_df)
