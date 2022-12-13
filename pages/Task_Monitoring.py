@@ -95,30 +95,15 @@ def main():
     query = sql.SHOW_TASKS
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
     SHOW_TASKS_df = SHOW_TASKS_df[['name', 'warehouse', 'schedule', 'state']]
-    SHOW_TASKS_df.loc[:, :] = 'background-color: green'
-    # def highlighter(cell_value):
-    #     if cell_value == 'started':
-    #         return "background-color: yellow"
-
-    # # function definition
-    # def highlight_cells(x):
-        
-    #     # copy df to new - original data is not changed
-    #     df = x.copy()
-        
-    #     # select all values to green color
-    #     df.loc[:, :] = 'background-color: green'
-        
-    #     # overwrite values grey color
-    #     df[['B', 'C', 'E']] = 'background-color: grey'
-        
-    #     # return color df
-    #     return df 
     
-    # print("Highlighted DataFrame :")
-    # df.style.apply(highlight_cols, axis = None)
+    def highlighter(cell_value):
+        if cell_value == 'started':
+            return 'background-color: green'
+    
+    print("Highlighted DataFrame :")
+    SHOW_TASKS_df.style.apply(highlighter, axis = None)
+    st.dataframe(SHOW_TASKS_df)
 
-    # SHOW_TASKS_df.style.applymap(highlighter)
     raw_data = st.checkbox('Show raw task activity data:')
     if raw_data:
         st.dataframe(SHOW_TASKS_df)
