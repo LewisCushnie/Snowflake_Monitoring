@@ -79,7 +79,7 @@ def main():
     query = sql.TASK_HISTORY
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
 
-    st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= 'RUNS')
+    st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= ['RUNS', 'COUNT_SUCCEEDED', 'COUNT_FAILED'])
     
     raw_data = st.checkbox('Show raw task history data:')
     if raw_data:
