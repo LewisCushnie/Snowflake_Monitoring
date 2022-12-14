@@ -15,7 +15,7 @@ def main():
 
     st.title('Query Monitoring')
 
-    st.markdown(
+    st.info(
     '''The **Query Monitoring** page aims to show a breakdown and analysis of frequently called 
     and most expensive queries. The aim is to allow business domains and users to track query history and 
     optimise caching and warehouse compute'''
