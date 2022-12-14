@@ -140,7 +140,7 @@ def main():
     # Raw data checkbox
     raw_data = st.checkbox('Show raw compute data:')
     if raw_data:
-        with st.markdown(f"<style>color: red</style>", unsafe_allow_html=True)
+        with st.markdown(f"<style>color: red</style>", unsafe_allow_html=True):
             st.write('Red - More than $10')
         with st.markdown('''<p style="color:orange;"></p>'''):
             st.write('Orange - $5-$10')
