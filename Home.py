@@ -62,7 +62,7 @@ def main():
     8) Take advantage of caching
     \n
     **Optimising scripts** to increase query efficiency
-    1) Delete all temporary and transient tables when done \
+    1) Delete all temporary and transient tables when done\
     Otherwise this runs up storage costs for data that was meant to be 'temporary'
     2) Use CREATE or REPLACE not CREATE TABLE AS 
     3) Apply COPY INTO, not INSERT INTO
