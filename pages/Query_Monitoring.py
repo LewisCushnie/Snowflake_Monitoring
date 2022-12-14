@@ -105,6 +105,8 @@ def main():
 
         if submitted:
 
+            st.write(user)
+
             user = user[0]
 
             LOGIN = f'''
