@@ -25,8 +25,7 @@ def main():
     )
     st.header("Understanding Snowflake's Cost Model")
     st.info('''
-    This will lay out how to understand the model
-    \
+    This will lay out how to understand the model \n
     ref: https://www.finout.io/blog/snowflake-cost-reduction
     ''')
 
