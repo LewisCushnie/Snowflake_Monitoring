@@ -129,8 +129,5 @@ def main():
     st.dataframe(QUERY_COUNT_BY_TYPE_df)
     st.bar_chart(QUERY_COUNT_BY_TYPE_df, x= 'Query Date', y= 'Query Count')
 
-
-
-
 if __name__ == "__main__":
     main()
