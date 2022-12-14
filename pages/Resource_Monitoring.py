@@ -66,18 +66,10 @@ def main():
     st.title('Resource Monitoring Summary')
 
     # MAIN PAGE - INTRO
-    st.text(
+    st.info(
     '''
-    This page provides a breakdown of the resource useage within the Snowflake account to better understand
-    where and how credits are being consumed on the account. This will include a number of interactive charts,
-    as well as recomendaions for parameter changes within snowflake that aim to maximise resourcse consumption
-    efficiency.
-
-    This page will look at:
-
-    - Warehouse monitoring
-    - Task monitoring
-    - Snowpipe monitoring
+    The **Resource Monitoring Summary** page provides a breakdown of resource useage within each Snowflake account highlighting
+    how and where credits are being consumed. The aim is to allow easy identification of inefficient or missused resources.
     '''
     )
 

@@ -66,9 +66,11 @@ def main():
     st.title('Task Monitoring Summary')
 
     # MAIN PAGE - INTRO
-    st.text(
+    st.info(
     '''
-    This page provides a breakdown of tasks in the account
+    The **Task Monitoring Summary** page provides a breakdown of task useage within each Snowflake account highlighting
+    task credit usage and those which are/aren't currently running. The aim is to allow tasks to be easily tracked and ensure
+    they are not left running by mistake.
     '''
     )
 

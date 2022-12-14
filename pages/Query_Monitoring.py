@@ -16,9 +16,9 @@ def main():
     st.title('Query Monitoring')
 
     st.info(
-    '''The **Query Monitoring** page aims to show a breakdown and analysis of frequently called 
+    '''The **Query Monitoring** page highlights frequently called, 
     and most expensive queries. The aim is to allow business domains and users to track query history and 
-    optimise caching and warehouse compute'''
+    optimise caching and warehouse compute.'''
     )
 
     #------------------------------- SIDEBAR -----------------------------------    
