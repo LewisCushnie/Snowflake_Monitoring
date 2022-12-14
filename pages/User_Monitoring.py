@@ -21,6 +21,15 @@ def main():
     '''
     )
 
+    # Get clean list of USERS from ACCOUNT_USAGE
+
+    query = sql.USER_LIST 
+    users = sf.run_query(query)
+    
+    clean_users = []
+
+    for i in users:
+            clean_users.append(i[0])
 
     #==========================#
     # USER IN DETAIL #
@@ -99,20 +108,10 @@ def main():
     #===============#
     # COMPARE USERS #
     #===============#
-    
+
     line = '---'
     st.markdown(line)
     st.header('Compare User Query Performance')
-
-    # Get clean list of USERS from ACCOUNT_USAGE
-
-    query = sql.USER_LIST 
-    users = sf.run_query(query)
-    
-    clean_users = []
-
-    for i in users:
-            clean_users.append(i[0])
 
     # Get DF of useful query stats for each user
     # Display only selected names
