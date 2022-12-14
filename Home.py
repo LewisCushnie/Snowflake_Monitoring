@@ -27,12 +27,12 @@ def main():
     st.info('''
     At the highest level, snowflake charges you for three things: 
     \n
-    - **Compute costs:** are likely to constitute the largest portion of your bill and are based on 
-    how long your warehouses are running and how much compute power they're using. Warehouses come 
+    - **Compute costs:** are likely to constitute the largest portion of your bill and are based on\ 
+    how long your warehouses are running and how much compute power they're using. Warehouses come\
     in a range of sizes, from x-small to 6X-large, with the price doubling between each tier.
-    - **Storage costs:** are typically lower than compute costs and are based on how much data you're 
+    - **Storage costs:** are typically lower than compute costs and are based on how much data you're\ 
     storing across tables, clones, and regions.
-    - **Data transfer costs:** are incurred when you transfer data between Snowflake regions, or to 
+    - **Data transfer costs:** are incurred when you transfer data between Snowflake regions, or to\ 
     another cloud provider. 
     \n
     ref: https://www.finout.io/blog/snowflake-cost-reduction
