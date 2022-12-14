@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 from utils import snowflake_connector as sf
+from utils.df_styler import colour_df
 from utils import sql
 import datetime
 
@@ -139,6 +140,7 @@ def main():
     # Raw data checkbox
     raw_data = st.checkbox('Show raw compute data:')
     if raw_data:
+        COMPUTE_CREDITS_PER_DAY_FILTERED_df = COMPUTE_CREDITS_PER_DAY_FILTERED_df.style.applymap(colour_df)
         st.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df)
 
     # COMPUTE AVAILABILITY VS EXECUTION TIME
