@@ -100,7 +100,7 @@ def main():
     st.header('Get Detailed Performance Info by User')
 
     with st.form('user_form'):
-        user = st.multiselect('Select a user', clean_users)
+        user = st.selectbox('Select a user', clean_users)
         submitted = st.form_submit_button('Submit')
 
         if submitted:
