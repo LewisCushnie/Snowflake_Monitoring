@@ -44,11 +44,11 @@ def main():
     \n
     Listed below are a number of ways to reduce the costs associated with each of areas listed above:
     \n
-    # Reducing Compute Costs
+    ### Reducing Compute Costs
     \n
-    # Reducing Storage Costs
+    ### Reducing Storage Costs
     \n
-    # Reducing Data Transfer Costs
+    ### Reducing Data Transfer Costs
     \n
     References:
     \n
