@@ -107,8 +107,6 @@ def main():
 
             st.write(user)
 
-            user = user[0]
-
             LOGIN = f'''
             select last_success_login
             from users
