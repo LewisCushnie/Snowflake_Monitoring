@@ -41,14 +41,6 @@ def main():
     snowflake account's metadata database (SNOWFLAKE). It is the intention that this app be used to actively\
     monitor key metrics in order to make changes that maximise resource usage efficiency and minimise\
     incurred costs.
-    \n
-    Listed below are a number of ways to reduce the costs associated with each of areas listed above:
-    \n
-    ### Reducing Compute Costs
-    \n
-    ### Reducing Storage Costs
-    \n
-    ### Reducing Data Transfer Costs
     '''
     )
 
