@@ -120,10 +120,6 @@ def main():
     query = sql.USER_QUERY_HISTORY
     df = sf.sql_to_dataframe(query)
     df = df.set_index('Username')
-
-    # df['Avg Scanned from Cache (%)'] = df['Avg Scanned from Cache (%)'].astype(float)              
-    # df['Avg Partitions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
-    # df['Avg Partitions Used'] = df['Avg Partitions Used'].astype(float)     
     
     selected_username = st.multiselect('Select a user', clean_users)
     df = df.loc[selected_username]      
