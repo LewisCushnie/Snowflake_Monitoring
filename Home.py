@@ -13,24 +13,24 @@ def main():
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    # SIDEBAR - SNOWFLAKE ACCOUNT PARAMETERS
-    query = sql.SNOWFLAKE_ACCOUNT_PARAMS
-    df = sf.sql_to_dataframe(query)
-    df = df.transpose()
+    # # SIDEBAR - SNOWFLAKE ACCOUNT PARAMETERS
+    # query = sql.SNOWFLAKE_ACCOUNT_PARAMS
+    # df = sf.sql_to_dataframe(query)
+    # df = df.transpose()
 
-    current_user = df.loc['CURRENT_USER'].iloc[0]
-    st.sidebar.header(f'Hello, {current_user} ❄️')
+    # current_user = df.loc['CURRENT_USER'].iloc[0]
+    # st.sidebar.header(f'Hello, {current_user} ❄️')
 
-    role = df.loc['CURRENT_ROLE'].iloc[0]
-    #st.sidebar.text(f'Current role - {role}')
+    # role = df.loc['CURRENT_ROLE'].iloc[0]
+    # #st.sidebar.text(f'Current role - {role}')
 
-    wh = df.loc['WAREHOUSE'].iloc[0]
-    #st.sidebar.text(f'Warehouse - {wh}')
+    # wh = df.loc['WAREHOUSE'].iloc[0]
+    # #st.sidebar.text(f'Warehouse - {wh}')
 
-    st.sidebar.markdown(
-    f'''**Current Role** - {role}
-     **Current Warehouse** - {wh}'''
-    )
+    # st.sidebar.markdown(
+    # f'''**Current Role** - {role}
+    #  **Current Warehouse** - {wh}'''
+    # )
         
     st.title("Welcome to the Usage Insights app!")
     # st.sidebar.text(f"Account: {st.secrets.sf_usage_app.account}")
