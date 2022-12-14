@@ -24,7 +24,11 @@ def main():
     """
     )
     st.header("Understanding Snowflake's Cost Model")
-    st.info('This will lay out how to understand the model')
+    st.info('''
+    This will lay out how to understand the model
+    \
+    ref: https://www.finout.io/blog/snowflake-cost-reduction
+    ''')
 
 if __name__ == "__main__":
     main()  
