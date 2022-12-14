@@ -27,12 +27,12 @@ def main():
     st.info('''
     At the highest level, snowflake charges you for three things: 
     \n
-    - **Compute costs:** are likely to constitute the largest portion of your bill and are based on\
+    1. **Compute costs:** are likely to constitute the largest portion of your bill and are based on\
     how long your warehouses are running and how much compute power they're using. Warehouses come\
     in a range of sizes, from x-small to 6X-large, with the price doubling between each tier.
-    - **Storage costs:** are typically lower than compute costs and are based on how much data you're\
+    2. **Storage costs:** are typically lower than compute costs and are based on how much data you're\
     storing across tables, clones, and regions.
-    - **Data transfer costs:** are incurred when you transfer data between Snowflake regions, or to\
+    3. **Data transfer costs:** are incurred when you transfer data between Snowflake regions, or to\
     another cloud provider. 
     \n
     Analysis in the Usage Insights App will attempt to minimise incurred costs in each of these areas\
@@ -41,7 +41,15 @@ def main():
     snowflake account's metadata database (SNOWFLAKE). It is the intention that this app be used to actively\
     monitor key metrics in order to make changes that maximise resource usage efficiency and minimise\
     incurred costs.
-
+    \n
+    Listed below are a number of ways to reduce the costs associated with each of areas listed above:
+    \n
+    # Reducing Compute Costs
+    \n
+    # Reducing Storage Costs
+    \n
+    # Reducing Data Transfer Costs
+    \n
     References:
     \n
     https://www.finout.io/blog/snowflake-cost-reduction
