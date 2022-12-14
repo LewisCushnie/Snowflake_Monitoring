@@ -20,45 +20,7 @@ def main():
     '''The **User Monitoring** page allows you to track and compare account usage and query performance between users.
     '''
     )
-    #==========================#
-    # USER QUERY PERFORMANCE #
-    #==========================#
-    line = '---'
-    st.markdown(line)
-    st.header('Compare User Query Performance')
 
-    # Get clean list of USERS from ACCOUNT_USAGE
-
-    query = sql.USER_LIST 
-    users = sf.run_query(query)
-    
-    clean_users = []
-
-    for i in users:
-            clean_users.append(i[0])
-
-    # Get DF of useful query stats for each user
-    # Display only selected names
-
-    query = sql.USER_QUERY_HISTORY
-    df = sf.sql_to_dataframe(query)
-    df = df.set_index('Username')
-
-    df['Avg Scanned from Cache (%)'] = df['Avg Scanned from Cache (%)'].astype(float)              
-    df['Avg Partitions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
-    df['Avg Partitions Used'] = df['Avg Partitions Used'].astype(float)     
-    
-    selected_username = st.multiselect('Select a user', clean_users)
-    df = df.loc[selected_username]      
-    download_data = df.to_csv()              
-
-    if selected_username:
-
-        st.dataframe(df, width=1000)
-        st.bar_chart(data = df, y=['Avg Partitions Scanned','Avg Execution Time'])
-
-        st.download_button('Download Results', download_data, 
-                            help='Click to download user query history as a csv')
 
     #==========================#
     # USER IN DETAIL #
@@ -133,6 +95,47 @@ def main():
 
             except:
                 st.write('Selected user has not logged in')
+
+    #===============#
+    # COMPARE USERS #
+    #===============#
+    
+    line = '---'
+    st.markdown(line)
+    st.header('Compare User Query Performance')
+
+    # Get clean list of USERS from ACCOUNT_USAGE
+
+    query = sql.USER_LIST 
+    users = sf.run_query(query)
+    
+    clean_users = []
+
+    for i in users:
+            clean_users.append(i[0])
+
+    # Get DF of useful query stats for each user
+    # Display only selected names
+
+    query = sql.USER_QUERY_HISTORY
+    df = sf.sql_to_dataframe(query)
+    df = df.set_index('Username')
+
+    df['Avg Scanned from Cache (%)'] = df['Avg Scanned from Cache (%)'].astype(float)              
+    df['Avg Partitions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
+    df['Avg Partitions Used'] = df['Avg Partitions Used'].astype(float)     
+    
+    selected_username = st.multiselect('Select a user', clean_users)
+    df = df.loc[selected_username]      
+    download_data = df.to_csv()              
+
+    if selected_username:
+
+        st.dataframe(df, width=1000)
+        st.bar_chart(data = df, y=['Avg Partitions Scanned','Avg Execution Time'])
+
+        st.download_button('Download Results', download_data, 
+                            help='Click to download user query history as a csv')            
 
 if __name__ == "__main__":
     main()
