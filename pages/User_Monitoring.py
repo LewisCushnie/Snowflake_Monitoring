@@ -10,6 +10,7 @@ st.set_page_config(
 )
 
 def main():
+
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
@@ -19,7 +20,7 @@ def main():
     '''The **User Monitoring** page allows you to track and compare account usage and query performance between users.
     '''
     )
- #==========================#
+    #==========================#
     # USER QUERY PERFORMANCE #
     #==========================#
     line = '---'
@@ -132,3 +133,6 @@ def main():
 
             except:
                 st.write('Selected user has not logged in')
+
+if __name__ == "__main__":
+    main()
