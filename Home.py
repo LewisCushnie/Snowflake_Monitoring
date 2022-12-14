@@ -52,13 +52,31 @@ def main():
 
     st.header("Reducing Compute Costs")
     st.info('''
-    This section will list all of the costs associated with each activity in snowflake
+    1) Choose the right size of your warehouses
+    2) Suspend warehouses that are sitting idle
+    3) Update the query timeout default value
+    4) Use resource monitors to track credit usage
+    5) Split large files to minimize processing overhead
+    6) Create alerts for reader accounts
+    \n
+    **Optimising scripts** to increase query efficiency
+    1) Delete all temporary and transient tables when done
+    2) Use CREATE or REPLACE not CREATE TABLE AS 
+    3) Apply COPY INTO, not INSERT INTO
+    4) Leverage staging tables to transform imported data
+    5) Remember those ANSI Joins are more efficient
+    6) Remember to sort rather than ORDER BY where possible
+    7) Don't tolerate redundancy; use DISTINCT or GROUP BY
     '''
     )
 
     st.header("Reducing Storage Costs")
     st.info('''
-    This section will list all of the costs associated with each activity in snowflake
+    1) Use zero-copy cloning
+    2) Use S3 buckets in the same region as your data warehouse
+    3) Match your bucket specifications with your data transfer expectations, e.g., are they organized by date or by application?
+    4) Leverage parallel loading by restricting file size to 60–100 MB 
+    5) Avoid using materialized views unless required (e.g., pre-aggregating)
     '''
     )
 
