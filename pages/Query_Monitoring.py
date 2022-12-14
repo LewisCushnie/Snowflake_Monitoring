@@ -157,12 +157,11 @@ def main():
             '''
 
             df = sf.sql_to_dataframe(LOGIN)
-            st.dataframe(df)
-            st.write(f"{user} last login: {df['LAST_SUCCESS_LOGIN'][0]}")
+            st.write(f"Last login by user, {user}: {df['LAST_SUCCESS_LOGIN'][0]}")
 
             df = sf.sql_to_dataframe(CREDITS_BY_USER)
             credits = df['APPROXIMATE_CREDITS_USED'][0]
-            st.metric('Credits Used',credits)
+            st.metric('Credits Used',round(credits,2))
 
 
     #==========================#
