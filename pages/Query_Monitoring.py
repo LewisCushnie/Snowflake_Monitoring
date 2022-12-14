@@ -164,7 +164,7 @@ def main():
                 st.metric('Credits Used',round(credits,2))
 
             except:
-                st.write('Selected user has not logged')
+                st.write('Selected user has not logged in')
 
 
     #==========================#
