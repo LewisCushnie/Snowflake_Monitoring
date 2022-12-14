@@ -147,21 +147,20 @@ def main():
 
             SELECT 
             USER_NAME
-            ,WAREHOUSE_NAME
             ,SUM(APPROXIMATE_CREDITS_USED) AS APPROXIMATE_CREDITS_USED
             FROM APPROXIMATE_CREDITS
             WHERE USER_NAME = '{user}'
-            GROUP BY 1,2
-            ORDER BY 3 DESC
+            GROUP BY 1
+            ORDER BY 2 DESC
             ;
 
             '''
 
             df = sf.sql_to_dataframe(LOGIN)
-            st.write(df)
+            st.write(f'{user} last login: {df[0]}')
 
             df = sf.sql_to_dataframe(CREDITS_BY_USER)
-            st.dataframe(df)
+            st.dataframe(df[0])
 
 
     #==========================#
