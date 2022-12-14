@@ -140,9 +140,12 @@ def main():
     # Raw data checkbox
     raw_data = st.checkbox('Show raw compute data:')
     if raw_data:
-        st.markdown('''<span style="color:red">Red</span> = More than $10+''')
-        st.markdown('''<span style="color:orange">Orange</span> = $5 to $10''')
-        st.markdown('''<span style="color:green">Green</span> = Less than $5''')
+        with st.markdown('''<p style="color:red;"></p>'''):
+            st.write('Red - More than $10')
+        with st.markdown('''<p style="color:orange;"></p>'''):
+            st.write('Orange - $5 to $10')
+        with st.markdown('''<p style="color:green;"></p>'''):
+            st.write('Green - Less than $5')
         COMPUTE_CREDITS_PER_DAY_FILTERED_df = COMPUTE_CREDITS_PER_DAY_FILTERED_df.style.applymap(colour_df,
         subset=pd.IndexSlice[:,['Cost ($)']])
         st.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df, width=1000)
