@@ -150,7 +150,7 @@ def main():
             ,WAREHOUSE_NAME
             ,SUM(APPROXIMATE_CREDITS_USED) AS APPROXIMATE_CREDITS_USED
             FROM APPROXIMATE_CREDITS
-            WHERE USER_NAME = {user}
+            WHERE USER_NAME = '{user}'
             GROUP BY 1,2
             ORDER BY 3 DESC
             ;
