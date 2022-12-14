@@ -15,13 +15,17 @@ def main():
         
     st.title("Welcome to the Usage Insights app!")
     # st.sidebar.text(f"Account: {st.secrets.sf_usage_app.account}")
-    st.sidebar.info("Choose a page!")
-    st.info(
+    st.sidebar.info("Choose a page above!")
+    st.success(
     """
     This app provides insights on a demo Snowflake account usage.
     ### Get started!
     👈 Select a page in the sidebar!
     """
+
+    st.header("Understanding Snowflake's Cost Model")
+    st.info('This will lay out how to understand the model')
+
     )
 
 if __name__ == "__main__":
