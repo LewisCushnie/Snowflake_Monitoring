@@ -74,9 +74,17 @@ def main():
     st.info('''
     1) Use zero-copy cloning
     2) Use S3 buckets in the same region as your data warehouse
-    3) Match your bucket specifications with your data transfer expectations, e.g., are they organized by date or by application?
+    3) Match your bucket specifications with your data transfer expectations, e.g., are they organized\
+     by date or by application?
     4) Leverage parallel loading by restricting file size to 60–100 MB 
     5) Avoid using materialized views unless required (e.g., pre-aggregating)
+    6) Make sure to have the data compressed before storage as much as possible. There are instances, \
+    such as storing database tables, where Snowflake automatically does a data compression, however, \
+    this is not always the case, so this is something to be mindful of and to be monitored regularly.
+    7) Snowflake works better with the date or timestamp columns stored as such rather than them being \
+    stored as type varchar.
+    8) Try to make more use of transient tables as they are not maintained in the history tables which in \
+    turn reduces the data storage costs for history tables.
     '''
     )
 
@@ -89,6 +97,7 @@ def main():
     st.header("References")
     st.info('''
     https://www.finout.io/blog/snowflake-cost-reduction
+    https://hevodata.com/learn/snowflake-pricing/
     '''
     )
 
