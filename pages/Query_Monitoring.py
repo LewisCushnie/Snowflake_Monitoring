@@ -105,61 +105,66 @@ def main():
 
         if submitted:
 
-            LOGIN = f'''
-            select last_success_login
-            from users
-            where name = '{user}';
-            '''
-
-            CREDITS_BY_USER = f'''
-            WITH USER_HOUR_EXECUTION_CTE AS (
-                SELECT  USER_NAME
-                ,WAREHOUSE_NAME
-                ,DATE_TRUNC('hour',START_TIME) as START_TIME_HOUR
-                ,SUM(EXECUTION_TIME)  as USER_HOUR_EXECUTION_TIME
-                FROM "SNOWFLAKE"."ACCOUNT_USAGE"."QUERY_HISTORY" 
-                WHERE WAREHOUSE_NAME IS NOT NULL
-                AND EXECUTION_TIME > 0
+            try:
             
-            --Change the below filter if you want to look at a longer range than the last 1 month 
-                AND START_TIME > DATEADD(Month,-1,CURRENT_TIMESTAMP())
-                group by 1,2,3
+                LOGIN = f'''
+                select last_success_login
+                from users
+                where name = '{user}';
+                '''
+
+                CREDITS_BY_USER = f'''
+                WITH USER_HOUR_EXECUTION_CTE AS (
+                    SELECT  USER_NAME
+                    ,WAREHOUSE_NAME
+                    ,DATE_TRUNC('hour',START_TIME) as START_TIME_HOUR
+                    ,SUM(EXECUTION_TIME)  as USER_HOUR_EXECUTION_TIME
+                    FROM "SNOWFLAKE"."ACCOUNT_USAGE"."QUERY_HISTORY" 
+                    WHERE WAREHOUSE_NAME IS NOT NULL
+                    AND EXECUTION_TIME > 0
+                
+                --Change the below filter if you want to look at a longer range than the last 1 month 
+                    AND START_TIME > DATEADD(Month,-1,CURRENT_TIMESTAMP())
+                    group by 1,2,3
+                    )
+                , HOUR_EXECUTION_CTE AS (
+                    SELECT  START_TIME_HOUR
+                    ,WAREHOUSE_NAME
+                    ,SUM(USER_HOUR_EXECUTION_TIME) AS HOUR_EXECUTION_TIME
+                    FROM USER_HOUR_EXECUTION_CTE
+                    group by 1,2
                 )
-            , HOUR_EXECUTION_CTE AS (
-                SELECT  START_TIME_HOUR
-                ,WAREHOUSE_NAME
-                ,SUM(USER_HOUR_EXECUTION_TIME) AS HOUR_EXECUTION_TIME
-                FROM USER_HOUR_EXECUTION_CTE
-                group by 1,2
-            )
-            , APPROXIMATE_CREDITS AS (
+                , APPROXIMATE_CREDITS AS (
+                    SELECT 
+                    A.USER_NAME
+                    ,C.WAREHOUSE_NAME
+                    ,(A.USER_HOUR_EXECUTION_TIME/B.HOUR_EXECUTION_TIME)*C.CREDITS_USED AS APPROXIMATE_CREDITS_USED
+
+                    FROM USER_HOUR_EXECUTION_CTE A
+                    JOIN HOUR_EXECUTION_CTE B  ON A.START_TIME_HOUR = B.START_TIME_HOUR and B.WAREHOUSE_NAME = A.WAREHOUSE_NAME
+                    JOIN "SNOWFLAKE"."ACCOUNT_USAGE"."WAREHOUSE_METERING_HISTORY" C ON C.WAREHOUSE_NAME = A.WAREHOUSE_NAME AND C.START_TIME = A.START_TIME_HOUR
+                )
+
                 SELECT 
-                A.USER_NAME
-                ,C.WAREHOUSE_NAME
-                ,(A.USER_HOUR_EXECUTION_TIME/B.HOUR_EXECUTION_TIME)*C.CREDITS_USED AS APPROXIMATE_CREDITS_USED
+                USER_NAME
+                ,SUM(APPROXIMATE_CREDITS_USED) AS APPROXIMATE_CREDITS_USED
+                FROM APPROXIMATE_CREDITS
+                WHERE USER_NAME = '{user}'
+                GROUP BY 1
+                ORDER BY 2 DESC
+                ;
 
-                FROM USER_HOUR_EXECUTION_CTE A
-                JOIN HOUR_EXECUTION_CTE B  ON A.START_TIME_HOUR = B.START_TIME_HOUR and B.WAREHOUSE_NAME = A.WAREHOUSE_NAME
-                JOIN "SNOWFLAKE"."ACCOUNT_USAGE"."WAREHOUSE_METERING_HISTORY" C ON C.WAREHOUSE_NAME = A.WAREHOUSE_NAME AND C.START_TIME = A.START_TIME_HOUR
-            )
+                '''
 
-            SELECT 
-            USER_NAME
-            ,SUM(APPROXIMATE_CREDITS_USED) AS APPROXIMATE_CREDITS_USED
-            FROM APPROXIMATE_CREDITS
-            WHERE USER_NAME = '{user}'
-            GROUP BY 1
-            ORDER BY 2 DESC
-            ;
+                df = sf.sql_to_dataframe(LOGIN)
+                st.write(f"Last login by user, {user}: {df['LAST_SUCCESS_LOGIN'][0]}")
 
-            '''
+                df = sf.sql_to_dataframe(CREDITS_BY_USER)
+                credits = df['APPROXIMATE_CREDITS_USED'][0]
+                st.metric('Credits Used',round(credits,2))
 
-            df = sf.sql_to_dataframe(LOGIN)
-            st.write(f"Last login by user, {user}: {df['LAST_SUCCESS_LOGIN'][0]}")
-
-            df = sf.sql_to_dataframe(CREDITS_BY_USER)
-            credits = df['APPROXIMATE_CREDITS_USED'][0]
-            st.metric('Credits Used',round(credits,2))
+            except:
+                st.write('Selected user has not logged')
 
 
     #==========================#
