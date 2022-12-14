@@ -127,7 +127,7 @@ def main():
     query = sql.QUERY_COUNT_BY_TYPE
     QUERY_COUNT_BY_TYPE_df = sf.sql_to_dataframe(query)
     st.dataframe(QUERY_COUNT_BY_TYPE_df)
-    st.bar_chart(QUERY_COUNT_BY_TYPE_df)
+    st.bar_chart(QUERY_COUNT_BY_TYPE_df, x= 'Query Date', y= 'Query Count')
 
 
 
