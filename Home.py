@@ -49,11 +49,38 @@ def main():
     ### Reducing Storage Costs
     \n
     ### Reducing Data Transfer Costs
-    \n
-    References:
-    \n
+    '''
+    )
+
+    st.header("Understanding the charging rates")
+    st.info('''
+    This section will list all of the costs associated with each activity in snowflake
+    '''
+    )
+
+    st.header("Reducing Compute Costs")
+    st.info('''
+    This section will list all of the costs associated with each activity in snowflake
+    '''
+    )
+
+    st.header("Reducing Storage Costs")
+    st.info('''
+    This section will list all of the costs associated with each activity in snowflake
+    '''
+    )
+
+    st.header("Reducing Data Transfer Costs")
+    st.info('''
+    This section will list all of the costs associated with each activity in snowflake
+    '''
+    )
+
+    st.header("References")
+    st.info('''
     https://www.finout.io/blog/snowflake-cost-reduction
-    ''')
+    '''
+    )
 
 if __name__ == "__main__":
     main()  
