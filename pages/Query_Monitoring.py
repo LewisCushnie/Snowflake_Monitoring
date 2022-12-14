@@ -101,14 +101,13 @@ def main():
 
     with st.form('user_form'):
         user = st.multiselect('Select a user', clean_users)
-        user = user[0]
-        st.write(user)
-        st.write(type(user))
         submitted = st.form_submit_button('Submit')
 
         if submitted:
 
-            st.spinner
+            user = user[0]
+            st.write(user)
+            st.write(type(user))
 
             LOGIN = f'''
             select last_success_login
