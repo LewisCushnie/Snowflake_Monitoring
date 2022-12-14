@@ -157,7 +157,7 @@ def main():
             '''
 
             df = sf.sql_to_dataframe(LOGIN)
-            st.write(f'{user} last login: {df['LAST_SUCCESS_LOGIN'][0]}')
+            st.write(f"{user} last login: {df['LAST_SUCCESS_LOGIN'][0]}")
 
             df = sf.sql_to_dataframe(CREDITS_BY_USER)
             st.write(df['APPROXIMATE_CREDITS_USED'][0])
