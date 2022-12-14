@@ -22,11 +22,9 @@ def main():
     ### Get started!
     👈 Select a page in the sidebar!
     """
-
+    )
     st.header("Understanding Snowflake's Cost Model")
     st.info('This will lay out how to understand the model')
-
-    )
 
 if __name__ == "__main__":
     main()  
