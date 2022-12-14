@@ -55,7 +55,8 @@ def main():
     #==========================#
     # USER QUERY PERFORMANCE #
     #==========================#
-
+    line = '---'
+    st.markdown(line)
     st.header('Compare User Query Performance')
 
     # Get clean list of USERS from ACCOUNT_USAGE
@@ -94,7 +95,8 @@ def main():
     #==========================#
     # DOMAIN QUERY PERFORMANCE #
     #==========================#
-
+    line = '---'
+    st.markdown(line)
     st.header('Compare Domain Query Performance')
 
     DOMAIN = st.selectbox('Choose business domain', ('FINANCE', 'UNDERWRITING'))
@@ -115,12 +117,17 @@ def main():
         df = sf.sql_to_dataframe(DOMAIN_QUERY_USAGE)
         st.dataframe(df, width=1000)
         st.bar_chart(df, x='Schema', y=['Total Compute Credits Used', 'Total Credits Used'])
-    
-    # ADDITION FROM LEWIS
+
+    #==========================#
+    # QUERY COUNT BY TYPE (ADDITION FROM LEWIS)
+    #==========================#
+    line = '---'
+    st.markdown(line)
+    st.header('Query count by type')   
     query = sql.QUERY_COUNT_BY_TYPE
-    QUERY_COUNT_BY_TYPE = sf.sql_to_dataframe(query)
-    st.dataframe(QUERY_COUNT_BY_TYPE)
-    st.bar_chart(QUERY_COUNT_BY_TYPE)
+    QUERY_COUNT_BY_TYPE_df = sf.sql_to_dataframe(query)
+    st.dataframe(QUERY_COUNT_BY_TYPE_df)
+    st.bar_chart(QUERY_COUNT_BY_TYPE_df)
 
 
 
