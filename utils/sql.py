@@ -132,6 +132,19 @@ AS EXEC_TIME,WAREHOUSE_NAME,USER_NAME,EXECUTION_STATUS
 from "SNOWFLAKE"."ACCOUNT_USAGE"."QUERY_HISTORY" where EXECUTION_STATUS = 'SUCCESS' order by EXECUTION_TIME desc;
 '''
 
+QUERY_COUNT_BY_TYPE = '''
+SELECT 
+date_trunc('day', convert_timezone('America/Chicago', start_time::timestamp_ntz)) as "Query Date",
+query_type AS "Query Type",
+SUM(credits_used_cloud_services) AS "Cloud Services Credits",
+count(*) AS "Query Count"
+FROM snowflake.account_usage.query_history q 
+WHERE start_time >  dateadd('day',-14,convert_timezone('America/Chicago', current_timestamp)) 
+AND warehouse_name = 'COMPUTE_WH'
+GROUP BY 1,2
+ORDER BY 1;
+'''
+
 #-------------- TASK MONITORING ------------------
 SHOW_TASKS = '''
 show tasks in database snowflake_monitoring_db;

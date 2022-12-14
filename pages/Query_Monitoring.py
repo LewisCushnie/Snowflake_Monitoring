@@ -115,6 +115,14 @@ def main():
         df = sf.sql_to_dataframe(DOMAIN_QUERY_USAGE)
         st.dataframe(df, width=1000)
         st.bar_chart(df, x='Schema', y=['Total Compute Credits Used', 'Total Credits Used'])
+    
+    # ADDITION FROM LEWIS
+    query = sql.QUERY_COUNT_BY_TYPE
+    QUERY_COUNT_BY_TYPE = sf.sql_to_dataframe(query)
+    st.dataframe(QUERY_COUNT_BY_TYPE)
+    st.bar_chart(QUERY_COUNT_BY_TYPE)
+
+
 
 
 if __name__ == "__main__":
