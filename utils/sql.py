@@ -115,9 +115,8 @@ FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY
 
 USER_QUERY_HISTORY = '''
 SELECT user_name as "Username"
-    , avg(percentage_scanned_from_cache)*100::float as "Avg Scanned from Cache (%)"
+    , avg(percentage_scanned_from_cache)*100 as "Avg Scanned from Cache (%)"
     , avg(partitions_scanned)::float as "Avg Partitions Scanned"
-    , avg(partitions_total)::float as "Avg Partitions Used"
     , avg(execution_time)::float as "Avg Execution Time"
 FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY 
 GROUP BY user_name
