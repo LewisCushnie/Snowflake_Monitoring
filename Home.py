@@ -35,7 +35,16 @@ def main():
     - **Data transfer costs:** are incurred when you transfer data between Snowflake regions, or to\
     another cloud provider. 
     \n
-    ref: https://www.finout.io/blog/snowflake-cost-reduction
+    Analysis in the Usage Insights App will attempt to minimise incurred costs in each of these areas\
+    by highlighting key performance metrics and usage data across the snowflake account's objects and\
+    users. All of the data and figures in this app have been generated using the metadata stored in the\
+    snowflake account's metadata database (SNOWFLAKE). It is the intention that this app be used to actively\
+    monitor key metrics in order to make changes that maximise resource usage efficiency and minimise\
+    incurred costs.
+
+    References:
+    \n
+    https://www.finout.io/blog/snowflake-cost-reduction
     ''')
 
 if __name__ == "__main__":
