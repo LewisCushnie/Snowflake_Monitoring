@@ -54,6 +54,7 @@ COMPUTE_CREDITS_PER_DAY = '''
 SELECT
 DATE_TRUNC('day', convert_timezone('UTC',start_time))::DATE as "Usage Week"
 ,ROUND(SUM(credits_used_compute),0)::INT AS "Compute Credits Used"
+, SUM(credits_used_compute)*4 AS "Cost ($)"
 FROM snowflake.organization_usage.warehouse_metering_history
 WHERE start_time BETWEEN date_trunc('day', dateadd('day',-365,convert_timezone('UTC',current_timestamp()))) AND current_timestamp()
 GROUP BY 1
