@@ -106,13 +106,11 @@ def main():
         if submitted:
 
             user = user[0]
-            st.write(user)
-            st.write(type(user))
 
             LOGIN = f'''
             select last_success_login
             from users
-            where name = '{user[0]}';
+            where name = '{user}';
             '''
 
             CREDITS_BY_USER = f'''
