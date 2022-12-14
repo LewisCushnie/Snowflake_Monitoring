@@ -140,7 +140,7 @@ def main():
     # Raw data checkbox
     raw_data = st.checkbox('Show raw compute data:')
     if raw_data:
-        COMPUTE_CREDITS_PER_DAY_FILTERED_df = COMPUTE_CREDITS_PER_DAY_FILTERED_df.style.applymap(colour_df)
+        COMPUTE_CREDITS_PER_DAY_FILTERED_df['Cost ($)'] = COMPUTE_CREDITS_PER_DAY_FILTERED_df['Cost ($)'].style.applymap(colour_df)
         st.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df)
 
     # COMPUTE AVAILABILITY VS EXECUTION TIME
