@@ -142,7 +142,7 @@ def main():
     if raw_data:
         COMPUTE_CREDITS_PER_DAY_FILTERED_df = COMPUTE_CREDITS_PER_DAY_FILTERED_df.style.applymap(colour_df,
         subset=pd.IndexSlice[:,['Cost ($)']])
-        st.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df)
+        st.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df, width=1000)
 
     # COMPUTE AVAILABILITY VS EXECUTION TIME
     line = '---'
