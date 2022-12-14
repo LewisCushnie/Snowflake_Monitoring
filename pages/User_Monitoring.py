@@ -97,7 +97,7 @@ def main():
             try:
                 st.write(f"Last login by user, {user}: {df['LAST_SUCCESS_LOGIN'][0]}")
             except:
-                st.write('Use has not logged in')
+                st.write('User has not logged in')
 
             df = sf.sql_to_dataframe(CREDITS_BY_USER)
             try:
@@ -121,9 +121,9 @@ def main():
     df = sf.sql_to_dataframe(query)
     df = df.set_index('Username')
 
-    df['Avg Scanned from Cache (%)'] = df['Avg Scanned from Cache (%)'].astype(float)              
-    df['Avg Partitions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
-    df['Avg Partitions Used'] = df['Avg Partitions Used'].astype(float)     
+    # df['Avg Scanned from Cache (%)'] = df['Avg Scanned from Cache (%)'].astype(float)              
+    # df['Avg Partitions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
+    # df['Avg Partitions Used'] = df['Avg Partitions Used'].astype(float)     
     
     selected_username = st.multiselect('Select a user', clean_users)
     df = df.loc[selected_username]      
