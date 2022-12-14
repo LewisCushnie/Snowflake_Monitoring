@@ -105,6 +105,8 @@ def main():
 
         if submitted:
 
+            st.write(user)
+
             LOGIN = f'''
             select last_success_login
             from users
