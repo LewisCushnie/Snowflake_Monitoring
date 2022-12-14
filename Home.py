@@ -58,6 +58,7 @@ def main():
     4) Use resource monitors to track credit usage
     5) Split large files to minimize processing overhead
     6) Create alerts for reader accounts
+    7) Identify inefficient queries
     \n
     **Optimising scripts** to increase query efficiency
     1) Delete all temporary and transient tables when done
@@ -67,6 +68,8 @@ def main():
     5) Remember those ANSI Joins are more efficient
     6) Remember to sort rather than ORDER BY where possible
     7) Don't tolerate redundancy; use DISTINCT or GROUP BY
+    8) Take advantage of partition pruning (e.g dont select *)
+    9) Avoid row-by-row processing
     '''
     )
 
@@ -96,8 +99,10 @@ def main():
 
     st.header("References")
     st.info('''
-    https://www.finout.io/blog/snowflake-cost-reduction
-    https://hevodata.com/learn/snowflake-pricing/
+    https://www.finout.io/blog/snowflake-cost-reduction \
+    https://hevodata.com/learn/snowflake-pricing/ \
+    https://www.analytics.today/blog/top-14-snowflake-data-engineering-best-practices \
+    https://docs.snowflake.com/en/user-guide/cost-controlling.html \
     '''
     )
 
