@@ -2,9 +2,9 @@ def colour_df(value):
   
   if value >= 5:
     colour = 'red'
-  if value <5 and value >3:
+  if value <5 and value >=3:
     colour = 'orange'
-  else:
+  if value <3:
     colour = 'green'
 
   return 'color: %s' % colour
