@@ -9,3 +9,7 @@ then compare this with actual run-time (due to people using it for things)
 - monitor the usage of zero-copy cloning (this is good)
 
 
+Snowflake training docs pages to refer to
+170-177 tables and views
+285-293
+593-609 scaling up and scaling out

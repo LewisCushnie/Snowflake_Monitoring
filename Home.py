@@ -59,9 +59,11 @@ def main():
     5) Split large files to minimize processing overhead
     6) Create alerts for reader accounts
     7) Identify inefficient queries
+    8) Take advantage of caching
     \n
     **Optimising scripts** to increase query efficiency
-    1) Delete all temporary and transient tables when done
+    1) Delete all temporary and transient tables when done \
+    Otherwise this runs up storage costs for data that was meant to be 'temporary'
     2) Use CREATE or REPLACE not CREATE TABLE AS 
     3) Apply COPY INTO, not INSERT INTO
     4) Leverage staging tables to transform imported data
@@ -70,6 +72,8 @@ def main():
     7) Don't tolerate redundancy; use DISTINCT or GROUP BY
     8) Take advantage of partition pruning (e.g dont select *)
     9) Avoid row-by-row processing
+    10) Take advantage of High-Performance Functions
+    11) Ensure tasks are not left running by mistake
     '''
     )
 
