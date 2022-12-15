@@ -119,6 +119,21 @@ def main():
 
     line = '---'
     st.markdown(line)
+    st.header('Warehouse credit usage breakdown')
+    query = sql.WH_CREDIT_BREAKDOWN
+    WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
+    st.bar_chart(WH_CREDIT_BREAKDOWN_df[['COMPUTE', 'CLOUD_SERVICES']], x= 'WH_NAME')
+    # Raw data checkbox
+    raw_data = st.checkbox('Show raw availability data:')
+    if raw_data:
+        st.dataframe(WH_CREDIT_BREAKDOWN_df)
+
+    #======================================================#
+    # MAIN PAGE: COMPUTE AVAILABILITY VS EXECUTION TIME
+    #======================================================#
+
+    line = '---'
+    st.markdown(line)
     st.header('Compute availablity v.s execution time')
     query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
     COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
