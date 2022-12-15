@@ -153,6 +153,7 @@ def main():
 
     query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
     COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
+    st.dataframe(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df)
 
     utilisation = st.checkbox('Show warehouse utlisation:')
     if utilisation:
