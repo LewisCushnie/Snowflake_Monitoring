@@ -69,12 +69,15 @@ def main():
      Try to make more use of transient tables as they truncate history tables and save on storage costs')
 
     st.header('Empty tables in account')
+    st.info('The table below shows tables/views containing data that has not been used within the specified time period. It is\
+    the intention that unused data be reviewed, to check for any tables/views that could be removed from the\
+    account to reduce storage costs')
     query = sql.EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     st.dataframe(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df)
 
     st.header('Unused tables in account')
-    days = st.number_input('Insert number of days:', value= 30)
+    days = st.number_input('Number of days table/view has not been used:', value= 30)
     query = sql.UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days)
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df)
