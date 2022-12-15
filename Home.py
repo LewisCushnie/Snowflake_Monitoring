@@ -58,19 +58,28 @@ def main():
     4) Use resource monitors to track credit usage
     5) Split large files to minimize processing overhead
     6) Create alerts for reader accounts
-    7) Identify inefficient queries
-    8) Take advantage of caching
+    7) Identify inefficient queries: By looking for spilling in the query profile, if so,\ 
+    consider changing to a bigger warehouses
+    8) Identify cases of query queueing: If so, either increase the size or have more clusters(preferred).
+    9) Take advantage of caching
+    10) Have dedicated separate warehouses for ETLs and querying operations: To optimize performance for each
+    11) Setting Appropriate non-default value for query timeout: The default value is 2 days\
+    this is unlikely to be necessary for most cases
+    12) Running short-duration queries in a shared warehouse: To increase warehouse utilization.
+    13) Deprecate unused tables/objects: Unload to an external location and delete table in snowflake to\
+    save unnecessary storage costs.
     \n
     **Optimising scripts** to increase query efficiency
     1) Delete all temporary and transient tables when done\
     Otherwise this runs up storage costs for data that was meant to be 'temporary'
-    2) Use CREATE or REPLACE not CREATE TABLE AS 
-    3) Apply COPY INTO, not INSERT INTO
+    2) Use CREATE or REPLACE not CREATE TABLE AS: ??
+    3) Apply COPY INTO, not INSERT INTO: because it utilizes the more efficient bulk loading processes.
     4) Leverage staging tables to transform imported data
     5) Remember those ANSI Joins are more efficient
     6) Remember to sort rather than ORDER BY where possible
     7) Don't tolerate redundancy; use DISTINCT or GROUP BY
-    8) Take advantage of partition pruning (e.g dont select *)
+    8) Take advantage of partition pruning: Avoid select *, and Order By, Union. Use ANSI joins, Date/timestamp\
+    type rather than varchar
     9) Avoid row-by-row processing
     10) Take advantage of High-Performance Functions
     11) Ensure tasks are not left running by mistake
@@ -107,6 +116,7 @@ def main():
     https://hevodata.com/learn/snowflake-pricing/ \
     https://www.analytics.today/blog/top-14-snowflake-data-engineering-best-practices \
     https://docs.snowflake.com/en/user-guide/cost-controlling.html \
+    https://blog.devgenius.io/snowflake-cost-saving-9e6b05aee0bd \
     '''
     )
 
