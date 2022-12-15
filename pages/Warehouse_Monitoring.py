@@ -126,7 +126,7 @@ def main():
     # Top n highest total credit usage warehouses
     n_largest = 5
     WH_CREDIT_BREAKDOWN_TOP_N = WH_CREDIT_BREAKDOWN_df['TOTAL'].nlargest(n_largest)
-    WH_CREDIT_BREAKDOWN_df = WH_CREDIT_BREAKDOWN_df['NAME'].iloc[WH_CREDIT_BREAKDOWN_TOP_N.index]
+    WH_CREDIT_BREAKDOWN_df = WH_CREDIT_BREAKDOWN_df.iloc[WH_CREDIT_BREAKDOWN_TOP_N.index]
 
     percentage = st.checkbox('Show as percentages:')
     if percentage:
