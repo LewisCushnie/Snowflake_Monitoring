@@ -122,7 +122,7 @@ def main():
     st.header('Warehouse credit usage breakdown')
     query = sql.WH_CREDIT_BREAKDOWN
     WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
-    st.bar_chart(WH_CREDIT_BREAKDOWN_df[['COMPUTE', 'CLOUD_SERVICES']], x= 'WH_NAME')
+    st.bar_chart(WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']], x= 'WH_NAME')
     # Raw data checkbox
     raw_data = st.checkbox('Show raw availability data:')
     if raw_data:
