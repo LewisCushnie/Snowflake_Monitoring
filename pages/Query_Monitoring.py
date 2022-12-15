@@ -53,6 +53,13 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Query count by type')   
+
+    query = sql.QUERY_CATEGORY
+    df = sf.sql_to_dataframe(query)
+    st.bar_chart(df, x='Query Category', y='Number of Queries')
+
+    st.markdown(line)
+
     query = sql.QUERY_COUNT_BY_TYPE
     QUERY_COUNT_BY_TYPE_df = sf.sql_to_dataframe(query)
     st.dataframe(QUERY_COUNT_BY_TYPE_df)
