@@ -191,6 +191,44 @@ GROUP BY 1,2
 ORDER BY 1;
 '''
 
+QUERY_CATEGORY = '''
+select count(q.query_type) as "Number of Queries",avg(q.total_elapsed_time/1000) as "Avg Total Elapsed Time (s)",
+    avg(q.PERCENTAGE_SCANNED_FROM_CACHE*100) as "Avg % Scanned From Cache",
+    case
+        when query_type like '%CREATE%' or 
+            query_type like '%ALTER%' or 
+            query_type like '%DROP%' or 
+            query_type like '%RENAME%' or 
+            query_type like '%TRUNCATE%' or 
+            query_type like '%SHOW%' or 
+            query_type like '%USE%' or
+            query_type like '%DESCRIBE%' or 
+            query_type like '%COMMENT%' then 'DDL General'
+        when query_type like '%GRANT%' or
+            query_type like '%REVOKE%' then 'DCL'
+        when query_type like '%SET%' then 'DDL Account Session'
+        when query_type = 'SELECT' or
+            query_type = 'INSERT' or 
+            query_type = 'UPDATE' or 
+            query_type = 'DELETE' or 
+            query_type = 'MERGE' or 
+            query_type = 'CALL' then 'DML General'
+        when query_type like  '%PUT%' or
+            query_type like '%REMOVE%' or
+            query_type like '%LIST%' or
+            query_type like  '%GET%' then 'DML File Staging' 
+        when query_type like  '%COPY%' then 'DML Data Loading'
+        when query_type like  '%COMMIT%' or
+             query_type like  '%BEGIN%' then 'TCL'
+        else 'Unknown'
+        end as "Query Category"
+    from snowflake.account_usage.query_history as q
+    where q.database_name = 'PROD_DB'
+    group by "Query Category"
+    order by count(q.query_type) desc;
+
+'''
+
 #-------------- TASK MONITORING ------------------
 SHOW_TASKS = '''
 show tasks in database snowflake_monitoring_db;
