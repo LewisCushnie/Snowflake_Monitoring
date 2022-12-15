@@ -122,11 +122,15 @@ def main():
     st.header('Warehouse credit usage breakdown')
     query = sql.WH_CREDIT_BREAKDOWN
     WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
-    st.bar_chart(WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']], x= 'WH_NAME')
+
+    percentage = st.checkbox('Show as percentages:')
+    if percentage:
+        perc_df = WH_CREDIT_BREAKDOWN_df['WH_NAME','COMPUTE', 'CLOUD_SERVICES']
+        st.bar_chart(perc_df, x= 'WH_NAME')
+        if raw_data:
+            st.dataframe(perc_df)
     # Raw data checkbox
     raw_data = st.checkbox('Show raw availability data:')
-    if raw_data:
-        st.dataframe(WH_CREDIT_BREAKDOWN_df)
 
     #======================================================#
     # MAIN PAGE: COMPUTE AVAILABILITY VS EXECUTION TIME

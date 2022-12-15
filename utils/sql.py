@@ -39,6 +39,7 @@ name as wh_name
 ,sum(credits_used_cloud_services) as cloud_services
 ,sum(credits_used) as total
 ,(cloud_services/total)*100 as perc_cloud
+,(compute/total)*100 as perc_compute
 from snowflake.account_usage.metering_history
 group by wh_name;
 '''
