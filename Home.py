@@ -1,5 +1,5 @@
 import streamlit as st
-import sql
+from utils import sql
 
 st.set_page_config(
     page_title="Usage Insights App"
