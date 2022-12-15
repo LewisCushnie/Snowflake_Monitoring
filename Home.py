@@ -52,13 +52,14 @@ def main():
 
     st.header("Reducing Compute Costs")
     st.info('''
-    1) **Choose the right size of warehouse**
-    2) **Suspend warehouses that are sitting idle**
+    1) **Choose the right size of warehouse:** For optimal query performance and cost\
+    per credit
+    2) **Suspend warehouses that are sitting idle:** To maximise warehouse utilisation
     3) **Update the query timeout default value:** The default value is 2 days\
     this is unlikely to be necessary for most cases
-    4) **Use resource monitors to track credit usage**
-    5) **Split large files to minimize processing overhead**
-    6) **Create alerts for reader accounts**
+    4) **Use resource monitors:** to track credit usage and set up alerts
+    5) **Split large files before ingestion:** to minimize processing overhead
+    6) **Create alerts for reader accounts:** To ensure the costs don't run away
     7) **Identify inefficient queries:** By looking for spilling in the query profile, if so,\
     consider changing to a bigger warehouses
     8) **Identify cases of query queueing:** If so, either increase the size or have more clusters(preferred).
@@ -73,38 +74,35 @@ def main():
     Otherwise runs up storage costs for data that was meant to be 'temporary'
     2) **Use CREATE or REPLACE not CREATE TABLE AS:** ??
     3) **Apply COPY INTO, not INSERT INTO:** as it utilizes the more efficient bulk loading processes.
-    4) **Leverage staging tables to transform imported data**
-    6) **Sort in the cloud service rather than ORDER BY**
-    7) **Use DISTINCT or GROUP BY:** To minimise redundancy
-    8) **Take advantage of partition pruning:** Avoid select *, and Order By, Union. Use ANSI joins, Date/timestamp\
+    4) **Leverage staging tables to transform imported data:** ??
+    5) **Sort in the cloud service rather than ORDER BY:** ??
+    6) **Use DISTINCT or GROUP BY:** To minimise redundancy
+    7) **Take advantage of partition pruning:** Avoid select *, and Order By, Union. Use ANSI joins, Date/timestamp\
     type rather than varchar
-    10) **Take advantage of High-Performance Functions**: Specifically for large datasets where drawing exact answers\
+    8) **Take advantage of High-Performance Functions**: Specifically for large datasets where drawing exact answers\
     is not completely necessary e.g data science tasks.
-    11) **Ensure tasks are not left running by mistake:** As these will continue to execute queries
+    9) **Ensure tasks are not left running by mistake:** As these will continue to execute queries
     '''
     )
 
     st.header("Reducing Storage Costs")
     st.info('''
-    1) Use zero-copy cloning
-    2) Use S3 buckets in the same region as your data warehouse
-    3) Match your bucket specifications with your data transfer expectations, e.g., are they organized\
+    1) **Use zero-copy cloning**
+    2) *Match bucket specifications with data transfer expectations:** e.g., are they organized\
      by date or by application?
-    4) Leverage parallel loading by restricting file size to 60–100 MB 
-    5) Avoid using materialized views unless required (e.g., pre-aggregating)
-    6) Make sure to have the data compressed before storage as much as possible. There are instances, \
-    such as storing database tables, where Snowflake automatically does a data compression, however, \
-    this is not always the case, so this is something to be mindful of and to be monitored regularly.
-    7) Snowflake works better with the date or timestamp columns stored as such rather than them being \
-    stored as type varchar.
-    8) Try to make more use of transient tables as they are not maintained in the history tables which in \
-    turn reduces the data storage costs for history tables.
+    3) **Leverage parallel loading:** by restricting file size to 60-100 MB 
+    4) **Avoid materialized views unless required:** e.g., pre-aggregating
+    5) **Compress data before storage as much as possible:** Snowflake does not compress automatically in\
+    all instances
+    6) **Use transient tables as often as possible:** As they are not maintained in the history\
+    tables therefore reduces costs for maintaining history tables.
     '''
     )
 
     st.header("Reducing Data Transfer Costs")
     st.info('''
     This section will list all of the costs associated with each activity in snowflake
+    1) **Use S3 buckets in the same region as your data warehouse**
     '''
     )
 
