@@ -159,7 +159,7 @@ def main():
     if utilisation:
         st.bar_chart(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']], x= 'HOUR')
     else:
-        st.bar_chart(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'PCT_UTILISATION']], x= 'HOUR')
+        st.bar_chart(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'PCT_UTILIZATION']], x= 'HOUR')
 
     # Raw data checkbox
     raw_data = st.checkbox('Show raw availability data:')
