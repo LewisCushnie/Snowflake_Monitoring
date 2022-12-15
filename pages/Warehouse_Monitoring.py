@@ -125,10 +125,10 @@ def main():
 
     percentage = st.checkbox('Show as percentages:')
     if percentage:
-        WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
+        WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','PERC_COMPUTE', 'PERC_CLOUD']]
         st.bar_chart(WH_CREDIT_df, x= 'WH_NAME')
     else:
-        WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','PERC_COMPUTE', 'PERC_CLOUD']]
+        WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
         st.bar_chart(WH_CREDIT_df, x= 'WH_NAME')
 
     # Raw data checkbox
