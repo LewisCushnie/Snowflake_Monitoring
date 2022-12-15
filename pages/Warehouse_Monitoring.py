@@ -125,12 +125,16 @@ def main():
 
     percentage = st.checkbox('Show as percentages:')
     if percentage:
-        perc_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
-        st.bar_chart(perc_df, x= 'WH_NAME')
-        if raw_data:
-            st.dataframe(perc_df)
+        WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
+        st.bar_chart(WH_CREDIT_df, x= 'WH_NAME')
+    else:
+        WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','PERC_COMPUTE', 'PERC_CLOUD']]
+        st.bar_chart(WH_CREDIT_df, x= 'WH_NAME')
+
     # Raw data checkbox
     raw_data = st.checkbox('Show raw warehouse usage data')
+    if raw_data:
+        st.dataframe(WH_CREDIT_df)
     #Show raw warehouse data:
 
     #======================================================#
