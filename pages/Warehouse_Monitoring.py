@@ -153,13 +153,12 @@ def main():
 
     query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
     COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
-    st.dataframe(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df)
 
     utilisation = st.checkbox('Show warehouse utlisation:')
     if utilisation:
-        st.bar_chart(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']], x= 'HOUR')
-    else:
         st.bar_chart(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'PCT_UTILIZATION']], x= 'HOUR')
+    else:
+        st.bar_chart(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']], x= 'HOUR')
 
     # Raw data checkbox
     raw_data = st.checkbox('Show raw availability data:')
