@@ -86,14 +86,15 @@ def main():
 
     query = sql.METERING_TOP_10
     METERING_TOP_10_df = sf.sql_to_dataframe(query)
+
+    # Most used warehouse
     most_used_loc = METERING_TOP_10_df['CREDITS_USED'].idxmax()
     most_used_wh = METERING_TOP_10_df['NAME'].iloc[most_used_loc]
 
+    # Top 5 most used warehouses
     five_most_used_df = METERING_TOP_10_df['CREDITS_USED'].nlargest(5)
-    five_most_used_wh = METERING_TOP_10_df['NAME'].iloc[five_most_used_df.index].tolist()
-    st.write(five_most_used_wh)
-    #five_most_used_list = five_most_used_df.values.tolist()
-    #st.write(five_most_used_list)
+    five_most_used_wh_list = METERING_TOP_10_df['NAME'].iloc[five_most_used_df.index].tolist()
+
     amount_used = round(METERING_TOP_10_df['CREDITS_USED'].iloc[most_used_loc], 3)
     st.sidebar.metric(label='Most used warehouse', value= most_used_wh, delta= f'{amount_used} Credits', delta_color= "normal")
 
@@ -108,7 +109,8 @@ def main():
     METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
     # Multiselect list
 
-    wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
+    wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index), five_most_used_wh_list)
+    #['COMPUTE_WH', 'CADENS_WH', 'INTL_WH']
     # filter using panda's .loc
     wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
     # Display the filtered df on the page.
