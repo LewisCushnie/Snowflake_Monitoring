@@ -156,14 +156,16 @@ def main():
 
     utilisation = st.checkbox('Show warehouse utlisation:')
     if utilisation:
-        st.bar_chart(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'PCT_UTILIZATION']], x= 'HOUR')
+        sub_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'PCT_UTILIZATION']]
+        st.bar_chart(sub_df, x= 'HOUR')
     else:
-        st.bar_chart(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']], x= 'HOUR')
+        sub_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']]
+        st.bar_chart(sub_df, x= 'HOUR')
 
     # Raw data checkbox
     raw_data = st.checkbox('Show raw availability data:')
     if raw_data:
-        st.dataframe(COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df)
+        st.dataframe(sub_df)
 
 if __name__ == "__main__":
     main()
