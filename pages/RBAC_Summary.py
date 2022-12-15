@@ -5,11 +5,15 @@ from utils import sql
 
 def main():
 
+    # Apply formatting from the style.css file to the page
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    st.title('RBAC Summary')
+    #==========================#
+    # MAIN PAGE - INTRO #
+    #==========================#
 
+    st.title('RBAC Summary')
     st.success(
     '''
     The **RBAC Summary** page aims allows users to easily track ROLES and USERS assigned to these roles, the aim
@@ -17,7 +21,6 @@ def main():
     '''
     )
 
-    #------------------------------- MAIN PAGE ----------------------------------- #
     #==========================#
     # USER QUERY PERFORMANCE #
     #==========================#
