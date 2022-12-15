@@ -89,7 +89,7 @@ def main():
     st.info('''
     1) **Use zero-copy cloning**
     2) *Match bucket specifications with data transfer expectations:** e.g., are they organized\
-     by date or by application?
+    by date or by application?
     3) **Leverage parallel loading:** by restricting file size to 60-100 MB 
     4) **Avoid materialized views unless required:** e.g., pre-aggregating
     5) **Compress data before storage as much as possible:** Snowflake does not compress automatically in\
