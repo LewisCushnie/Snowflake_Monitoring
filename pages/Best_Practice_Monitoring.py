@@ -57,7 +57,10 @@ def main():
     '''
     )
 
+    #======================================================#
     # MAIN PAGE - TRANSIENT, TEMPORARY, AND MATERIALIZED VIEWS/TABLES
+    #======================================================#
+
     line = '---'
     st.markdown(line)
     st.header('Transient, Temporary, and Materialised Views/Tables')
@@ -71,29 +74,42 @@ def main():
     st.dataframe(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df)
 
     st.header('Unused tables in account')
-    query = sql.UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT
+    days = 28
+    query = sql.UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days)
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df)
 
+    #======================================================#
     # MAIN PAGE: COPY INTO V.S INSERT INTO
+    #======================================================#
+
     line = '---'
     st.markdown(line)
     st.header('Copy Into v.s Insert Into')
     st.write('Check why this matters')
 
+    #======================================================#
     # MAIN PAGE: SORT V.S ORDER BY
+    #======================================================#
+
     line = '---'
     st.markdown(line)
     st.header('Sort v.s Order By')
     st.write('Check why this matters')
 
+    #======================================================#
     # MAIN PAGE: HIGH PERFORMING FUNCTIONS
+    #======================================================#
+
     line = '---'
     st.markdown(line)
     st.header('High Performing function usage')
     st.write('Identify big aggregate functions that could be taking advantage of High performing functions')
 
-    # MAIN PAGE: ZERO COPY CLONING
+    #======================================================#
+    # MAIN PAGE: ZERO COPY CLONING    
+    #======================================================#
+
     line = '---'
     st.markdown(line)
     st.header('Zero Copy Cloning Usage')

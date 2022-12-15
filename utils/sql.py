@@ -10,15 +10,27 @@ where row_count = 0
 order by table_schema, table_name;
 '''
 
-UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT = '''
-select table_schema
-       ,table_name
-       ,last_altered
-       ,table_type
-from snowflake.account_usage.tables
-where last_altered < dateadd( 'DAY', -28, current_timestamp() ) 
-order by table_schema, table_name;
-'''
+def UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days):
+    query = f'''
+    select table_schema
+        ,table_name
+        ,last_altered
+        ,table_type
+    from snowflake.account_usage.tables
+    where last_altered < dateadd( 'DAY', -{days}, current_timestamp() ) 
+    order by table_schema, table_name;
+    '''
+    return query
+
+# UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT = '''
+# select table_schema
+#        ,table_name
+#        ,last_altered
+#        ,table_type
+# from snowflake.account_usage.tables
+# where last_altered < dateadd( 'DAY', -28, current_timestamp() ) 
+# order by table_schema, table_name;
+# '''
 
 #-------------- RESOURCE MONITORING ------------------
 STREAMLIT_CREDITS_USED = '''
