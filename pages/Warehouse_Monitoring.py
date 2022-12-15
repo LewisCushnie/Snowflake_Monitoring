@@ -84,6 +84,8 @@ def main():
     # SIDEBAR - MOST USED WAREHOUSE
     #======================================================#
 
+    query = sql.METERING_TOP_10
+    METERING_TOP_10_df = sf.sql_to_dataframe(query)
     most_used_loc = METERING_TOP_10_df['CREDITS_USED'].idxmax()
     most_used_wh = METERING_TOP_10_df['NAME'].iloc[most_used_loc]
     amount_used = round(METERING_TOP_10_df['CREDITS_USED'].iloc[most_used_loc], 3)
