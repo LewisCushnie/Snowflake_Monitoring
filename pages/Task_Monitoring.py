@@ -4,11 +4,11 @@ from utils import snowflake_connector as sf
 from utils import sql
 import datetime
 
-st.set_page_config(
-    page_title="Usage Insights app - Data Transfer",
-    page_icon="🔹",
-    layout="centered",
-)
+# st.set_page_config(
+#     page_title="Usage Insights app - Data Transfer",
+#     page_icon="🔹",
+#     layout="centered",
+# )
 
 def main():
 
