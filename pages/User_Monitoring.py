@@ -8,15 +8,17 @@ def main():
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    st.title('User Monitoring')
+    #==========================#
+    # MAIN PAGE - INTRO #
+    #==========================#
 
+    st.title('User Monitoring')
     st.success(
     '''The **User Monitoring** page allows you to track and compare account usage and query performance between users.
     '''
     )
 
     # Get clean list of USERS from ACCOUNT_USAGE
-
     query = sql.USER_LIST 
     users = sf.run_query(query)
     
@@ -28,6 +30,7 @@ def main():
     #==========================#
     # USER IN DETAIL #
     #==========================#
+    
     line = '---'
     st.markdown(line)
     st.header('Get Detailed Performance Info by User')

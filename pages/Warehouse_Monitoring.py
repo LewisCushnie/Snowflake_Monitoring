@@ -7,6 +7,10 @@ import datetime
 
 def main():
 
+    # Apply formatting from the style.css file to the page
+    with open("utils/style.css") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
     # GLOBAL VARAIBLES
     default_width = 500
 
@@ -20,10 +24,6 @@ def main():
     metric=round(WH_USAGE_LAST_7_DAYS_df['CREDITS_USED_LAST_PERIOD'].iloc[0],5)
     pct_change=round(WH_USAGE_LAST_7_DAYS_df['PCT_CHANGE'].iloc[0],3)
     st.sidebar.metric(label='Credit usage over last 7 day period', value= metric, delta= f'{pct_change}%', delta_color= "inverse")
-
-    # Apply formatting from the style.css file to the page
-    with open("utils/style.css") as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
     #======================================================#
     # MAIN PAGE - INTRO

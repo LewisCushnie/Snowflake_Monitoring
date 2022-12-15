@@ -4,6 +4,7 @@ from utils import snowflake_connector as sf
 from utils import sql
 
 def main():
+    
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
         
