@@ -5,12 +5,6 @@ from utils.df_styler import colour_df
 from utils import sql
 import datetime
 
-# st.set_page_config(
-#     page_title="Usage Insights app - Data Transfer",
-#     page_icon="🔹",
-#     layout="centered",
-# )
-
 def main():
 
     # VARAIBLES
