@@ -22,7 +22,27 @@ def UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days):
     '''
     return query
 
+TABLE_AND_VIEW_BREAKDOWN = '''
+select
+    SUM(CASE WHEN TABLE_TYPE = 'VIEW' THEN 1 ELSE 0 END) as view_count
+    ,SUM(CASE WHEN TABLE_TYPE = 'MATERIALIZED VIEW' THEN 1 ELSE 0 END) as materialized_view_count
+    ,SUM(CASE WHEN TABLE_TYPE = 'BASE TABLE' THEN 1 ELSE 0 END) as base_table_count
+    ,SUM(CASE WHEN TABLE_TYPE = 'EXTERNAL TABLE' THEN 1 ELSE 0 END) as external_table_count
+from SNOWFLAKE.ACCOUNT_USAGE.TABLES;
+'''
+
 #-------------- RESOURCE MONITORING ------------------
+WH_CREDIT_BREAKDOWN = '''
+select
+name as wh_name
+,sum(credits_used_compute) as compute
+,sum(credits_used_cloud_services) as cloud_services
+,sum(credits_used) as total
+,(cloud_services/total)*100 as perc_cloud
+from snowflake.account_usage.metering_history
+group by wh_name;
+'''
+
 STREAMLIT_CREDITS_USED = '''
 select
 sum(credits_used_cloud_services) as CREDITS_USED_STREAMLIT
