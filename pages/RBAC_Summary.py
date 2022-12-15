@@ -10,7 +10,7 @@ def main():
 
     st.title('RBAC Summary')
 
-    st.info(
+    st.success(
     '''
     The **RBAC Summary** page aims allows users to easily track ROLES and USERS assigned to these roles, the aim
     is to allow users to rapidly undertsand where grants have been assigned in a team.

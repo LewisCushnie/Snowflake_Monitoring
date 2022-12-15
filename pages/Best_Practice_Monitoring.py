@@ -41,10 +41,12 @@ def main():
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    st.title('Best Practice Monitoring')
-
+    #======================================================#
     # MAIN PAGE - INTRO
-    st.info(
+    #======================================================#
+    
+    st.title('Best Practice Monitoring')
+    st.success(
     '''
     The **Best Practice Monitoring** page provides a number of figures to monitor Snowflake best practices\
     it is the intention that the analysis on this page be used as a method for identiying areas of a (functional team's)\

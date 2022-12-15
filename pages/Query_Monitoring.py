@@ -3,19 +3,13 @@ import pandas as pd
 from utils import snowflake_connector as sf
 from utils import sql
 
-# st.set_page_config(
-#     page_title="Usage Insights app - Data Transfer",
-#     page_icon="🔹",
-#     layout="centered",
-# )
-
 def main():
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
+        
     st.title('Query Monitoring')
 
-    st.info(
+    st.success(
     '''The **Query Monitoring** page highlights frequently called, 
     and most expensive queries. The aim is to allow business domains and users to track query history and 
     optimise caching and warehouse compute.'''

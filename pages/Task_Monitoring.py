@@ -4,12 +4,6 @@ from utils import snowflake_connector as sf
 from utils import sql
 import datetime
 
-# st.set_page_config(
-#     page_title="Usage Insights app - Data Transfer",
-#     page_icon="🔹",
-#     layout="centered",
-# )
-
 def main():
 
     # VARAIBLES
@@ -44,12 +38,6 @@ def main():
 
     line = '---'
     st.sidebar.markdown(line)
-    
-    # # SIDEBAR - ACCOUNT PARAMETERS OF LINKED ACCOUNT
-    # query = sql.SNOWFLAKE_ACCOUNT_PARAMS
-    # SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
-    # SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
-    # st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
 
     # SIDEBAR - WAREHOUSE USAGE SUMMARY STATS
     st.sidebar.header('Warehouse usage summary stats')
@@ -66,7 +54,7 @@ def main():
     st.title('Task Monitoring Summary')
 
     # MAIN PAGE - INTRO
-    st.info(
+    st.success(
     '''
     The **Task Monitoring Summary** page provides a breakdown of task useage within each Snowflake account highlighting
     task credit usage and those which are/aren't currently running. The aim is to allow tasks to be easily tracked and ensure

@@ -14,8 +14,6 @@ def main():
     # SIDEBAR - WAREHOUSE USAGE SUMMARY STATS
     #======================================================#
 
-    line = '---'
-    st.sidebar.markdown(line)
     st.sidebar.header('Warehouse usage summary stats')
     query = sql.WH_USAGE_LAST_7_DAYS
     WH_USAGE_LAST_7_DAYS_df = sf.sql_to_dataframe(query)
