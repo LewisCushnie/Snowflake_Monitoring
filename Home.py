@@ -113,6 +113,7 @@ def main():
     https://www.analytics.today/blog/top-14-snowflake-data-engineering-best-practices \
     https://docs.snowflake.com/en/user-guide/cost-controlling.html \
     https://blog.devgenius.io/snowflake-cost-saving-9e6b05aee0bd \
+    https://www.snowflake.com/blog/10-best-practices-every-snowflake-admin-can-do-to-optimize-resources/ \
     '''
     )
 

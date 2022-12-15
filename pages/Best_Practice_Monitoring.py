@@ -74,9 +74,10 @@ def main():
     st.dataframe(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df)
 
     st.header('Unused tables in account')
-    st.info('The table below shows tables/views containing data that has not been used within the specified time period. It is\
-    the intention that unused data be reviewed, to check for any tables/views that could be removed from the\
-    account to reduce storage costs')
+    with st.expander("What's this for?"):
+        st.info('The table below shows tables/views containing data that has not been used within the specified time period. It is\
+        the intention that unused data be reviewed, to check for any tables/views that could be removed from the\
+        account to reduce storage costs')
     days = st.number_input('Number of days table/view has not been used:', value= 30)
     query = sql.UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days)
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
