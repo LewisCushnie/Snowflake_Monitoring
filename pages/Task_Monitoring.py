@@ -6,54 +6,18 @@ import datetime
 
 def main():
 
-    # VARAIBLES
-    default_width = 500
-
-    # SIDEBAR - SNOWFLAKE ACCOUNT PARAMETERS
-    query = sql.SNOWFLAKE_ACCOUNT_PARAMS
-    df = sf.sql_to_dataframe(query)
-    df = df.transpose()
-
-    current_user = df.loc['CURRENT_USER'].iloc[0]
-    st.sidebar.header(f'Hello, {current_user} ❄️')
-
-    role = df.loc['CURRENT_ROLE'].iloc[0]
-    #st.sidebar.text(f'Current role - {role}')
-
-    wh = df.loc['WAREHOUSE'].iloc[0]
-    #st.sidebar.text(f'Warehouse - {wh}')
-
-    st.sidebar.markdown(
-    f'''**Current Role** - {role}
-     **Current Warehouse** - {wh}'''
-    )
-
-    # SIDEBAR - CREDITS USED THROUGH STREAMLIT
-    # Credits used running queries through streamlit
-    query = sql.STREAMLIT_CREDITS_USED
-    STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
-    metric=round(STREAMLIT_CREDITS_USED_df['CREDITS_USED_STREAMLIT'].iloc[0],5)
-    remaining=round(100-metric,3)
-    st.sidebar.metric(label='**Credits used by Streamlit:**', value =metric, delta=f'{remaining} remaining')
-
-    line = '---'
-    st.sidebar.markdown(line)
-
-    # SIDEBAR - WAREHOUSE USAGE SUMMARY STATS
-    st.sidebar.header('Warehouse usage summary stats')
-    query = sql.WH_USAGE_LAST_7_DAYS
-    WH_USAGE_LAST_7_DAYS_df = sf.sql_to_dataframe(query)
-    metric=round(WH_USAGE_LAST_7_DAYS_df['CREDITS_USED_LAST_PERIOD'].iloc[0],5)
-    pct_change=round(WH_USAGE_LAST_7_DAYS_df['PCT_CHANGE'].iloc[0],3)
-    st.sidebar.metric(label='Credit usage over last 7 day period', value= metric, delta= f'{pct_change}%', delta_color= "inverse")
-
     # Apply formatting from the style.css file to the page
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    st.title('Task Monitoring Summary')
+    # GLOBAL VARAIBLES
+    default_width = 500
 
+    # ===========================================#
     # MAIN PAGE - INTRO
+    # ===========================================#
+
+    st.title('Task Monitoring Summary')
     st.success(
     '''
     The **Task Monitoring Summary** page provides a breakdown of task useage within each Snowflake account highlighting
@@ -62,7 +26,10 @@ def main():
     '''
     )
 
+    # ===========================================#
     # MAIN PAGE - WAREHOUSE USAGE COMPARISON BAR CHART
+    # ===========================================#
+
     line = '---'
     st.markdown(line)
     st.header('Account task run tracker')
@@ -75,7 +42,10 @@ def main():
     if raw_data:
         st.dataframe(SHOW_TASKS_df)
 
+    # ===========================================#
     # MAIN PAGE - STATUS SUMMARY
+    # ===========================================#
+
     line = '---'
     st.markdown(line)
     st.header('Account task status summary')
