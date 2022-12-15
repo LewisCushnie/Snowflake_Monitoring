@@ -102,7 +102,7 @@ def main():
     METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
     # Multiselect list
     five_most_used_df = METERING_TOP_10_df['CREDITS_USED'].nlargest(5)
-    five_most_used_list = five_most_used_loc_df.values.tolist()
+    five_most_used_list = five_most_used_df.values.tolist()
     st.write(five_most_used_list)
     wh_selected = st.multiselect("Pick Warehouse:", list(METERING_TOP_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
     # filter using panda's .loc
