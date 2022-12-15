@@ -59,7 +59,7 @@ def main():
     4) **Use resource monitors to track credit usage**
     5) **Split large files to minimize processing overhead**
     6) **Create alerts for reader accounts**
-    7) **Identify inefficient queries:** By looking for spilling in the query profile, if so,\ 
+    7) **Identify inefficient queries:** By looking for spilling in the query profile, if so,\
     consider changing to a bigger warehouses
     8) **Identify cases of query queueing:** If so, either increase the size or have more clusters(preferred).
     9) **Take advantage of caching:** Especially in test environments
