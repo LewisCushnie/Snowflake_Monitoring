@@ -130,7 +130,7 @@ def main():
         # if raw_data:
         #     st.dataframe(perc_df)
     # Raw data checkbox
-    raw_data = st.checkbox('Show raw availability data:')
+    raw_data = st.checkbox('Show raw warehouse data:')
 
     #======================================================#
     # MAIN PAGE: COMPUTE AVAILABILITY VS EXECUTION TIME
