@@ -124,7 +124,7 @@ def main():
     WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
 
     # Top n highest total credit usage warehouses
-    n_largest = 5
+    n_largest = st.number('Select n highest credit usage warehouses')
     WH_CREDIT_BREAKDOWN_TOP_N = WH_CREDIT_BREAKDOWN_df['TOTAL'].nlargest(n_largest)
     WH_CREDIT_BREAKDOWN_df = WH_CREDIT_BREAKDOWN_df.iloc[WH_CREDIT_BREAKDOWN_TOP_N.index]
 
