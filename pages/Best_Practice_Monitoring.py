@@ -68,20 +68,36 @@ def main():
      too long > suggest changing to permenant. Also, avoid using materialised view unless necessary.\
      Try to make more use of transient tables as they truncate history tables and save on storage costs')
 
+    # EMPTY TABLES IN ACCOUNT
     st.header('Empty tables in account')
     query = sql.EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     st.dataframe(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df)
-
-    st.header('Unused tables in account')
     with st.expander("What's this for?"):
-        st.info('The table below shows tables/views containing data that has not been used within the specified time period. It is\
-        the intention that unused data be reviewed, to check for any tables/views that could be removed from the\
-        account to reduce storage costs')
+        st.info('The dataframe above shows tables/views in the account that do not contain any data. This allows\
+        unused/accidentally created tables to be identified and removed from the account'
+        )
+
+   # UNUSED TABLES IN ACCOUNT
+    st.header('Unused tables in account')
     days = st.number_input('Number of days table/view has not been used:', value= 30)
     query = sql.UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days)
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df)
+    with st.expander("What's this for?"):
+        st.info('The dataframe above shows tables/views containing data that has not been used within the specified time period. It is\
+        the intention that unused data be reviewed, to check for any tables/views that could be removed from the\
+        account to reduce storage costs'
+        )
+
+   # TABLE AND VIEW TYPE SUMMARY
+    st.header('Table and view type summary')
+
+    with st.expander("What's this for?"):
+        st.info('The dataframe above shows tables/views containing data that has not been used within the specified time period. It is\
+        the intention that unused data be reviewed, to check for any tables/views that could be removed from the\
+        account to reduce storage costs'
+        )
 
     #======================================================#
     # MAIN PAGE: COPY INTO V.S INSERT INTO
