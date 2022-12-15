@@ -65,7 +65,15 @@ def main():
      too long > suggest changing to permenant. Also, avoid using materialised view unless necessary.\
      Try to make more use of transient tables as they truncate history tables and save on storage costs')
 
-    
+    st.header('Empty tables in account')
+    query = sql.EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT
+    EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
+    st.dataframe(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df)
+
+    st.header('Unused tables in account')
+    query = sql.UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT
+    UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
+    st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df)
 
     # MAIN PAGE: COPY INTO V.S INSERT INTO
     line = '---'
