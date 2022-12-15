@@ -61,9 +61,11 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Transient, Temporary, and Materialised Views/Tables')
-    st.write('Transient and temporary are meant to be short-lived tables, check they are not persisting for\
+    st.info('Transient and temporary are meant to be short-lived tables, check they are not persisting for\
      too long > suggest changing to permenant. Also, avoid using materialised view unless necessary.\
      Try to make more use of transient tables as they truncate history tables and save on storage costs')
+
+    
 
     # MAIN PAGE: COPY INTO V.S INSERT INTO
     line = '---'

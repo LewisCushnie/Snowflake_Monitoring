@@ -1,3 +1,25 @@
+#-------------- BEST PRACTICE MONITORING -------------
+
+EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT = '''
+select table_schema
+       ,table_name
+       ,'IS EMPTY' as empty
+       ,last_altered
+from snowflake.account_usage.tables
+where row_count = 0
+order by table_schema, table_name;
+'''
+
+UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT = '''
+select table_schema
+       ,table_name
+       ,last_altered
+       ,table_type
+from snowflake.account_usage.tables
+where last_altered < dateadd( 'DAY', -28, current_timestamp() ) 
+order by table_schema, table_name;
+'''
+
 #-------------- RESOURCE MONITORING ------------------
 STREAMLIT_CREDITS_USED = '''
 select
