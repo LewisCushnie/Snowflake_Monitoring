@@ -16,12 +16,16 @@ def main():
     # VARAIBLES
     default_width = 500
 
+    #======================================================#
     # SIDEBAR - SNOWFLAKE ACCOUNT PARAMETERS
+    #======================================================#
+
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
     df = sf.sql_to_dataframe(query)
+    
     df = df.transpose()
-
     current_user = df.loc['CURRENT_USER'].iloc[0]
+
     st.sidebar.header(f'Hello, {current_user} ❄️')
 
     role = df.loc['CURRENT_ROLE'].iloc[0]
@@ -35,7 +39,10 @@ def main():
      **Current Warehouse** - {wh}'''
     )
 
+    #======================================================#
     # SIDEBAR - CREDITS USED THROUGH STREAMLIT
+    #======================================================#
+
     # Credits used running queries through streamlit
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
@@ -43,16 +50,12 @@ def main():
     remaining=round(100-metric,3)
     st.sidebar.metric(label='**Credits used by Streamlit:**', value =metric, delta=f'{remaining} remaining')
 
+    #======================================================#
+    # SIDEBAR - WAREHOUSE USAGE SUMMARY STATS
+    #======================================================#
+
     line = '---'
     st.sidebar.markdown(line)
-    
-    # # SIDEBAR - ACCOUNT PARAMETERS OF LINKED ACCOUNT
-    # query = sql.SNOWFLAKE_ACCOUNT_PARAMS
-    # SNOWFLAKE_ACCOUNT_PARAMS_df = sf.sql_to_dataframe(query)
-    # SNOWFLAKE_ACCOUNT_PARAMS_df = SNOWFLAKE_ACCOUNT_PARAMS_df.transpose()
-    # st.sidebar.dataframe(SNOWFLAKE_ACCOUNT_PARAMS_df)
-
-    # SIDEBAR - WAREHOUSE USAGE SUMMARY STATS
     st.sidebar.header('Warehouse usage summary stats')
     query = sql.WH_USAGE_LAST_7_DAYS
     WH_USAGE_LAST_7_DAYS_df = sf.sql_to_dataframe(query)
@@ -66,7 +69,10 @@ def main():
 
     st.title('Resource Monitoring Summary')
 
+    #======================================================#
     # MAIN PAGE - INTRO
+    #======================================================#
+
     st.info(
     '''
     The **Resource Monitoring Summary** page provides a breakdown of resource useage within each Snowflake account highlighting
@@ -74,30 +80,19 @@ def main():
     '''
     )
 
-    # MAIN PAGE - METERING SUMMARY
-    line = '---'
-    st.markdown(line)
-    metering_left_column, metering_right_column = st.columns(2)
-    query = sql.METERING_HISTORY
-    METERING_HISTORY_df = sf.sql_to_dataframe(query)
-    with metering_right_column:
-        st.header("Metering Summary:")
-        st.dataframe(METERING_HISTORY_df)
-
-    # MAIN PAGE - WAREHOUSE USAGE TABLE
-    query = sql.METERING_TOP_10
-    METERING_TOP_10_df = sf.sql_to_dataframe(query)
-    with metering_left_column:
-        st.header('Warehouse Usage')
-        st.dataframe(METERING_TOP_10_df)
-
+    #======================================================#
     # SIDEBAR - MOST USED WAREHOUSE
+    #======================================================#
+
     most_used_loc = METERING_TOP_10_df['CREDITS_USED'].idxmax()
     most_used_wh = METERING_TOP_10_df['NAME'].iloc[most_used_loc]
     amount_used = round(METERING_TOP_10_df['CREDITS_USED'].iloc[most_used_loc], 3)
     st.sidebar.metric(label='Most used warehouse', value= most_used_wh, delta= f'{amount_used} Credits', delta_color= "normal")
 
+    #======================================================#
     # MAIN PAGE - WAREHOUSE USAGE COMPARISON BAR CHART
+    #======================================================#
+    
     line = '---'
     st.markdown(line)
     st.header('Warehouse usage comparison chart')
@@ -114,10 +109,14 @@ def main():
     if raw_data:
         st.dataframe(wh_to_show_df)
 
-    # MAIN PAGE: COMPUTE_CREDITS_PER_DAY BAR CHART
+    #======================================================#
+    # MAIN PAGE: COMPUTE CREDITS PER DAY
+    #======================================================#
+
     line = '---'
     st.markdown(line)
     st.header('Total compute credit usage per day')
+
     st.write('Cost assumes $4/credit')
     query = sql.COMPUTE_CREDITS_PER_DAY
     COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
@@ -135,8 +134,10 @@ def main():
     # Select DataFrame rows between two dates
     date_mask = (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] > slider_values[0]) & (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= slider_values[1])
     COMPUTE_CREDITS_PER_DAY_FILTERED_df = COMPUTE_CREDITS_PER_DAY_df.loc[date_mask]
-    # Create the bar chart with filtered values
+
+    # Create bar chart with filtered values
     st.bar_chart(COMPUTE_CREDITS_PER_DAY_FILTERED_df, x= 'Usage Week', y= ['Compute Credits Used','Cost ($)'])
+
     # Raw data checkbox
     raw_data = st.checkbox('Show raw compute data:')
     if raw_data:
@@ -145,7 +146,10 @@ def main():
         subset=pd.IndexSlice[:,['Cost ($)']])
         st.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df, width=1000)
 
-    # COMPUTE AVAILABILITY VS EXECUTION TIME
+    #======================================================#
+    # MAIN PAGE: COMPUTE AVAILABILITY VS EXECUTION TIME
+    #======================================================#
+
     line = '---'
     st.markdown(line)
     st.header('Compute availablity v.s execution time')
