@@ -74,7 +74,7 @@ def main():
     st.dataframe(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df)
 
     st.header('Unused tables in account')
-    days = 28
+    days = 3
     query = sql.UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days)
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df)
