@@ -92,7 +92,7 @@ def main():
     five_most_used_loc = METERING_TOP_10_df['CREDITS_USED'].nlargest(5)
     st.write(five_most_used_loc)
     #five_most_used_wh = METERING_TOP_10_df['NAME'].iloc[five_most_used_loc]
-    five_most_used_list = five_most_used_wh.values.tolist()
+    five_most_used_list = five_most_used_loc.values.tolist()
     st.write(five_most_used_list)
     amount_used = round(METERING_TOP_10_df['CREDITS_USED'].iloc[most_used_loc], 3)
     st.sidebar.metric(label='Most used warehouse', value= most_used_wh, delta= f'{amount_used} Credits', delta_color= "normal")
