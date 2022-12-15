@@ -47,13 +47,14 @@ def main():
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    st.title('Resource Monitoring Summary')
+    st.title('Best Practice Monitoring')
 
     # MAIN PAGE - INTRO
     st.info(
     '''
-    The **Resource Monitoring Summary** page provides a breakdown of resource useage within each Snowflake account highlighting
-    how and where credits are being consumed. The aim is to allow easy identification of inefficient or missused resources.
+    The **Best Practice Monitoring** page provides a number of figures to monitor Snowflake best practices\
+    it is the intention that the analysis on this page be used as a method for identiying areas of a (functional team's)\
+    snowflake workflow that could be optimised to further cut costs
     '''
     )
 
