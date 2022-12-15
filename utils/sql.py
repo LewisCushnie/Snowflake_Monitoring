@@ -112,7 +112,6 @@ WITH availability_time AS
 TO_CHAR(convert_timezone('UTC', start_time::timestamp_ntz), 'MM/DD/YYYY HH24') as hour
 ,ROUND(SUM(credits_used_compute),2) AS compute_credits_used
 ,compute_credits_used * 60 * 60 AS compute_availability_sec
-,(compute_credits_used/compute_availability_sec)*100 as perc_warehouse_utilisation
 FROM snowflake.account_usage.warehouse_metering_history
 WHERE start_time BETWEEN date_trunc('day', dateadd('day',-7,convert_timezone('UTC',current_timestamp()))) AND current_timestamp()
 AND warehouse_name = 'COMPUTE_WH'--:warehouse_name
@@ -136,7 +135,7 @@ GROUP BY hour
 
 --ORDER BY 1;
 SELECT at.hour, at.compute_credits_used, at.compute_availability_sec, total_exec_time_sec
---,(total_exec_time_sec / at.compute_availability_sec ) * 100 AS pct_utilization,
+,(total_exec_time_sec / at.compute_availability_sec ) * 100 AS pct_utilization,
 ,median_query_load_pct, median_query_load_pct / 64 as median_query_load_pct_3xl
 FROM availability_time at JOIN
 query_time qt ON at.hour = qt.hour;
