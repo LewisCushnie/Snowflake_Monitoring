@@ -132,7 +132,7 @@ def main():
     column=alt.Column('Usage Week:N'),
     x=alt.X('QUANTITY:O', axis=False),
     y=alt.Y('COUNT:Q', axis= alt.Axis(grid=False)),
-    color=Color('QUANTITY:N')
+    color= alt.Color('QUANTITY:N')
     ).configure_facet_cell(
         strokeWidth=0.0,
     )
