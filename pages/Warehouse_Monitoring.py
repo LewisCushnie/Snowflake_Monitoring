@@ -133,7 +133,7 @@ def main():
     as_=['QUANTITY', 'COUNT']
     ).mark_bar().encode(
     column=alt.Column('Usage Week:N', 
-                    axis= alt.Axis(axisWidth=1.0, offset=-8.0, orient='bottom'),
+                    axis= alt.Axis(offset=-8.0, orient='bottom'),
                     scale= alt.Scale(padding=4.0)),
     x=alt.X('QUANTITY:O', axis=False),
     y=alt.Y('COUNT:Q', axis= alt.Axis(grid=False)),
