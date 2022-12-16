@@ -145,16 +145,16 @@ def main():
 
     METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
     METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
-    
+
     query = sql.WH_CREDIT_BREAKDOWN
     WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
 
     selection = st.selectbox(
     'Select warehouse analysis type:', 
-    ('A', 'n most used warehouses'))
+    ('Warehouse comparison', 'n most used warehouses'))
     
 
-    if selection == 'A':
+    if selection == 'Warehouse comparison':
         # Multiselect list
         wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
         list(METERING_TOP_10_df.index), five_most_used_wh_list)
@@ -183,7 +183,7 @@ def main():
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
     else:
-        WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
+        #WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
 
         # Create altair chart
         chart = alt.Chart(WH_CREDIT_df.reset_index()).transform_fold(
