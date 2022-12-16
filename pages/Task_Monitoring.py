@@ -56,7 +56,7 @@ def main():
     as_=['STATUS', 'COUNT']
     ).mark_bar().encode(
     x= 'NAME',
-    y= 'COUNT'
+    y= 'COUNT',
     column= 'STATUS'
     )
 
