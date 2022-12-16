@@ -39,16 +39,12 @@ def main():
 
     st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= ['RUNS', 'COUNT_SUCCEEDED', 'COUNT_FAILED'])
 
-    df = pd.DataFrame([['Action', 5, 'F'], 
-                    ['Crime', 10, 'F'], 
-                    ['Action', 3, 'M'], 
-                    ['Crime', 9, 'M']], 
-                    columns=['Genre', 'Rating', 'Gender'])
-
-    chart = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
+    runs = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
     x=alt.X('NAME'),
     y=alt.Y('RUNS')
     )
+
+    st.altair_chart(chart, theme= 'streamlit')
 
     df = pd.DataFrame({
         'name': ['brian', 'dominik', 'patricia'],
@@ -66,27 +62,21 @@ def main():
 
     st.altair_chart(c, use_container_width=True)
 
-    # df = pd.DataFrame([['Action', 5, 'F'], 
-    #                 ['Crime', 10, 'F'], 
-    #                 ['Action', 3, 'M'], 
-    #                 ['Crime', 9, 'M']], 
-    #                 columns=['Genre', 'Rating', 'Gender'])
+    df = pd.DataFrame([['Action', 5, 'F'], 
+                    ['Crime', 10, 'F'], 
+                    ['Action', 3, 'M'], 
+                    ['Crime', 9, 'M']], 
+                    columns=['Genre', 'Rating', 'Gender'])
 
-    # chart = alt.Chart(df).mark_bar().encode(
-    # x=alt.X('Genre', axis=alt.Axis(labelAngle=0)),
-    # y=alt.Y('Rating', axis=alt.Axis(grid=False)),
-    # color='Gender'
-    # ).configure_view(
-    #     stroke=None,
-    # )
-
-    st.altair_chart(chart, theme= 'streamlit')
-
-    alt.Chart(SHOW_TASKS_df).mark_bar().encode(
-    x='STATUS',
-    y=['RUNS', 'COUNT_SUCCEEDED', 'COUNT_FAILED'],
-    column='NAME'
+    chart = alt.Chart(df).mark_bar().encode(
+    x=alt.X('Genre', axis=alt.Axis(labelAngle=0)),
+    y=alt.Y('Rating', axis=alt.Axis(grid=False)),
+    color='Gender'
+    ).configure_view(
+        stroke=None,
     )
+
+    st.altair(chart)
     
     raw_data = st.checkbox('Show raw task history data:')
     if raw_data:
