@@ -135,7 +135,7 @@ GROUP BY hour
 
 --ORDER BY 1;
 SELECT at.hour, at.compute_credits_used, at.compute_availability_sec, total_exec_time_sec
-,(total_exec_time_sec / at.compute_availability_sec ) AS pct_utilization
+,(total_exec_time_sec / at.compute_availability_sec ) * 100 AS pct_utilization
 FROM availability_time at JOIN
 query_time qt ON at.hour = qt.hour;
 '''

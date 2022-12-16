@@ -216,6 +216,7 @@ def main():
     utilisation = st.checkbox('Show warehouse utlisation:')
     if utilisation:
         filtered_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'PCT_UTILIZATION']]
+        filtered_df['PCT_UTILIZATION'] = filtered_df['PCT_UTILIZATION'].div(100)
 
         # Create altair chart
         chart = alt.Chart(filtered_df.reset_index()).mark_bar().encode(
