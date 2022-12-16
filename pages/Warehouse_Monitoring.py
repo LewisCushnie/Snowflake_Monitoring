@@ -163,14 +163,21 @@ def main():
         ['PERC_COMPUTE', 'PERC_CLOUD'],
         as_=['CATEGORY', 'PERCENTAGE']
         ).mark_bar().encode(
-        x= alt.X('WH_NAME:N', sort= '-y'),
-        y= alt.Y('CATEGORY:Q'),
+        x= alt.X('WH_NAME', sort= '-y'),
+        y= alt.Y('PERCENTAGE:Q'),
         color= 'CATEGORY:N'
         )
 
         st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
 
-
+    # chart = alt.Chart(SHOW_TASKS_df).transform_fold(
+    # ['COUNT_SUCCEEDED', 'COUNT_FAILED'],
+    # as_=['STATUS', 'COUNT']
+    # ).mark_bar().encode(
+    # x= alt.X('NAME', sort= '-y'),
+    # y= alt.Y('COUNT:Q'),
+    # color= 'STATUS:N'
+    # )
 
     # Raw data checkbox
     raw_data = st.checkbox('Show raw warehouse usage data')
