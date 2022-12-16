@@ -102,10 +102,7 @@ def main():
         # Multiselect list
         wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
         list(WH_CREDIT_BREAKDOWN_df['WH_NAME']), five_most_used_wh_list)
-        st.write(wh_selected)
-        #filtered_df = WH_CREDIT_BREAKDOWN_df.loc[wh_selected]
         filtered_df = WH_CREDIT_BREAKDOWN_df.loc[WH_CREDIT_BREAKDOWN_df['WH_NAME'].isin(wh_selected)]
-        st.write(filtered_df)
 
         # Create altair chart
         chart = alt.Chart(filtered_df).mark_bar().encode(
@@ -119,7 +116,7 @@ def main():
 
         # Top n highest total credit usage warehouses
         n_largest = st.number_input('Select n highest credit usage warehouses:', step= 1, value= 5)
-        WH_CREDIT_BREAKDOWN_TOP_N = WH_CREDIT_BREAKDOWN_df['TOTAL'].nlargest(n_largest)
+        WH_CREDIT_BREAKDOWN_TOP_N = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].nlargest(n_largest)
         WH_CREDIT_BREAKDOWN_df = WH_CREDIT_BREAKDOWN_df.iloc[WH_CREDIT_BREAKDOWN_TOP_N.index]
 
         percentage = st.checkbox('Show as percentages:')
