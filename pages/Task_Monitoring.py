@@ -54,7 +54,7 @@ def main():
         stroke=None,
     )
 
-    st.bar_chart(chart)
+    st.altair_chart(chart)
 
     alt.Chart(SHOW_TASKS_df).mark_bar().encode(
     x='STATUS',
