@@ -51,7 +51,7 @@ def main():
     x='NAME', y='COUNT_FAILED')
 
     c = alt.layer(a, b)
-    st.altair_chart(c, use_container_width=True)
+    st.altair_chart(c, use_container_width=True, theme= 'streamlit')
     
     raw_data = st.checkbox('Show raw task history data:')
     if raw_data:
