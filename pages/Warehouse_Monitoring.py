@@ -92,11 +92,11 @@ def main():
         # Top n highest total credit usage warehouses
         n_largest = st.number_input('Select n highest credit usage warehouses:', step= 1, value= 5)
         WH_CREDIT_BREAKDOWN_TOP_N = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].nlargest(n_largest)
-        WH_CREDIT_BREAKDOWN_df = WH_CREDIT_BREAKDOWN_df.iloc[WH_CREDIT_BREAKDOWN_TOP_N.index]
+        filtered_df = WH_CREDIT_BREAKDOWN_df.iloc[WH_CREDIT_BREAKDOWN_TOP_N.index]
 
         percentage = st.checkbox('Show as percentages:')
         if percentage:
-            WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','PERC_COMPUTE', 'PERC_CLOUD']]
+            WH_CREDIT_df = filtered_df[['WH_NAME','PERC_COMPUTE', 'PERC_CLOUD']]
 
             # Create altair chart
             chart = alt.Chart(WH_CREDIT_df.reset_index()).transform_fold(
@@ -110,10 +110,10 @@ def main():
             st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
         else:
-            WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE_CREDITS', 'CLOUD_SERVICES_CREDITS']]
+            WH_CREDIT_df = filtered_df[['WH_NAME','COMPUTE_CREDITS', 'CLOUD_SERVICES_CREDITS']]
 
             # Create altair chart
-            chart = alt.Chart(WH_CREDIT_BREAKDOWN_df.reset_index()).transform_fold(
+            chart = alt.Chart(filtered_df.reset_index()).transform_fold(
             ['COMPUTE_CREDITS', 'CLOUD_SERVICES_CREDITS'],
             as_=['CATEGORY', 'CREDITS']
             ).mark_bar().encode(
