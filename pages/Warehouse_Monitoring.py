@@ -147,12 +147,8 @@ def main():
 
     selection = st.selectbox(
     'Select warehouse analysis type:', 
-    ('A', 'n most used warehouses')
-    )
-
-    st.write(selection)
-
-    st.write('Current selection:', selection)
+    ('A', 'n most used warehouses'))
+    
 
     if selection == 'A':
         # Multiselect list
