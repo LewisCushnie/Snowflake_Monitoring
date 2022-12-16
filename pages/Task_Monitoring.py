@@ -46,9 +46,8 @@ def main():
                     columns=['Genre', 'Rating', 'Gender'])
 
     chart = alt.Chart(df).mark_bar().encode(
-    x=alt.X('Genre'),
-    y=alt.Y('Rating'),
-    color='Gender'
+    x=alt.X('NAME'),
+    y=alt.Y(['RUNS', 'COUNT_SUCCEEDED', 'COUNT_FAILED'])
     )
 
     # df = pd.DataFrame([['Action', 5, 'F'], 
