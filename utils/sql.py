@@ -238,7 +238,8 @@ select NAME
 ,sum(case when STATE = 'SUCCEEDED'  then 1 else 0 end) as count_succeeded
 ,sum(case when STATE = 'FAILED' then 1 else 0 end) as count_failed
 from snowflake.account_usage.task_history
-group by NAME;
+group by NAME
+order by runs;
 '''
 
 if __name__ == "__main__":
