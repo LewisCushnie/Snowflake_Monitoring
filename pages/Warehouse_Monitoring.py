@@ -51,7 +51,6 @@ def main():
     # Top 5 most used warehouses
     five_most_used_df = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].nlargest(5)
     five_most_used_wh_list = WH_CREDIT_BREAKDOWN_df['WH_NAME'].iloc[five_most_used_df.index].tolist()
-    st.write(five_most_used_wh_list)
 
     amount_used = round(WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].iloc[most_used_loc], 3)
     st.sidebar.metric(label='Most used warehouse', value= most_used_wh, delta= f'{amount_used} Credits', delta_color= "normal")
@@ -79,6 +78,8 @@ def main():
     query = sql.WH_CREDIT_BREAKDOWN
     WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
     WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'] = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].astype(float)
+    st.write(five_most_used_wh_list)
+    st.write(WH_CREDIT_BREAKDOWN_df)
 
     #METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
     #METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
