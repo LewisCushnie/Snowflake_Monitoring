@@ -47,7 +47,6 @@ def main():
 
     chart = alt.Chart(df).mark_bar().encode(
     x=alt.X('Genre', axis=alt.Axis(labelAngle=0)),
-    xOffset='Gender',
     y=alt.Y('Rating', axis=alt.Axis(grid=False)),
     color='Gender'
     ).configure_view(
