@@ -59,7 +59,7 @@ def main():
     y= 'COUNT:Q'
     )
 
-    st.altair_chart(test, theme= 'streamlit')
+    st.altair_chart(test, use_container_width= True, theme= 'streamlit')
 
     # a = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
     # x='NAME', y='COUNT_SUCCEEDED')
