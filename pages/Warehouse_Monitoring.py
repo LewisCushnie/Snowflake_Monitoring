@@ -120,8 +120,8 @@ def main():
     ).mark_bar().encode(
     x= 'Usage Week:O',
     y= 'COUNT:Q',
-    color= 'QUANTITY:N',
-    column= 'Usage Week:O'
+    #color= 'QUANTITY:N',
+    column= 'QUANTITY:N'
     )
     
     st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
