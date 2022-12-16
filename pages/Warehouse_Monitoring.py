@@ -133,8 +133,8 @@ def main():
     as_=['QUANTITY', 'COUNT']
     ).mark_bar().encode(
     column=alt.Column('Usage Week:N'),
-    x=alt.X('QUANTITY:O', axis=None),
-    y=alt.Y('COUNT:Q', axis= alt.Axis(grid=None)),
+    x=alt.X('QUANTITY:O'),
+    y=alt.Y('COUNT:Q'),
     color=alt.Color('QUANTITY:N')
     )
 
