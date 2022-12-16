@@ -61,3 +61,13 @@ Snowflake training docs pages to refer to
     )
 
     st.altair_chart(chart)
+
+
+ALTAIR NOTES:
+# NOTE: Altair does not read index columns so must reset if theres is data in the index you want to plot
+# NOTE: Altair has data type identifiers:
+Data Type	    Shorthand Code	    Description
+quantitative	Q	                a continuous real-valued quantity
+ordinal	        O	                a discrete ordered quantity
+nominal	        N	                a discrete unordered category
+temporal	    T	                a time or date value
