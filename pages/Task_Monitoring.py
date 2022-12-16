@@ -45,7 +45,7 @@ def main():
                     ['Crime', 9, 'M']], 
                     columns=['Genre', 'Rating', 'Gender'])
 
-    chart = alt.Chart(df).mark_bar().encode(
+    chart = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
     x=alt.X('NAME'),
     y=alt.Y(['RUNS', 'COUNT_SUCCEEDED', 'COUNT_FAILED'])
     )
