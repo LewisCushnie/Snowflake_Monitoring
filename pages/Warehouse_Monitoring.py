@@ -137,7 +137,7 @@ def main():
                     scale= alt.Scale(padding=4.0)),
     x=alt.X('QUANTITY:O', axis=False),
     y=alt.Y('COUNT:Q', axis= alt.Axis(grid=False)),
-    color=Color('QUANTITY:N')
+    color=alt.Color('QUANTITY:N')
     ).configure_facet_cell(
         strokeWidth=0.0,
     )
