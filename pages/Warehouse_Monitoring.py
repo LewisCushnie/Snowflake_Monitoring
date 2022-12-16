@@ -120,6 +120,7 @@ def main():
     ).mark_bar().encode(
     x= alt.X('Usage Week'),
     y= alt.Y('COUNT:Q'),
+    columns= 'QUANTITY',
     color= 'QUANTITY:N'
     )
     
