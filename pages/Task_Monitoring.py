@@ -49,8 +49,6 @@ def main():
     x=alt.X('Genre'),
     y=alt.Y('Rating'),
     color='Gender'
-    ).configure_view(
-        stroke=None,
     )
 
     # df = pd.DataFrame([['Action', 5, 'F'], 
