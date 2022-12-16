@@ -79,26 +79,42 @@ def main():
         list(WH_CREDIT_BREAKDOWN_df['WH_NAME']), five_most_used_wh_list)
         filtered_df = WH_CREDIT_BREAKDOWN_df.loc[WH_CREDIT_BREAKDOWN_df['WH_NAME'].isin(wh_selected)]
 
-        # Create altair chart
-        chart = alt.Chart(filtered_df).mark_bar().encode(
-        x= alt.X('WH_NAME:N', sort= '-y'),
-        y= alt.Y('TOTAL_CREDITS:Q')
-        )
+        # # Create altair chart
+        # chart = alt.Chart(filtered_df).mark_bar().encode(
+        # x= alt.X('WH_NAME:N', sort= '-y'),
+        # y= alt.Y('TOTAL_CREDITS:Q')
+        # )
 
-        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+        # st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+        percentage = st.checkbox('Show as percentages:')
+        if percentage:
+            WH_CREDIT_df = filtered_df[['WH_NAME','PERC_COMPUTE', 'PERC_CLOUD']]
 
-        WH_CREDIT_df = filtered_df[['WH_NAME','PERC_COMPUTE', 'PERC_CLOUD']]
+            # Create altair chart
+            chart = alt.Chart(WH_CREDIT_df.reset_index()).transform_fold(
+            ['PERC_COMPUTE', 'PERC_CLOUD'],
+            as_=['CATEGORY', 'PERCENTAGE']
+            ).mark_bar().encode(
+            x= alt.X('WH_NAME', sort= '-y'),
+            y= alt.Y('PERCENTAGE:Q'),
+            color= 'CATEGORY:N'
+            )
+            st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
-        # Create altair chart
-        chart = alt.Chart(WH_CREDIT_df.reset_index()).transform_fold(
-        ['PERC_COMPUTE', 'PERC_CLOUD'],
-        as_=['CATEGORY', 'PERCENTAGE']
-        ).mark_bar().encode(
-        x= alt.X('WH_NAME', sort= '-y'),
-        y= alt.Y('PERCENTAGE:Q'),
-        color= 'CATEGORY:N'
-        )
-        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+        else:
+            WH_CREDIT_df = filtered_df[['WH_NAME','COMPUTE_CREDITS', 'CLOUD_SERVICES_CREDITS']]
+
+            # Create altair chart
+            chart = alt.Chart(filtered_df.reset_index()).transform_fold(
+            ['COMPUTE_CREDITS', 'CLOUD_SERVICES_CREDITS'],
+            as_=['CATEGORY', 'CREDITS']
+            ).mark_bar().encode(
+            x= alt.X('WH_NAME', sort= '-y'),
+            y= alt.Y('CREDITS:Q'),
+            color= 'CATEGORY:N'
+            )
+            st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+        
     
     elif selection == 'n most used warehouses':
 
