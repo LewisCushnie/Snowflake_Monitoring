@@ -54,7 +54,7 @@ def main():
         stroke=None,
     )
 
-    chart.display() # will show the plot
+    st.bar_chart(chart)
 
     alt.Chart(SHOW_TASKS_df).mark_bar().encode(
     x='STATUS',
