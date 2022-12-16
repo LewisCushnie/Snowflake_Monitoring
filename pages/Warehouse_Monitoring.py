@@ -78,6 +78,11 @@ def main():
     query = sql.WH_CREDIT_BREAKDOWN
     WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
     WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'] = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].astype(float)
+
+    # Top 5 most used warehouses
+    five_most_used_df = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].nlargest(5)
+    five_most_used_wh_list = WH_CREDIT_BREAKDOWN_df['WH_NAME'].iloc[five_most_used_df.index].tolist()
+
     st.write(five_most_used_wh_list)
     st.write(WH_CREDIT_BREAKDOWN_df)
 
