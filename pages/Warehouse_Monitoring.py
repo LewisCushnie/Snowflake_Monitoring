@@ -59,80 +59,6 @@ def main():
     #======================================================#
     # MAIN PAGE - WAREHOUSE USAGE COMPARISON BAR CHART
     #======================================================#
-    
-    # line = '---'
-    # st.markdown(line)
-    # st.header('Warehouse usage comparison chart')
-
-    # METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
-    # METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
-
-    # # Multiselect list
-    # wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
-    #  list(METERING_TOP_10_df.index), five_most_used_wh_list)
-    # wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
-
-    # # Create altair chart
-    # chart = alt.Chart(wh_to_show_df.reset_index()).mark_bar().encode(
-    # x= alt.X('NAME:N', sort= '-y'),
-    # y= alt.Y('CREDITS_USED:Q')
-    # )
-
-    # st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
-
-    # # Raw data checkbox
-    # raw_data = st.checkbox('Show raw warehouse data:')
-    # if raw_data:
-    #     st.dataframe(wh_to_show_df)
-
-    #======================================================#
-    # MAIN PAGE: COMPUTE CREDITS PER DAY
-    #======================================================#
-
-    line = '---'
-    st.markdown(line)
-    st.header('Total compute credit usage per day')
-
-    st.write('Cost assumes $4/credit')
-    query = sql.COMPUTE_CREDITS_PER_DAY
-    COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
-
-    # Add slider:
-    min_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].min()
-    max_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].max()
-    auto_date_lower = min_date
-    auto_date_higher = max_date
-    slider_values = st.slider(
-    'Select date range',
-    min_date, max_date, (auto_date_lower, auto_date_higher)
-    )
-
-    # Select DataFrame rows between two dates
-    date_mask = (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] > slider_values[0]) & (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= slider_values[1])
-    filtered_df = COMPUTE_CREDITS_PER_DAY_df.loc[date_mask]
-
-    # Create bar chart with filtered values
-    st.bar_chart(filtered_df, x= 'Usage Week', y= ['Compute Credits Used','Cost ($)'])
-
-    # chart = alt.Chart(filtered_df).transform_fold(
-    # ['Compute Credits Used', 'Cost ($)'],
-    # as_=['QUANTITY', 'COUNT']
-    # ).mark_bar().encode(
-    # x= alt.X('QUANTITY:O', axis=alt.Axis(title=None)),
-    # y= 'COUNT:Q',
-    # color= 'QUANTITY:N',
-    # column= alt.Column('Usage Week:N')
-    # )
-
-    # st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
-
-    # Raw data checkbox
-    raw_data = st.checkbox('Show raw compute data:')
-    if raw_data:
-        st.text('Red - $10+ per day | Orange - $5-$10 per day | Green - Less than $5 per day')
-        filtered_df = filtered_df.style.applymap(colour_df,
-        subset=pd.IndexSlice[:,['Cost ($)']])
-        st.dataframe(filtered_df, width=1000)
 
     #======================================================#
     # MAIN PAGE: WAREHOUSE CREDIT USAGE BREAKDOWN
@@ -151,33 +77,7 @@ def main():
     selection = st.selectbox(
     'Select warehouse analysis type:', 
     ('Warehouse comparison', 'n most used warehouses'))
-
-        # line = '---'
-    # st.markdown(line)
-    # st.header('Warehouse usage comparison chart')
-
-    # METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
-    # METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
-
-    # # Multiselect list
-    # wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
-    #  list(METERING_TOP_10_df.index), five_most_used_wh_list)
-    # wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
-
-    # # Create altair chart
-    # chart = alt.Chart(wh_to_show_df.reset_index()).mark_bar().encode(
-    # x= alt.X('NAME:N', sort= '-y'),
-    # y= alt.Y('CREDITS_USED:Q')
-    # )
-
-    # st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
-
-    # # Raw data checkbox
-    # raw_data = st.checkbox('Show raw warehouse data:')
-    # if raw_data:
-    #     st.dataframe(wh_to_show_df)
     
-
     if selection == 'Warehouse comparison':
         # Multiselect list
         wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
@@ -260,6 +160,80 @@ def main():
     # raw_data = st.checkbox('Show raw warehouse usage data')
     # if raw_data:
     #     st.dataframe(WH_CREDIT_df)
+    
+    # line = '---'
+    # st.markdown(line)
+    # st.header('Warehouse usage comparison chart')
+
+    # METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
+    # METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
+
+    # # Multiselect list
+    # wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
+    #  list(METERING_TOP_10_df.index), five_most_used_wh_list)
+    # wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
+
+    # # Create altair chart
+    # chart = alt.Chart(wh_to_show_df.reset_index()).mark_bar().encode(
+    # x= alt.X('NAME:N', sort= '-y'),
+    # y= alt.Y('CREDITS_USED:Q')
+    # )
+
+    # st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+
+    # # Raw data checkbox
+    # raw_data = st.checkbox('Show raw warehouse data:')
+    # if raw_data:
+    #     st.dataframe(wh_to_show_df)
+
+    #======================================================#
+    # MAIN PAGE: COMPUTE CREDITS PER DAY
+    #======================================================#
+
+    line = '---'
+    st.markdown(line)
+    st.header('Total compute credit usage per day')
+
+    st.write('Cost assumes $4/credit')
+    query = sql.COMPUTE_CREDITS_PER_DAY
+    COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
+
+    # Add slider:
+    min_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].min()
+    max_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].max()
+    auto_date_lower = min_date
+    auto_date_higher = max_date
+    slider_values = st.slider(
+    'Select date range',
+    min_date, max_date, (auto_date_lower, auto_date_higher)
+    )
+
+    # Select DataFrame rows between two dates
+    date_mask = (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] > slider_values[0]) & (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= slider_values[1])
+    filtered_df = COMPUTE_CREDITS_PER_DAY_df.loc[date_mask]
+
+    # Create bar chart with filtered values
+    st.bar_chart(filtered_df, x= 'Usage Week', y= ['Compute Credits Used','Cost ($)'])
+
+    # chart = alt.Chart(filtered_df).transform_fold(
+    # ['Compute Credits Used', 'Cost ($)'],
+    # as_=['QUANTITY', 'COUNT']
+    # ).mark_bar().encode(
+    # x= alt.X('QUANTITY:O', axis=alt.Axis(title=None)),
+    # y= 'COUNT:Q',
+    # color= 'QUANTITY:N',
+    # column= alt.Column('Usage Week:N')
+    # )
+
+    # st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
+
+    # Raw data checkbox
+    raw_data = st.checkbox('Show raw compute data:')
+    if raw_data:
+        st.text('Red - $10+ per day | Orange - $5-$10 per day | Green - Less than $5 per day')
+        filtered_df = filtered_df.style.applymap(colour_df,
+        subset=pd.IndexSlice[:,['Cost ($)']])
+        st.dataframe(filtered_df, width=1000)
 
     #======================================================#
     # MAIN PAGE: COMPUTE AVAILABILITY VS EXECUTION TIME
