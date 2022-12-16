@@ -47,7 +47,7 @@ def main():
 
     chart = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
     x=alt.X('NAME'),
-    y=alt.Y(['RUNS', 'COUNT_SUCCEEDED', 'COUNT_FAILED'])
+    y=alt.Y('RUNS')
     )
 
     # df = pd.DataFrame([['Action', 5, 'F'], 
