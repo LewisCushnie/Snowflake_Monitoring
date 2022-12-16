@@ -121,7 +121,7 @@ def main():
     x= alt.X('QUANTITY:O', axis=alt.Axis(title='percentage')),
     y= 'COUNT:Q',
     color= 'QUANTITY:N',
-    column= alt.Column('Usage Week:N', axis=alt.Axis(labelAngle=-45))
+    column= alt.column('Usage Week:N', axis=alt.Axis(labelAngle=-45))
     )
     
     #axis=alt.Axis(format='%', title='percentage')
