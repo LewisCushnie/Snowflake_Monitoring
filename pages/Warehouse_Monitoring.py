@@ -129,11 +129,11 @@ def main():
     st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
 
     chart = alt.Chart(filtered_df).mark_bar().encode(
-    column=Column('Usage Week:N', 
+    column=alt.Column('Usage Week:N', 
                     axis=Axis(axisWidth=1.0, offset=-8.0, orient='bottom'),
                     scale=Scale(padding=4.0)),
-    x=X('QUANTITY:O', axis=False),
-    y=Y('COUNT:Q', axis=Axis(grid=False)),
+    x=alt.X('QUANTITY:O', axis=False),
+    y=alt.Y('COUNT:Q', axis=Axis(grid=False)),
     color=Color('QUANTITY:N')
     ).configure_facet_cell(
         strokeWidth=0.0,
