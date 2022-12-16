@@ -67,7 +67,7 @@ def main():
     #     stroke=None,
     # )
 
-    st.altair_chart(chart)
+    st.altair_chart(chart, theme= 'streamlit')
 
     alt.Chart(SHOW_TASKS_df).mark_bar().encode(
     x='STATUS',
