@@ -79,12 +79,6 @@ def main():
         list(WH_CREDIT_BREAKDOWN_df['WH_NAME']), five_most_used_wh_list)
         filtered_df = WH_CREDIT_BREAKDOWN_df.loc[WH_CREDIT_BREAKDOWN_df['WH_NAME'].isin(wh_selected)]
 
-        # # Create altair chart
-        # chart = alt.Chart(filtered_df).mark_bar().encode(
-        # x= alt.X('WH_NAME:N', sort= '-y'),
-        # y= alt.Y('TOTAL_CREDITS:Q')
-        # )
-
         # st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
         percentage = st.checkbox('Show as percentages:')
         if percentage:
@@ -160,56 +154,6 @@ def main():
     if raw_data:
         st.dataframe(WH_CREDIT_df)
 
-    # line = '---'
-    # st.markdown(line)
-    # st.header('Warehouse credit usage breakdown')
-
-    # query = sql.WH_CREDIT_BREAKDOWN
-    # WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
-
-    # # Top n highest total credit usage warehouses
-    # n_largest = st.number_input('Select n highest credit usage warehouses:', step= 1, value= 5)
-    # WH_CREDIT_BREAKDOWN_TOP_N = WH_CREDIT_BREAKDOWN_df['TOTAL'].nlargest(n_largest)
-    # WH_CREDIT_BREAKDOWN_df = WH_CREDIT_BREAKDOWN_df.iloc[WH_CREDIT_BREAKDOWN_TOP_N.index]
-
-    # percentage = st.checkbox('Show as percentages:')
-    # if percentage:
-    #     WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','PERC_COMPUTE', 'PERC_CLOUD']]
-    #     st.bar_chart(WH_CREDIT_df, x= 'WH_NAME')
-    # else:
-    #     WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
-    #     st.bar_chart(WH_CREDIT_df, x= 'WH_NAME')
-
-    # # Raw data checkbox
-    # raw_data = st.checkbox('Show raw warehouse usage data')
-    # if raw_data:
-    #     st.dataframe(WH_CREDIT_df)
-    
-    # line = '---'
-    # st.markdown(line)
-    # st.header('Warehouse usage comparison chart')
-
-    # METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
-    # METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
-
-    # # Multiselect list
-    # wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
-    #  list(METERING_TOP_10_df.index), five_most_used_wh_list)
-    # wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
-
-    # # Create altair chart
-    # chart = alt.Chart(wh_to_show_df.reset_index()).mark_bar().encode(
-    # x= alt.X('NAME:N', sort= '-y'),
-    # y= alt.Y('CREDITS_USED:Q')
-    # )
-
-    # st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
-
-    # # Raw data checkbox
-    # raw_data = st.checkbox('Show raw warehouse data:')
-    # if raw_data:
-    #     st.dataframe(wh_to_show_df)
-
     #======================================================#
     # MAIN PAGE: COMPUTE CREDITS PER DAY
     #======================================================#
@@ -233,11 +177,15 @@ def main():
     )
 
     # Select DataFrame rows between two dates
-    date_mask = (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] > slider_values[0]) & (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= slider_values[1])
+    date_mask = (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] > slider_values[0]) &\
+     (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= slider_values[1])
     filtered_df = COMPUTE_CREDITS_PER_DAY_df.loc[date_mask]
 
-    # Create bar chart with filtered values
-    st.bar_chart(filtered_df, x= 'Usage Week', y= ['Compute Credits Used','Cost ($)'])
+    # Credits bar chart
+    st.bar_chart(filtered_df, x= 'Usage Week', y= 'Compute Credits Used')
+
+    # Cost bar chart
+    st.bar_chart(filtered_df, x= 'Usage Week', y= 'Cost ($)')
 
     # chart = alt.Chart(filtered_df).transform_fold(
     # ['Compute Credits Used', 'Cost ($)'],
