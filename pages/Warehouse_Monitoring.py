@@ -118,10 +118,10 @@ def main():
     ['Compute Credits Used', 'Cost ($)'],
     as_=['QUANTITY', 'COUNT']
     ).mark_bar().encode(
-    x= 'QUANTITY:N',
+    x= 'QUANTITY:O',
     y= 'COUNT:Q',
     color= 'QUANTITY:N',
-    column= 'Usage Week:O'
+    column= 'Usage Week:N'
     )
     
     st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
