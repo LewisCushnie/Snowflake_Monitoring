@@ -46,12 +46,26 @@ def main():
                     columns=['Genre', 'Rating', 'Gender'])
 
     chart = alt.Chart(df).mark_bar().encode(
-    x=alt.X('Genre', axis=alt.Axis(labelAngle=0)),
-    y=alt.Y('Rating', axis=alt.Axis(grid=False)),
+    x=alt.X('Genre'),
+    y=alt.Y('Rating'),
     color='Gender'
     ).configure_view(
         stroke=None,
     )
+
+    # df = pd.DataFrame([['Action', 5, 'F'], 
+    #                 ['Crime', 10, 'F'], 
+    #                 ['Action', 3, 'M'], 
+    #                 ['Crime', 9, 'M']], 
+    #                 columns=['Genre', 'Rating', 'Gender'])
+
+    # chart = alt.Chart(df).mark_bar().encode(
+    # x=alt.X('Genre', axis=alt.Axis(labelAngle=0)),
+    # y=alt.Y('Rating', axis=alt.Axis(grid=False)),
+    # color='Gender'
+    # ).configure_view(
+    #     stroke=None,
+    # )
 
     st.altair_chart(chart)
 
