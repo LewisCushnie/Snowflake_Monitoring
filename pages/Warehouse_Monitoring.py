@@ -138,8 +138,6 @@ def main():
     x=alt.X('QUANTITY:O', axis=False),
     y=alt.Y('COUNT:Q', axis= alt.Axis(grid=False)),
     color=alt.Color('QUANTITY:N')
-    ).configure_facet_cell(
-        strokeWidth=0.0,
     )
 
     st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
