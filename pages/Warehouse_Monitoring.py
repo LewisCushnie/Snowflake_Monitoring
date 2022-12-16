@@ -158,11 +158,49 @@ def main():
         WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
         st.bar_chart(WH_CREDIT_df, x= 'WH_NAME')
 
+        # Create altair chart
+        chart = alt.Chart(WH_CREDIT_df.reset_index()).transform_fold(
+        ['PERC_COMPUTE', 'PERC_CLOUD'],
+        as_=['CATEGORY', 'PERCENTAGE']
+        ).mark_bar().encode(
+        x= alt.X('NAME:N', sort= '-y'),
+        y= alt.Y('PERCENTAGE:Q'),
+        color= 'CATEGORY:N'
+        )
+
+        st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
+
+
+
     # Raw data checkbox
     raw_data = st.checkbox('Show raw warehouse usage data')
     if raw_data:
         st.dataframe(WH_CREDIT_df)
-    #Show raw warehouse data:
+
+    # line = '---'
+    # st.markdown(line)
+    # st.header('Warehouse credit usage breakdown')
+
+    # query = sql.WH_CREDIT_BREAKDOWN
+    # WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
+
+    # # Top n highest total credit usage warehouses
+    # n_largest = st.number_input('Select n highest credit usage warehouses:', step= 1, value= 5)
+    # WH_CREDIT_BREAKDOWN_TOP_N = WH_CREDIT_BREAKDOWN_df['TOTAL'].nlargest(n_largest)
+    # WH_CREDIT_BREAKDOWN_df = WH_CREDIT_BREAKDOWN_df.iloc[WH_CREDIT_BREAKDOWN_TOP_N.index]
+
+    # percentage = st.checkbox('Show as percentages:')
+    # if percentage:
+    #     WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','PERC_COMPUTE', 'PERC_CLOUD']]
+    #     st.bar_chart(WH_CREDIT_df, x= 'WH_NAME')
+    # else:
+    #     WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
+    #     st.bar_chart(WH_CREDIT_df, x= 'WH_NAME')
+
+    # # Raw data checkbox
+    # raw_data = st.checkbox('Show raw warehouse usage data')
+    # if raw_data:
+    #     st.dataframe(WH_CREDIT_df)
 
     #======================================================#
     # MAIN PAGE: COMPUTE AVAILABILITY VS EXECUTION TIME
