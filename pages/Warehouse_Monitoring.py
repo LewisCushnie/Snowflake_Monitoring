@@ -102,7 +102,8 @@ def main():
         # Multiselect list
         wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
         list(WH_CREDIT_BREAKDOWN_df['WH_NAME']), five_most_used_wh_list)
-        filtered_df = WH_CREDIT_BREAKDOWN_df['WH_NAME'].loc[wh_selected]
+        filtered_df = WH_CREDIT_BREAKDOWN_df.loc[wh_selected]
+        filtered_df = WH_CREDIT_BREAKDOWN_df.loc[wh_selected['WH_NAME'].isin(five_most_used_wh_list)]
 
         # Create altair chart
         chart = alt.Chart(filtered_df).mark_bar().encode(
