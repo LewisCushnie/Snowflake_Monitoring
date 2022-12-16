@@ -168,7 +168,7 @@ def main():
         color= 'CATEGORY:N'
         )
 
-        st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
+        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
     # chart = alt.Chart(SHOW_TASKS_df).transform_fold(
     # ['COUNT_SUCCEEDED', 'COUNT_FAILED'],
