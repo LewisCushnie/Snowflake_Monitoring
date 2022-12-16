@@ -109,8 +109,8 @@ def main():
 
         # Create altair chart
         chart = alt.Chart(filtered_df).mark_bar().encode(
-        x= alt.X('NAME:N', sort= '-y'),
-        y= alt.Y('CREDITS_USED:Q')
+        x= alt.X('WH_NAME:N', sort= '-y'),
+        y= alt.Y('TOTAL_CREDITS:Q')
         )
 
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
