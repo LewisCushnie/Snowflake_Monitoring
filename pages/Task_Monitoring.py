@@ -76,7 +76,7 @@ def main():
         stroke=None,
     )
 
-    st.altair(chart)
+    st.altair_chart(chart)
     
     raw_data = st.checkbox('Show raw task history data:')
     if raw_data:
