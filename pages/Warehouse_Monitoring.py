@@ -81,7 +81,7 @@ def main():
 
     # NOTE: Altair does not read index columns so must reset if theres is data in the index you want to plot
     chart = alt.Chart(wh_to_show_df.reset_index()).mark_bar().encode(
-    x= 'NAME:N',
+    x= 'NAME:O',
     y= 'CREDITS_USED'
     )
 
