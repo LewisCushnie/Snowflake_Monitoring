@@ -142,7 +142,6 @@ def main():
     st.markdown(line)
     st.header('Warehouse credit usage breakdown')
 
-
     METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
     METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
 
@@ -152,6 +151,31 @@ def main():
     selection = st.selectbox(
     'Select warehouse analysis type:', 
     ('Warehouse comparison', 'n most used warehouses'))
+
+        # line = '---'
+    # st.markdown(line)
+    # st.header('Warehouse usage comparison chart')
+
+    # METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
+    # METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
+
+    # # Multiselect list
+    # wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
+    #  list(METERING_TOP_10_df.index), five_most_used_wh_list)
+    # wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
+
+    # # Create altair chart
+    # chart = alt.Chart(wh_to_show_df.reset_index()).mark_bar().encode(
+    # x= alt.X('NAME:N', sort= '-y'),
+    # y= alt.Y('CREDITS_USED:Q')
+    # )
+
+    # st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+
+    # # Raw data checkbox
+    # raw_data = st.checkbox('Show raw warehouse data:')
+    # if raw_data:
+    #     st.dataframe(wh_to_show_df)
     
 
     if selection == 'Warehouse comparison':
@@ -159,11 +183,13 @@ def main():
         wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
         list(METERING_TOP_10_df.index), five_most_used_wh_list)
         WH_CREDIT_BREAKDOWN_df = METERING_TOP_10_df.loc[wh_selected]
+    
     elif selection == 'n most used warehouses':
         # Top n highest total credit usage warehouses
         n_largest = st.number_input('Select n highest credit usage warehouses:', step= 1, value= 5)
         WH_CREDIT_BREAKDOWN_TOP_N = WH_CREDIT_BREAKDOWN_df['TOTAL'].nlargest(n_largest)
         WH_CREDIT_BREAKDOWN_df = WH_CREDIT_BREAKDOWN_df.iloc[WH_CREDIT_BREAKDOWN_TOP_N.index]
+    
     else:
         pass
 
@@ -183,10 +209,10 @@ def main():
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
     else:
-        WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
+        #WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
 
         # Create altair chart
-        chart = alt.Chart(WH_CREDIT_df.reset_index()).transform_fold(
+        chart = alt.Chart(WH_CREDIT_BREAKDOWN_df.reset_index()).transform_fold(
         ['COMPUTE', 'CLOUD_SERVICES'],
         as_=['CATEGORY', 'CREDITS']
         ).mark_bar().encode(
