@@ -31,7 +31,7 @@ select
 from SNOWFLAKE.ACCOUNT_USAGE.TABLES;
 '''
 
-#-------------- RESOURCE MONITORING ------------------
+#-------------- WAREHOUSE MONITORING ------------------
 WH_CREDIT_BREAKDOWN = '''
 select
 name as wh_name
