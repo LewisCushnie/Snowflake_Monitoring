@@ -128,7 +128,7 @@ def main():
 
     st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
 
-    chart = Chart(filtered_df).mark_bar().encode(
+    chart = alt.Chart(filtered_df).mark_bar().encode(
     column=Column('Usage Week:N', 
                     axis=Axis(axisWidth=1.0, offset=-8.0, orient='bottom'),
                     scale=Scale(padding=4.0)),
