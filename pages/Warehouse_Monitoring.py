@@ -64,28 +64,28 @@ def main():
     st.markdown(line)
     st.header('Warehouse usage comparison chart')
 
-    #METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
+    METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
     METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
 
     # Multiselect list
     wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
-     list(METERING_TOP_10_df['NAME']), five_most_used_wh_list)
+     list(METERING_TOP_10_df.index), five_most_used_wh_list)
     wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
 
     st.bar_chart(wh_to_show_df)
     
-    # chart = alt.Chart(wh_to_show_df).mark_bar().encode(
-    # x= alt.X('NAME:O', sort= '-y'),
-    # y= alt.Y('CREDITS_USED')
-    # )
+    chart = alt.Chart(wh_to_show_df).mark_bar().encode(
+    x= alt.X('NAME:O', sort= '-y'),
+    y= alt.Y('CREDITS_USED')
+    )
 
-    # st.write(wh_to_show_df)
-    # chart = alt.Chart(wh_to_show_df).mark_bar().encode(
-    # x= 'NAME:N',
-    # y= 'CREDITS_USED'
-    # )
+    
+    chart = alt.Chart(wh_to_show_df).mark_bar().encode(
+    x= 'NAME:N',
+    y= 'CREDITS_USED'
+    )
 
-    # st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+    st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
     # Raw data checkbox
     raw_data = st.checkbox('Show raw warehouse data:')
