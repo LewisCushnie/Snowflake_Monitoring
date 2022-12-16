@@ -118,12 +118,14 @@ def main():
     ['Compute Credits Used', 'Cost ($)'],
     as_=['QUANTITY', 'COUNT']
     ).mark_bar().encode(
-    x= alt.X('QUANTITY:O', axis=alt.Axis(format='%', title='percentage')),
+    x= alt.X('QUANTITY:O', axis=alt.Axis(title='percentage')),
     y= 'COUNT:Q',
     color= 'QUANTITY:N',
     column= 'Usage Week:N'
     )
     
+    #axis=alt.Axis(format='%', title='percentage')
+
     st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
 
     # Raw data checkbox
