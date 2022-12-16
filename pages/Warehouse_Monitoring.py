@@ -194,18 +194,6 @@ def main():
     else:
         pass
 
-    # chart = alt.Chart(filtered_df).transform_fold(
-    # ['Compute Credits Used', 'Cost ($)'],
-    # as_=['QUANTITY', 'COUNT']
-    # ).mark_bar().encode(
-    # x= alt.X('QUANTITY:O', axis=alt.Axis(title=None)),
-    # y= 'COUNT:Q',
-    # color= 'QUANTITY:N',
-    # column= alt.Column('Usage Week:N')
-    # )
-
-    # st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
-
     # Raw data checkbox
     raw_data = st.checkbox('Show raw compute data:')
     if raw_data:
@@ -227,16 +215,23 @@ def main():
 
     utilisation = st.checkbox('Show warehouse utlisation:')
     if utilisation:
-        sub_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'PCT_UTILIZATION']]
-        st.bar_chart(sub_df, x= 'HOUR')
+        filtered_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'PCT_UTILIZATION']]
+        st.bar_chart(filtered_df, x= 'HOUR')
+
+        # Create altair chart
+        chart = alt.Chart(filtered_df.reset_index()).mark_bar().encode(
+        x= alt.X('HOUR', sort= '-y'),
+        y= alt.Y('PCT_UTILIZATION:Q'),
+        )
+        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
     else:
-        sub_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']]
-        st.bar_chart(sub_df, x= 'HOUR')
+        filtered_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']]
+        st.bar_chart(filtered_df, x= 'HOUR')
 
     # Raw data checkbox
     raw_data = st.checkbox('Show raw availability data:')
     if raw_data:
-        st.dataframe(sub_df)
+        st.dataframe(filtered_df)
 
 if __name__ == "__main__":
     main()
