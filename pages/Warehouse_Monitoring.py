@@ -163,7 +163,7 @@ def main():
         ['PERC_COMPUTE', 'PERC_CLOUD'],
         as_=['CATEGORY', 'PERCENTAGE']
         ).mark_bar().encode(
-        x= alt.X('NAME:N', sort= '-y'),
+        x= alt.X('WH_NAME:N', sort= '-y'),
         y= alt.Y('PERCENTAGE:Q'),
         color= 'CATEGORY:N'
         )
