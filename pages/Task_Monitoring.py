@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import altair as alt
 from utils import snowflake_connector as sf
 from utils import sql
 import datetime
@@ -27,7 +28,7 @@ def main():
     )
 
     # ===========================================#
-    # MAIN PAGE - WAREHOUSE USAGE COMPARISON BAR CHART
+    # MAIN PAGE - ACCOUNT TASK RUN TRACKER
     # ===========================================#
 
     line = '---'
@@ -37,13 +38,37 @@ def main():
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
 
     st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= ['RUNS', 'COUNT_SUCCEEDED', 'COUNT_FAILED'])
+
+    # create dataframe
+    df = pd.DataFrame([['Action', 5, 'F'], 
+                    ['Crime', 10, 'F'], 
+                    ['Action', 3, 'M'], 
+                    ['Crime', 9, 'M']], 
+                    columns=['Genre', 'Rating', 'Gender'])
+
+    chart = Chart(df).mark_bar().encode(
+    column=Column('Genre'),
+    x=X('Gender'),
+    y=Y('Rating'),
+    color=Color('Gender', scale=Scale(range=['#EA98D2', '#659CCA']))
+    ).configure_facet_cell(
+        strokeWidth=0.0,
+    )
+
+    chart.display() # will show the plot
+
+    alt.Chart(SHOW_TASKS_df).mark_bar().encode(
+    x='STATUS',
+    y=['RUNS', 'COUNT_SUCCEEDED', 'COUNT_FAILED'],
+    column='NAME'
+    )
     
     raw_data = st.checkbox('Show raw task history data:')
     if raw_data:
         st.dataframe(SHOW_TASKS_df)
 
     # ===========================================#
-    # MAIN PAGE - STATUS SUMMARY
+    # MAIN PAGE - ACCOUNT TASK STATUS SUMMARY
     # ===========================================#
 
     line = '---'
