@@ -46,7 +46,7 @@ def main():
                     ['Crime', 9, 'M']], 
                     columns=['Genre', 'Rating', 'Gender'])
 
-    chart = Chart(df).mark_bar().encode(
+    chart = alt.Chart(df).mark_bar().encode(
     column=Column('Genre'),
     x=X('Gender'),
     y=Y('Rating'),
