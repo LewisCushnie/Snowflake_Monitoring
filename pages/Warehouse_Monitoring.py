@@ -79,6 +79,11 @@ def main():
     y= alt.Y('CREDITS_USED')
     )
 
+    chart = alt.Chart(wh_to_show_df).mark_bar().encode(
+    x= 'NAME',
+    y= 'CREDITS_USED'
+    )
+
     st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
     # Raw data checkbox
