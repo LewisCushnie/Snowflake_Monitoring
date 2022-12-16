@@ -76,7 +76,7 @@ def main():
     
     chart = alt.Chart(wh_to_show_df).mark_bar().encode(
     x= alt.X('NAME', sort= '-y'),
-    y= alt.Y('CREDITS_USED:Q')
+    y= alt.Y('CREDITS_USED')
     )
 
     st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
