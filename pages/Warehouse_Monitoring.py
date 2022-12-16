@@ -60,30 +60,30 @@ def main():
     # MAIN PAGE - WAREHOUSE USAGE COMPARISON BAR CHART
     #======================================================#
     
-    line = '---'
-    st.markdown(line)
-    st.header('Warehouse usage comparison chart')
+    # line = '---'
+    # st.markdown(line)
+    # st.header('Warehouse usage comparison chart')
 
-    METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
-    METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
+    # METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
+    # METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
 
-    # Multiselect list
-    wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
-     list(METERING_TOP_10_df.index), five_most_used_wh_list)
-    wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
+    # # Multiselect list
+    # wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
+    #  list(METERING_TOP_10_df.index), five_most_used_wh_list)
+    # wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
 
-    # Create altair chart
-    chart = alt.Chart(wh_to_show_df.reset_index()).mark_bar().encode(
-    x= alt.X('NAME:N', sort= '-y'),
-    y= alt.Y('CREDITS_USED:Q')
-    )
+    # # Create altair chart
+    # chart = alt.Chart(wh_to_show_df.reset_index()).mark_bar().encode(
+    # x= alt.X('NAME:N', sort= '-y'),
+    # y= alt.Y('CREDITS_USED:Q')
+    # )
 
-    st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+    # st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
-    # Raw data checkbox
-    raw_data = st.checkbox('Show raw warehouse data:')
-    if raw_data:
-        st.dataframe(wh_to_show_df)
+    # # Raw data checkbox
+    # raw_data = st.checkbox('Show raw warehouse data:')
+    # if raw_data:
+    #     st.dataframe(wh_to_show_df)
 
     #======================================================#
     # MAIN PAGE: COMPUTE CREDITS PER DAY
