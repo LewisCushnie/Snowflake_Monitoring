@@ -152,8 +152,7 @@ def main():
 
     if selection == 'A':
         # Multiselect list
-        wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
-        list(METERING_TOP_10_df.index), five_most_used_wh_list)
+        wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):", list(METERING_TOP_10_df.index), five_most_used_wh_list)
         WH_CREDIT_BREAKDOWN_df = METERING_TOP_10_df.loc[wh_selected]
     elif selection == 'n most used warehouses':
         # Top n highest total credit usage warehouses
