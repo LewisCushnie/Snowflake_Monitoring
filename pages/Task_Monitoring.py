@@ -37,19 +37,7 @@ def main():
     query = sql.TASK_HISTORY
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
 
-    # st.display(SHOW_TASKS_df)
-    # st.display(SHOW_TASKS_df.melt())
-
-    st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= ['COUNT_SUCCEEDED', 'COUNT_FAILED'])
-
-    # chart = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
-    # x='sum(yield):Q',
-    # y=alt.Y('site:N', sort='-x')
-    # )
-
-    # .transform_fold(
-    # ['AAPL', 'AMZN', 'GOOG'],
-    # as_=['company', 'price']
+    #st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= ['COUNT_SUCCEEDED', 'COUNT_FAILED'])
 
     chart = alt.Chart(SHOW_TASKS_df).transform_fold(
     ['COUNT_SUCCEEDED', 'COUNT_FAILED'],
@@ -59,17 +47,8 @@ def main():
     y= alt.Y('COUNT:Q'),
     color= 'STATUS:N'
     )
-
+    
     st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
-
-    # a = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
-    # x='NAME', y='COUNT_SUCCEEDED')
-
-    # b = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
-    # x='NAME', y='COUNT_FAILED')
-
-    # c = alt.layer(a, b)
-    # st.altair_chart(c, use_container_width=True, theme= 'streamlit')
     
     raw_data = st.checkbox('Show raw task history data:')
     if raw_data:
