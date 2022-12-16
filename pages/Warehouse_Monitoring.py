@@ -75,7 +75,7 @@ def main():
     st.bar_chart(wh_to_show_df)
     
     chart = alt.Chart(wh_to_show_df).mark_bar().encode(
-    x= alt.X('NAME', sort= '-y'),
+    x= alt.X('name', sort= '-y'),
     y= alt.Y('CREDITS_USED')
     )
 
