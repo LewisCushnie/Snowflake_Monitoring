@@ -27,6 +27,37 @@ def main():
     st.sidebar.metric(label='Credit usage over last 7 day period', value= metric, delta= f'{pct_change}%', delta_color= "inverse")
 
     #======================================================#
+    # SIDEBAR - MOST USED WAREHOUSE
+    #======================================================#
+
+    # query = sql.METERING_TOP_10
+    # METERING_TOP_10_df = sf.sql_to_dataframe(query)
+
+    # # Most used warehouse
+    # most_used_loc = METERING_TOP_10_df['CREDITS_USED'].idxmax()
+    # most_used_wh = METERING_TOP_10_df['NAME'].iloc[most_used_loc]
+
+    # # Top 5 most used warehouses
+    # five_most_used_df = METERING_TOP_10_df['CREDITS_USED'].nlargest(5)
+    # five_most_used_wh_list = METERING_TOP_10_df['NAME'].iloc[five_most_used_df.index].tolist()
+
+    #--------
+
+    query = sql.WH_CREDIT_BREAKDOWN
+    WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
+
+    # Most used warehouse
+    most_used_loc = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].idxmax()
+    most_used_wh = WH_CREDIT_BREAKDOWN_df['WH_NAME'].iloc[most_used_loc]
+
+    # Top 5 most used warehouses
+    five_most_used_df = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].nlargest(5)
+    five_most_used_wh_list = WH_CREDIT_BREAKDOWN_df['NAME'].iloc[five_most_used_df.index].tolist()
+
+    amount_used = round(WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].iloc[most_used_loc], 3)
+    st.sidebar.metric(label='Most used warehouse', value= most_used_wh, delta= f'{amount_used} Credits', delta_color= "normal")
+
+    #======================================================#
     # MAIN PAGE - INTRO
     #======================================================#
 
@@ -37,28 +68,6 @@ def main():
     how and where credits are being consumed. The aim is to allow easy identification of inefficient or missused resources.
     '''
     )
-
-    #======================================================#
-    # SIDEBAR - MOST USED WAREHOUSE
-    #======================================================#
-
-    query = sql.METERING_TOP_10
-    METERING_TOP_10_df = sf.sql_to_dataframe(query)
-
-    # Most used warehouse
-    most_used_loc = METERING_TOP_10_df['CREDITS_USED'].idxmax()
-    most_used_wh = METERING_TOP_10_df['NAME'].iloc[most_used_loc]
-
-    # Top 5 most used warehouses
-    five_most_used_df = METERING_TOP_10_df['CREDITS_USED'].nlargest(5)
-    five_most_used_wh_list = METERING_TOP_10_df['NAME'].iloc[five_most_used_df.index].tolist()
-
-    amount_used = round(METERING_TOP_10_df['CREDITS_USED'].iloc[most_used_loc], 3)
-    st.sidebar.metric(label='Most used warehouse', value= most_used_wh, delta= f'{amount_used} Credits', delta_color= "normal")
-
-    #======================================================#
-    # MAIN PAGE - WAREHOUSE USAGE COMPARISON BAR CHART
-    #======================================================#
 
     #======================================================#
     # MAIN PAGE: WAREHOUSE CREDIT USAGE BREAKDOWN

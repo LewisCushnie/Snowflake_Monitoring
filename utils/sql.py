@@ -34,15 +34,23 @@ from SNOWFLAKE.ACCOUNT_USAGE.TABLES;
 #-------------- WAREHOUSE MONITORING ------------------
 WH_CREDIT_BREAKDOWN = '''
 select
-name as wh_name
-,sum(credits_used_compute) as compute
-,sum(credits_used_cloud_services) as cloud_services
-,sum(credits_used) as total
-,(cloud_services/total)*100 as perc_cloud
-,(compute/total)*100 as perc_compute
+name as WH_NAME
+,sum(credits_used_compute) as COMPUTE_CREDITS
+,sum(credits_used_cloud_services) as CLOUD_SERVICES_CREDITS
+,sum(credits_used) as TOTAL_CREDITS
+,(cloud_services/total)*100 as PERC_CLOUD
+,(compute/total)*100 as PERC_COMPUTE
 from snowflake.account_usage.metering_history
 group by wh_name;
 '''
+
+METERING_TOP_10 = '''
+select top 10 
+name 
+,sum(credits_used) AS CREDITS_USED
+from metering_history 
+group by name
+order by CREDITS_USED desc; '''
 
 STREAMLIT_CREDITS_USED = '''
 select
@@ -66,14 +74,6 @@ select
 name
 ,credits_used 
 from metering_history;'''
-
-METERING_TOP_10 = '''
-select top 10 
-name 
-,sum(credits_used) AS CREDITS_USED
-from metering_history 
-group by name
-order by CREDITS_USED desc; '''
 
 WH_USAGE_LAST_7_DAYS = '''
 -- WAREHOUSE USAGE OVER LAST 7 DAYS
