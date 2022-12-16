@@ -30,17 +30,6 @@ def main():
     # SIDEBAR - MOST USED WAREHOUSE
     #======================================================#
 
-    # query = sql.METERING_TOP_10
-    # METERING_TOP_10_df = sf.sql_to_dataframe(query)
-
-    # # Most used warehouse
-    # most_used_loc = METERING_TOP_10_df['CREDITS_USED'].idxmax()
-    # most_used_wh = METERING_TOP_10_df['NAME'].iloc[most_used_loc]
-
-    # # Top 5 most used warehouses
-    # five_most_used_df = METERING_TOP_10_df['CREDITS_USED'].nlargest(5)
-    # five_most_used_wh_list = METERING_TOP_10_df['NAME'].iloc[five_most_used_df.index].tolist()
-
     query = sql.WH_CREDIT_BREAKDOWN
     WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
 
@@ -77,28 +66,19 @@ def main():
 
     query = sql.WH_CREDIT_BREAKDOWN
     WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
-    #WH_CREDIT_BREAKDOWN_df = WH_CREDIT_BREAKDOWN_df.set_index('WH_NAME')
     WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'] = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].astype(float)
-
-    # Top 5 most used warehouses
-    five_most_used_df = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].nlargest(5)
-    st.write(five_most_used_df)
-    five_most_used_wh_list = WH_CREDIT_BREAKDOWN_df['WH_NAME'].iloc[five_most_used_df.index].tolist()
-
-    st.write(five_most_used_wh_list)
-    st.write(WH_CREDIT_BREAKDOWN_df)
-
-    #METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
-    #METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
-
-    #query = sql.WH_CREDIT_BREAKDOWN
-    #WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
 
     selection = st.selectbox(
     'Select warehouse analysis type:', 
     ('Warehouse comparison', 'n most used warehouses'))
     
     if selection == 'Warehouse comparison':
+
+        # Top 5 most used warehouses
+        five_most_used_df = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].nlargest(5)
+        st.write(five_most_used_df)
+        five_most_used_wh_list = WH_CREDIT_BREAKDOWN_df['WH_NAME'].iloc[five_most_used_df.index].tolist()
+
         # Multiselect list
         wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
         list(WH_CREDIT_BREAKDOWN_df['WH_NAME']), five_most_used_wh_list)
