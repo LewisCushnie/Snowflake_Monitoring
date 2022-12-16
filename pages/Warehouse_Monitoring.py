@@ -75,7 +75,7 @@ def main():
     # Create altair chart
     chart = alt.Chart(wh_to_show_df.reset_index()).mark_bar().encode(
     x= alt.X('NAME:N', sort= '-y'),
-    y= alt.Y('CREDITS_USED')
+    y= alt.Y('CREDITS_USED:Q')
     )
 
     st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
@@ -109,18 +109,18 @@ def main():
 
     # Select DataFrame rows between two dates
     date_mask = (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] > slider_values[0]) & (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= slider_values[1])
-    COMPUTE_CREDITS_PER_DAY_FILTERED_df = COMPUTE_CREDITS_PER_DAY_df.loc[date_mask]
+    filtered_df = COMPUTE_CREDITS_PER_DAY_df.loc[date_mask]
 
     # Create bar chart with filtered values
-    st.bar_chart(COMPUTE_CREDITS_PER_DAY_FILTERED_df, x= 'Usage Week', y= ['Compute Credits Used','Cost ($)'])
+    st.bar_chart(filtered_df, x= 'Usage Week', y= ['Compute Credits Used','Cost ($)'])
 
     # Raw data checkbox
     raw_data = st.checkbox('Show raw compute data:')
     if raw_data:
         st.text('Red - $10+ per day | Orange - $5-$10 per day | Green - Less than $5 per day')
-        COMPUTE_CREDITS_PER_DAY_FILTERED_df = COMPUTE_CREDITS_PER_DAY_FILTERED_df.style.applymap(colour_df,
+        filtered_df = filtered_df.style.applymap(colour_df,
         subset=pd.IndexSlice[:,['Cost ($)']])
-        st.dataframe(COMPUTE_CREDITS_PER_DAY_FILTERED_df, width=1000)
+        st.dataframe(filtered_df, width=1000)
 
     #======================================================#
     # MAIN PAGE: WAREHOUSE CREDIT USAGE BREAKDOWN

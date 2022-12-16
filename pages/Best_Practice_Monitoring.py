@@ -105,6 +105,15 @@ def main():
     st.header('Zero Copy Cloning Usage')
     st.write('Identify big aggregate functions that could be taking advantage of High performing functions')
 
+    #======================================================#
+    # MAIN PAGE: WAREHOUSES THAT DO NOT HAVE A RESOURCE MONITOR   
+    #======================================================#
+
+    line = '---'
+    st.markdown(line)
+    st.header('Warehouses that do not have a resource monitor')
+    st.write('Identify big aggregate functions that could be taking advantage of High performing functions')
+
 
 if __name__ == "__main__":
     main()
