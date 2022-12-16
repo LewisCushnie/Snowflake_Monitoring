@@ -149,7 +149,7 @@ def main():
     'Warehouse comparison',
     'n most used warehouses')
 
-    st.write('Current selection:', option)
+    st.write('Current selection:', selection)
 
     if selection == 'Warehouse comparison':
         # Multiselect list
