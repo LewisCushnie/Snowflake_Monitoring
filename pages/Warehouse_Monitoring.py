@@ -147,14 +147,14 @@ def main():
 
     selection = st.selectbox(
     'Select warehouse analysis type:', 
-    ('Warehouse comparison', 'n most used warehouses')
+    ('A', 'n most used warehouses')
     )
 
     st.write(selection)
 
     st.write('Current selection:', selection)
 
-    if selection == 'Warehouse comparison':
+    if selection == 'A':
         # Multiselect list
         wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
         list(METERING_TOP_10_df.index), five_most_used_wh_list)
