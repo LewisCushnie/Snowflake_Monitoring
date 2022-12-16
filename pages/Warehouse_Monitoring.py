@@ -46,6 +46,8 @@ def main():
     query = sql.WH_CREDIT_BREAKDOWN
     WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
 
+    st.stop()
+
     # Most used warehouse
     most_used_loc = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].idxmax()
     most_used_wh = WH_CREDIT_BREAKDOWN_df['WH_NAME'].iloc[most_used_loc]
