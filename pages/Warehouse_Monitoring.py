@@ -185,10 +185,10 @@ def main():
     'Select currency:', 
     ('Cost ($)', 'Credits used'))
 
-    if selection == 'Cost ($)':
+    if selection == 'Credits used':
         # Credits bar chart
         st.bar_chart(filtered_df, x= 'Usage Week', y= 'Compute Credits Used')
-    elif selection == 'Credits used':
+    elif selection == 'Cost ($)':
         # Cost bar chart
         st.bar_chart(filtered_df, x= 'Usage Week', y= 'Cost ($)')
     else:
