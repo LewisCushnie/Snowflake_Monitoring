@@ -146,9 +146,8 @@ def main():
     WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
 
     selection = st.selectbox(
-    'Select warehouse analysis type:'    
-    ('Warehouse comparison',
-    'n most used warehouses'))
+    'Select warehouse analysis type:', 
+    ('Warehouse comparison', 'n most used warehouses'))
 
     st.write('Current selection:', selection)
 
