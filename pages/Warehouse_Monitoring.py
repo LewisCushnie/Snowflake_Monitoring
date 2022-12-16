@@ -154,6 +154,19 @@ def main():
     if percentage:
         WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','PERC_COMPUTE', 'PERC_CLOUD']]
         st.bar_chart(WH_CREDIT_df, x= 'WH_NAME')
+
+        # Create altair chart
+        chart = alt.Chart(WH_CREDIT_df.reset_index()).transform_fold(
+        ['PERC_COMPUTE', 'PERC_CLOUD'],
+        as_=['CATEGORY', 'PERCENTAGE']
+        ).mark_bar().encode(
+        x= alt.X('WH_NAME', sort= '-y'),
+        y= alt.Y('CREDITS:Q'),
+        color= 'CATEGORY:N'
+        )
+
+        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+
     else:
         WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
         st.bar_chart(WH_CREDIT_df, x= 'WH_NAME')
