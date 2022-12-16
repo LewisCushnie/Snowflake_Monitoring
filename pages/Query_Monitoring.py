@@ -50,12 +50,12 @@ def main():
         with col1:
             st.write('Altair Chart (Customisable)')
             chart = alt.Chart(df).mark_bar().encode( 
-            x = 'Username',
-            y = 'Avg Execution Time').interactive()
-            st.altair_chart(chart, use_containter_width=True)
+            x = 'Schema',
+            y = 'Total Compute Credits Used')
+            st.altair_chart(chart,use_container_width=True)
         with col2:
             st.write('Streamlit Chart (Default)')
-            st.bar_chart(df, x='Schema', y=['Total Compute Credits Used', 'Total Credits Used'],use_containter_width=True)
+            st.bar_chart(df, x='Schema', y=['Total Compute Credits Used', 'Total Credits Used'])
 
     #==========================#
     # QUERY COUNT BY TYPE (ADDITION FROM LEWIS)
