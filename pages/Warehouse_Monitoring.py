@@ -76,7 +76,6 @@ def main():
 
         # Top 5 most used warehouses
         five_most_used_df = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].nlargest(5)
-        st.write(five_most_used_df)
         five_most_used_wh_list = WH_CREDIT_BREAKDOWN_df['WH_NAME'].iloc[five_most_used_df.index].tolist()
 
         # Multiselect list
