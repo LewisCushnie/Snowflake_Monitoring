@@ -41,8 +41,6 @@ def main():
     # five_most_used_df = METERING_TOP_10_df['CREDITS_USED'].nlargest(5)
     # five_most_used_wh_list = METERING_TOP_10_df['NAME'].iloc[five_most_used_df.index].tolist()
 
-    #--------
-
     query = sql.WH_CREDIT_BREAKDOWN
     WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
 
@@ -77,11 +75,15 @@ def main():
     st.markdown(line)
     st.header('Warehouse credit usage breakdown')
 
-    METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
-    METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
-
     query = sql.WH_CREDIT_BREAKDOWN
     WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
+    METERING_TOP_10_df['TOTAL_CREDITS'] = METERING_TOP_10_df['TOTAL_CREDITS'].astype(float)
+
+    #METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
+    #METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
+
+    #query = sql.WH_CREDIT_BREAKDOWN
+    #WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
 
     selection = st.selectbox(
     'Select warehouse analysis type:', 
