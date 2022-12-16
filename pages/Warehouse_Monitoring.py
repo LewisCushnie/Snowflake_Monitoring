@@ -51,6 +51,7 @@ def main():
     # Top 5 most used warehouses
     five_most_used_df = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].nlargest(5)
     five_most_used_wh_list = WH_CREDIT_BREAKDOWN_df['WH_NAME'].iloc[five_most_used_df.index].tolist()
+    st.write(five_most_used_wh_list)
 
     amount_used = round(WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].iloc[most_used_loc], 3)
     st.sidebar.metric(label='Most used warehouse', value= most_used_wh, delta= f'{amount_used} Credits', delta_color= "normal")
