@@ -181,11 +181,18 @@ def main():
      (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= slider_values[1])
     filtered_df = COMPUTE_CREDITS_PER_DAY_df.loc[date_mask]
 
-    # Credits bar chart
-    st.bar_chart(filtered_df, x= 'Usage Week', y= 'Compute Credits Used')
+    selection = st.selectbox(
+    'Select currency:', 
+    ('Cost ($)', 'Credits used'))
 
-    # Cost bar chart
-    st.bar_chart(filtered_df, x= 'Usage Week', y= 'Cost ($)')
+    if selection == 'Cost ($)':
+        # Credits bar chart
+        st.bar_chart(filtered_df, x= 'Usage Week', y= 'Compute Credits Used')
+    elif selection == 'Credits used':
+        # Cost bar chart
+        st.bar_chart(filtered_df, x= 'Usage Week', y= 'Cost ($)')
+    else:
+        pass
 
     # chart = alt.Chart(filtered_df).transform_fold(
     # ['Compute Credits Used', 'Cost ($)'],
