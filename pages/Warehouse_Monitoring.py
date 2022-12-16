@@ -228,6 +228,17 @@ def main():
         filtered_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']]
         st.bar_chart(filtered_df, x= 'HOUR')
 
+        # Create altair chart
+        chart = alt.Chart(filtered_df.reset_index()).transform_fold(
+        ['TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC'],
+        as_=['CATEGORY', 'TIME']
+        ).mark_bar().encode(
+        x= alt.X('HOUR'),
+        y= alt.Y('TIME:Q'),
+        color= 'CATEGORY:N'
+        )
+        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+
     # Raw data checkbox
     raw_data = st.checkbox('Show raw availability data:')
     if raw_data:
