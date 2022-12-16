@@ -39,6 +39,15 @@ def main():
 
     st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= ['RUNS', 'COUNT_SUCCEEDED', 'COUNT_FAILED'])
 
+    demo = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
+        x='NAME',
+        y='RUNS',
+        color='COUNT_SUCCEEDED',
+        column='COUNT_FAILED'
+    )
+
+    st.altair_chart(demo)
+
     chart = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
     x=alt.X('NAME'),
     y=alt.Y('RUNS')
