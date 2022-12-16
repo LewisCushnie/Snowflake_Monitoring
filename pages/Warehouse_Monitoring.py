@@ -145,10 +145,24 @@ def main():
     query = sql.WH_CREDIT_BREAKDOWN
     WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
 
-    # Top n highest total credit usage warehouses
-    n_largest = st.number_input('Select n highest credit usage warehouses:', step= 1, value= 5)
-    WH_CREDIT_BREAKDOWN_TOP_N = WH_CREDIT_BREAKDOWN_df['TOTAL'].nlargest(n_largest)
-    WH_CREDIT_BREAKDOWN_df = WH_CREDIT_BREAKDOWN_df.iloc[WH_CREDIT_BREAKDOWN_TOP_N.index]
+    selection = st.selectbox(
+    'Warehouse comparison',
+    'n most used warehouses')
+
+    st.write('Current selection:', option)
+
+    if selection == 'Warehouse comparison':
+        # Multiselect list
+        wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
+        list(METERING_TOP_10_df.index), five_most_used_wh_list)
+        WH_CREDIT_BREAKDOWN_df = METERING_TOP_10_df.loc[wh_selected]
+    elif selection == 'n most used warehouses':
+        # Top n highest total credit usage warehouses
+        n_largest = st.number_input('Select n highest credit usage warehouses:', step= 1, value= 5)
+        WH_CREDIT_BREAKDOWN_TOP_N = WH_CREDIT_BREAKDOWN_df['TOTAL'].nlargest(n_largest)
+        WH_CREDIT_BREAKDOWN_df = WH_CREDIT_BREAKDOWN_df.iloc[WH_CREDIT_BREAKDOWN_TOP_N.index]
+    else:
+        pass
 
     percentage = st.checkbox('Show as percentages:')
     if percentage:
