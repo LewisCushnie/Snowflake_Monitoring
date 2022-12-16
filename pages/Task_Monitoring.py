@@ -38,6 +38,20 @@ def main():
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
 
     st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= ['COUNT_SUCCEEDED', 'COUNT_FAILED'])
+
+    # chart = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
+    # x='sum(yield):Q',
+    # y=alt.Y('site:N', sort='-x')
+    # )
+
+    a = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
+    x='NAME', y='COUNT_SUCCEEDED')
+
+    B = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
+    x='NAME', y='COUNT_FAILED')
+
+    c = alt.layer(a, b)
+    st.altair_chart(c, use_container_width=True)
     
     raw_data = st.checkbox('Show raw task history data:')
     if raw_data:
