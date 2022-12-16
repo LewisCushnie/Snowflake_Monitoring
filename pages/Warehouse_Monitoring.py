@@ -220,7 +220,7 @@ def main():
         # Create altair chart
         chart = alt.Chart(filtered_df.reset_index()).mark_bar().encode(
         x= alt.X('HOUR'),
-        y= alt.Y('PCT_UTILIZATION:Q', axis- alt.Axis(title= 'Percentage Warehouse Utilisation', format= '%')),
+        y= alt.Y('PCT_UTILIZATION:Q', axis= alt.Axis(title= 'Percentage Warehouse Utilisation', format= '%')),
         )
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
     else:
