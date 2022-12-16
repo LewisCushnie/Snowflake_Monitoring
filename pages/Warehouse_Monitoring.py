@@ -79,7 +79,9 @@ def main():
     y= alt.Y('CREDITS_USED')
     )
 
-    
+    st.write(wh_to_show_df)
+    st.write(wh_to_show_df.reset_index())
+
     chart = alt.Chart(wh_to_show_df).mark_bar().encode(
     x= 'NAME:N',
     y= 'CREDITS_USED'
