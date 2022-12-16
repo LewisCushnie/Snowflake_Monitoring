@@ -182,45 +182,46 @@ def main():
         # Multiselect list
         wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
         list(METERING_TOP_10_df.index), five_most_used_wh_list)
-        WH_CREDIT_BREAKDOWN_df = METERING_TOP_10_df.loc[wh_selected]
+        wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
     
     elif selection == 'n most used warehouses':
+
         # Top n highest total credit usage warehouses
         n_largest = st.number_input('Select n highest credit usage warehouses:', step= 1, value= 5)
         WH_CREDIT_BREAKDOWN_TOP_N = WH_CREDIT_BREAKDOWN_df['TOTAL'].nlargest(n_largest)
         WH_CREDIT_BREAKDOWN_df = WH_CREDIT_BREAKDOWN_df.iloc[WH_CREDIT_BREAKDOWN_TOP_N.index]
+
+        percentage = st.checkbox('Show as percentages:')
+        if percentage:
+            WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','PERC_COMPUTE', 'PERC_CLOUD']]
+
+            # Create altair chart
+            chart = alt.Chart(WH_CREDIT_df.reset_index()).transform_fold(
+            ['PERC_COMPUTE', 'PERC_CLOUD'],
+            as_=['CATEGORY', 'PERCENTAGE']
+            ).mark_bar().encode(
+            x= alt.X('WH_NAME', sort= '-y'),
+            y= alt.Y('PERCENTAGE:Q'),
+            color= 'CATEGORY:N'
+            )
+            st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+
+        else:
+            WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
+
+            # Create altair chart
+            chart = alt.Chart(WH_CREDIT_BREAKDOWN_df.reset_index()).transform_fold(
+            ['COMPUTE', 'CLOUD_SERVICES'],
+            as_=['CATEGORY', 'CREDITS']
+            ).mark_bar().encode(
+            x= alt.X('WH_NAME', sort= '-y'),
+            y= alt.Y('CREDITS:Q'),
+            color= 'CATEGORY:N'
+            )
+            st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
     
     else:
         pass
-
-    percentage = st.checkbox('Show as percentages:')
-    if percentage:
-        WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','PERC_COMPUTE', 'PERC_CLOUD']]
-
-        # Create altair chart
-        chart = alt.Chart(WH_CREDIT_df.reset_index()).transform_fold(
-        ['PERC_COMPUTE', 'PERC_CLOUD'],
-        as_=['CATEGORY', 'PERCENTAGE']
-        ).mark_bar().encode(
-        x= alt.X('WH_NAME', sort= '-y'),
-        y= alt.Y('PERCENTAGE:Q'),
-        color= 'CATEGORY:N'
-        )
-        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
-
-    else:
-        #WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
-
-        # Create altair chart
-        chart = alt.Chart(WH_CREDIT_BREAKDOWN_df.reset_index()).transform_fold(
-        ['COMPUTE', 'CLOUD_SERVICES'],
-        as_=['CATEGORY', 'CREDITS']
-        ).mark_bar().encode(
-        x= alt.X('WH_NAME', sort= '-y'),
-        y= alt.Y('CREDITS:Q'),
-        color= 'CATEGORY:N'
-        )
-        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
     # Raw data checkbox
     raw_data = st.checkbox('Show raw warehouse usage data')
