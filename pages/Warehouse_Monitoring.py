@@ -183,6 +183,14 @@ def main():
         wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
         list(METERING_TOP_10_df.index), five_most_used_wh_list)
         wh_to_show_df = METERING_TOP_10_df.loc[wh_selected]
+
+        # Create altair chart
+        chart = alt.Chart(wh_to_show_df.reset_index()).mark_bar().encode(
+        x= alt.X('NAME:N', sort= '-y'),
+        y= alt.Y('CREDITS_USED:Q')
+        )
+
+        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
     
     elif selection == 'n most used warehouses':
 
