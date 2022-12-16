@@ -86,6 +86,19 @@ def main():
         )
 
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+
+        WH_CREDIT_df = filtered_df[['WH_NAME','PERC_COMPUTE', 'PERC_CLOUD']]
+
+        # Create altair chart
+        chart = alt.Chart(WH_CREDIT_df.reset_index()).transform_fold(
+        ['PERC_COMPUTE', 'PERC_CLOUD'],
+        as_=['CATEGORY', 'PERCENTAGE']
+        ).mark_bar().encode(
+        x= alt.X('WH_NAME', sort= '-y'),
+        y= alt.Y('PERCENTAGE:Q'),
+        color= 'CATEGORY:N'
+        )
+        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
     
     elif selection == 'n most used warehouses':
 
