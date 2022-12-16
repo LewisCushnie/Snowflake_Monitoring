@@ -26,6 +26,8 @@ def main():
     pct_change=round(WH_USAGE_LAST_7_DAYS_df['PCT_CHANGE'].iloc[0],3)
     st.sidebar.metric(label='Credit usage over last 7 day period', value= metric, delta= f'{pct_change}%', delta_color= "inverse")
 
+    st.stop()
+
     #======================================================#
     # SIDEBAR - MOST USED WAREHOUSE
     #======================================================#
