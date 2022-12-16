@@ -92,11 +92,11 @@ def main():
     if selection == 'Warehouse comparison':
         # Multiselect list
         wh_selected = st.multiselect("Pick Warehouse (5 most used warehouses selected by default):",\
-        list(METERING_TOP_10_df.index), five_most_used_wh_list)
-        WH_CREDIT_df = METERING_TOP_10_df.loc[wh_selected]
+        list(WH_CREDIT_BREAKDOWN_df), five_most_used_wh_list)
+        WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df.loc[wh_selected]
 
         # Create altair chart
-        chart = alt.Chart(WH_CREDIT_df.reset_index()).mark_bar().encode(
+        chart = alt.Chart(WH_CREDIT_df).mark_bar().encode(
         x= alt.X('NAME:N', sort= '-y'),
         y= alt.Y('CREDITS_USED:Q')
         )
