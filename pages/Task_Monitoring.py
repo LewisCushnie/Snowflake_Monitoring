@@ -37,55 +37,7 @@ def main():
     query = sql.TASK_HISTORY
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
 
-    st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= ['RUNS', 'COUNT_SUCCEEDED', 'COUNT_FAILED'])
-
-    demo = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
-        x='NAME',
-        y='RUNS',
-        color='COUNT_SUCCEEDED',
-        column='COUNT_FAILED'
-    )
-
-    st.altair_chart(demo)
-
-    chart = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
-    x=alt.X('NAME'),
-    y=alt.Y('RUNS')
-    )
-
-    st.altair_chart(chart, theme= 'streamlit')
-
-    df = pd.DataFrame({
-        'name': ['brian', 'dominik', 'patricia'],
-        'age': [20, 30, 40],
-        'salary': [100, 200, 300]
-    })
-
-    a = alt.Chart(df).mark_area(opacity=1).encode(
-        x='name', y='age')
-
-    b = alt.Chart(df).mark_area(opacity=0.6).encode(
-        x='name', y='salary')
-
-    c = alt.layer(a, b)
-
-    st.altair_chart(c, use_container_width=True)
-
-    df = pd.DataFrame([['Action', 5, 'F'], 
-                    ['Crime', 10, 'F'], 
-                    ['Action', 3, 'M'], 
-                    ['Crime', 9, 'M']], 
-                    columns=['Genre', 'Rating', 'Gender'])
-
-    chart = alt.Chart(df).mark_bar().encode(
-    x=alt.X('Genre', axis=alt.Axis(labelAngle=0)),
-    y=alt.Y('Rating', axis=alt.Axis(grid=False)),
-    color='Gender'
-    ).configure_view(
-        stroke=None,
-    )
-
-    st.altair_chart(chart)
+    st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= ['COUNT_SUCCEEDED', 'COUNT_FAILED'])
     
     raw_data = st.checkbox('Show raw task history data:')
     if raw_data:
