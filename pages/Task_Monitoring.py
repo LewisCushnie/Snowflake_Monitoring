@@ -39,7 +39,6 @@ def main():
 
     st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= ['RUNS', 'COUNT_SUCCEEDED', 'COUNT_FAILED'])
 
-    # create dataframe
     df = pd.DataFrame([['Action', 5, 'F'], 
                     ['Crime', 10, 'F'], 
                     ['Action', 3, 'M'], 
@@ -47,12 +46,12 @@ def main():
                     columns=['Genre', 'Rating', 'Gender'])
 
     chart = alt.Chart(df).mark_bar().encode(
-    column=Column('Genre'),
-    x=X('Gender'),
-    y=Y('Rating'),
-    color=Color('Gender', scale=Scale(range=['#EA98D2', '#659CCA']))
-    ).configure_facet_cell(
-        strokeWidth=0.0,
+    x=alt.X('Genre', axis=alt.Axis(labelAngle=0)),
+    xOffset='Gender',
+    y=alt.Y('Rating', axis=alt.Axis(grid=False)),
+    color='Gender'
+    ).configure_view(
+        stroke=None,
     )
 
     chart.display() # will show the plot
