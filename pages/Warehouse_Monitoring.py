@@ -135,9 +135,6 @@ def main():
     color= alt.Color('QUANTITY:N')
     )
 
-                    # axis= alt.Axis(axisWidth=1.0, offset=-8.0, orient='bottom'),
-                    # scale= alt.Scale(padding=4.0)
-
     st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
 
     # Raw data checkbox
