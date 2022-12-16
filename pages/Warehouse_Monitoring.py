@@ -124,7 +124,7 @@ def main():
     column= 'Usage Week:N'
     )
     
-    st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+    st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
 
     # Raw data checkbox
     raw_data = st.checkbox('Show raw compute data:')
