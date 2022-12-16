@@ -159,12 +159,12 @@ def main():
         st.bar_chart(WH_CREDIT_df, x= 'WH_NAME')
 
         # Create altair chart
-        chart = alt.Chart(WH_CREDIT_df).transform_fold(
-        ['PERC_COMPUTE', 'PERC_CLOUD'],
-        as_=['CATEGORY', 'PERCENTAGE']
+        chart = alt.Chart(WH_CREDIT_df.reset_index()).transform_fold(
+        ['COMPUTE', 'CLOUD_SERVICES'],
+        as_=['CATEGORY', 'CREDITS']
         ).mark_bar().encode(
         x= alt.X('WH_NAME', sort= '-y'),
-        y= alt.Y('PERCENTAGE'),
+        y= alt.Y('CREDITS'),
         color= 'CATEGORY:N'
         )
 
