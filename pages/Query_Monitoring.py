@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from utils import snowflake_connector as sf
 from utils import sql
+import altair as alt
 
 def main():
 
@@ -45,7 +46,16 @@ def main():
     if DOMAIN:
         df = sf.sql_to_dataframe(DOMAIN_QUERY_USAGE)
         st.dataframe(df, width=1000)
-        st.bar_chart(df, x='Schema', y=['Total Compute Credits Used', 'Total Credits Used'])
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write('Altair Chart (Customisable)')
+            chart = alt.Chart(df).mark_bar().encode( 
+            x = 'Username',
+            y = 'Avg Execution Time').interactive()
+            st.altair_chart(chart, use_containter_width=True)
+        with col2:
+            st.write('Streamlit Chart (Default)')
+            st.bar_chart(df, x='Schema', y=['Total Compute Credits Used', 'Total Credits Used'],use_containter_width=True)
 
     #==========================#
     # QUERY COUNT BY TYPE (ADDITION FROM LEWIS)
