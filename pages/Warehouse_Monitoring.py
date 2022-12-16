@@ -79,10 +79,8 @@ def main():
     y= alt.Y('CREDITS_USED')
     )
 
-    st.write(wh_to_show_df)
-    st.write(wh_to_show_df.reset_index())
-
-    chart = alt.Chart(wh_to_show_df).mark_bar().encode(
+    # NOTE: Altair does not read index columns so must reset if theres is data in the index you want to plot
+    chart = alt.Chart(wh_to_show_df.reset_index()).mark_bar().encode(
     x= 'NAME:N',
     y= 'CREDITS_USED'
     )
