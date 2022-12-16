@@ -80,7 +80,7 @@ def main():
     )
 
     chart = alt.Chart(wh_to_show_df).mark_bar().encode(
-    x= 'NAME',
+    x= 'NAME:N',
     y= 'CREDITS_USED'
     )
 
