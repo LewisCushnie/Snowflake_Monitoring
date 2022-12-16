@@ -55,8 +55,8 @@ def main():
     ['COUNT_SUCCEEDED', 'COUNT_FAILED'],
     as_=['STATUS', 'COUNT']
     ).mark_bar().encode(
-    x= 'NAME',
-    y= alt.Y('COUNT:Q', sort= '-x'),
+    x= alt.X('NAME', sort= '-y'),
+    y= alt.Y('COUNT:Q'),
     color= 'STATUS:N'
     )
 
