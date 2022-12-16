@@ -133,8 +133,6 @@ def main():
     x=alt.X('QUANTITY:O', axis=False),
     y=alt.Y('COUNT:Q', axis= alt.Axis(grid=False)),
     color= alt.Color('QUANTITY:N')
-    ).configure_facet_cell(
-        strokeWidth=0.0,
     )
 
                     # axis= alt.Axis(axisWidth=1.0, offset=-8.0, orient='bottom'),
