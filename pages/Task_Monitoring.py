@@ -56,7 +56,8 @@ def main():
     as_=['STATUS', 'COUNT']
     ).mark_bar().encode(
     x= 'NAME',
-    y= 'COUNT:Q'
+    y= 'COUNT:Q',
+    color= 'STATUS:N'
     )
 
     st.altair_chart(test, use_container_width= True, theme= 'streamlit')
