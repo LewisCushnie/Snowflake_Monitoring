@@ -104,7 +104,7 @@ def main():
         list(WH_CREDIT_BREAKDOWN_df['WH_NAME']), five_most_used_wh_list)
         st.write(wh_selected)
         #filtered_df = WH_CREDIT_BREAKDOWN_df.loc[wh_selected]
-        filtered_df = WH_CREDIT_BREAKDOWN_df.loc[wh_selected['WH_NAME'].isin(five_most_used_wh_list)]
+        filtered_df = WH_CREDIT_BREAKDOWN_df.loc[WH_CREDIT_BREAKDOWN_df['WH_NAME'].isin(wh_selected)]
 
         # Create altair chart
         chart = alt.Chart(filtered_df).mark_bar().encode(
