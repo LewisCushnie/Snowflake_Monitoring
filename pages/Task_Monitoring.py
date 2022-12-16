@@ -47,7 +47,7 @@ def main():
     a = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
     x='NAME', y='COUNT_SUCCEEDED')
 
-    B = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
+    b = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
     x='NAME', y='COUNT_FAILED')
 
     c = alt.layer(a, b)
