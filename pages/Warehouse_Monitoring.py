@@ -114,19 +114,17 @@ def main():
     # Create bar chart with filtered values
     st.bar_chart(filtered_df, x= 'Usage Week', y= ['Compute Credits Used','Cost ($)'])
 
-    chart = alt.Chart(filtered_df).transform_fold(
-    ['Compute Credits Used', 'Cost ($)'],
-    as_=['QUANTITY', 'COUNT']
-    ).mark_bar().encode(
-    x= alt.X('QUANTITY:O', axis=alt.Axis(title=None)),
-    y= 'COUNT:Q',
-    color= 'QUANTITY:N',
-    column= alt.Column('Usage Week:N')
-    )
-    #axis=alt.Axis(labelAngle=-45)
-    #axis=alt.Axis(format='%', title='percentage')
+    # chart = alt.Chart(filtered_df).transform_fold(
+    # ['Compute Credits Used', 'Cost ($)'],
+    # as_=['QUANTITY', 'COUNT']
+    # ).mark_bar().encode(
+    # x= alt.X('QUANTITY:O', axis=alt.Axis(title=None)),
+    # y= 'COUNT:Q',
+    # color= 'QUANTITY:N',
+    # column= alt.Column('Usage Week:N')
+    # )
 
-    st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
+    # st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
 
     # Raw data checkbox
     raw_data = st.checkbox('Show raw compute data:')
