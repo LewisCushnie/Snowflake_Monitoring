@@ -51,16 +51,16 @@ def main():
     # ['AAPL', 'AMZN', 'GOOG'],
     # as_=['company', 'price']
 
-    test = alt.Chart(SHOW_TASKS_df).transform_fold(
+    chart = alt.Chart(SHOW_TASKS_df).transform_fold(
     ['COUNT_SUCCEEDED', 'COUNT_FAILED'],
     as_=['STATUS', 'COUNT']
     ).mark_bar().encode(
     x= 'NAME',
-    y= 'COUNT:Q',
+    y= alt.Y('COUNT:Q', sort= '-x'),
     color= 'STATUS:N'
     )
 
-    st.altair_chart(test, use_container_width= True, theme= 'streamlit')
+    st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
     # a = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
     # x='NAME', y='COUNT_SUCCEEDED')
