@@ -81,8 +81,8 @@ def main():
 
     # NOTE: Altair does not read index columns so must reset if theres is data in the index you want to plot
     chart = alt.Chart(wh_to_show_df.reset_index()).mark_bar().encode(
-    x= 'NAME:O',
-    y= 'CREDITS_USED'
+    x= alt.X('NAME:N', sort= '-y'),
+    y= alt.Y('CREDITS_USED')
     )
 
     st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
