@@ -77,7 +77,7 @@ def main():
 
     query = sql.WH_CREDIT_BREAKDOWN
     WH_CREDIT_BREAKDOWN_df = sf.sql_to_dataframe(query)
-    METERING_TOP_10_df['TOTAL_CREDITS'] = METERING_TOP_10_df['TOTAL_CREDITS'].astype(float)
+    WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'] = WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].astype(float)
 
     #METERING_TOP_10_df = METERING_TOP_10_df.set_index('NAME')
     #METERING_TOP_10_df['CREDITS_USED'] = METERING_TOP_10_df['CREDITS_USED'].astype(float)
