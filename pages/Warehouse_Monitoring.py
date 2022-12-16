@@ -147,7 +147,10 @@ def main():
 
     selection = st.selectbox(
     'Select warehouse analysis type:', 
-    ('Warehouse comparison', 'n most used warehouses'))
+    ('Warehouse comparison', 'n most used warehouses')
+    )
+
+    st.write(selection)
 
     st.write('Current selection:', selection)
 
