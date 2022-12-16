@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import altair as alt
 from utils import snowflake_connector as sf
 from utils.df_styler import colour_df
 from utils import sql
