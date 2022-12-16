@@ -39,7 +39,7 @@ def main():
 
     st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= ['RUNS', 'COUNT_SUCCEEDED', 'COUNT_FAILED'])
 
-    runs = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
+    chart = alt.Chart(SHOW_TASKS_df).mark_bar().encode(
     x=alt.X('NAME'),
     y=alt.Y('RUNS')
     )
