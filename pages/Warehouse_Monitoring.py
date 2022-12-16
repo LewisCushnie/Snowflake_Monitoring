@@ -164,7 +164,7 @@ def main():
         as_=['CATEGORY', 'CREDITS']
         ).mark_bar().encode(
         x= alt.X('WH_NAME', sort= '-y'),
-        y= alt.Y('CREDITS'),
+        y= alt.Y('CREDITS:Q'),
         color= 'CATEGORY:N'
         )
 
