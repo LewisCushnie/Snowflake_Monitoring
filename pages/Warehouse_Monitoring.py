@@ -216,7 +216,6 @@ def main():
     utilisation = st.checkbox('Show warehouse utlisation:')
     if utilisation:
         filtered_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'PCT_UTILIZATION']]
-        st.bar_chart(filtered_df, x= 'HOUR')
 
         # Create altair chart
         chart = alt.Chart(filtered_df.reset_index()).mark_bar().encode(
@@ -226,7 +225,6 @@ def main():
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
     else:
         filtered_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']]
-        st.bar_chart(filtered_df, x= 'HOUR')
 
         # Create altair chart
         chart = alt.Chart(filtered_df.reset_index()).transform_fold(
