@@ -128,18 +128,6 @@ def main():
 
     st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
 
-    chart = alt.Chart(filtered_df).transform_fold(
-    ['Compute Credits Used', 'Cost ($)'],
-    as_=['QUANTITY', 'COUNT']
-    ).mark_bar().encode(
-    column=alt.Column('Usage Week:N'),
-    x=alt.X('QUANTITY:O'),
-    y=alt.Y('COUNT:Q'),
-    color=alt.Color('QUANTITY:N')
-    )
-
-    st.altair_chart(chart, use_container_width= False, theme= 'streamlit')
-
     # Raw data checkbox
     raw_data = st.checkbox('Show raw compute data:')
     if raw_data:
