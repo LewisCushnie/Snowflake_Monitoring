@@ -183,7 +183,8 @@ def main():
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
     else:
-        #WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
+        WH_CREDIT_df = WH_CREDIT_BREAKDOWN_df
+        #[['WH_NAME','COMPUTE', 'CLOUD_SERVICES']]
 
         # Create altair chart
         chart = alt.Chart(WH_CREDIT_df.reset_index()).transform_fold(
