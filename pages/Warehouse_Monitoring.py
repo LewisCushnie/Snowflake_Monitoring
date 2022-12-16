@@ -26,8 +26,6 @@ def main():
     pct_change=round(WH_USAGE_LAST_7_DAYS_df['PCT_CHANGE'].iloc[0],3)
     st.sidebar.metric(label='Credit usage over last 7 day period', value= metric, delta= f'{pct_change}%', delta_color= "inverse")
 
-    st.stop()
-
     #======================================================#
     # SIDEBAR - MOST USED WAREHOUSE
     #======================================================#
@@ -58,6 +56,8 @@ def main():
 
     amount_used = round(WH_CREDIT_BREAKDOWN_df['TOTAL_CREDITS'].iloc[most_used_loc], 3)
     st.sidebar.metric(label='Most used warehouse', value= most_used_wh, delta= f'{amount_used} Credits', delta_color= "normal")
+
+    st.stop()
 
     #======================================================#
     # MAIN PAGE - INTRO
