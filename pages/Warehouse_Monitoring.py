@@ -118,7 +118,7 @@ def main():
     ['Compute Credits Used', 'Cost ($)'],
     as_=['QUANTITY', 'COUNT']
     ).mark_bar().encode(
-    x= alt.X('QUANTITY:O', xlabel= None),
+    x= alt.X('QUANTITY:O', axis=alt.Axis(format='%', title='percentage')),
     y= 'COUNT:Q',
     color= 'QUANTITY:N',
     column= 'Usage Week:N'
