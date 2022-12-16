@@ -161,7 +161,7 @@ def main():
         as_=['CATEGORY', 'PERCENTAGE']
         ).mark_bar().encode(
         x= alt.X('WH_NAME', sort= '-y'),
-        y= alt.Y('CREDITS:Q'),
+        y= alt.Y('PERCENTAGE:Q'),
         color= 'CATEGORY:N'
         )
 
