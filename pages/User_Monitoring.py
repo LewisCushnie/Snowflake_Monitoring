@@ -43,7 +43,7 @@ def main():
         if submitted:
         
             LOGIN = f'''
-            select last_success_login
+            select convert_timezone('Europe/London', last_success_login)
             from users
             where name = '{user}';
             '''
