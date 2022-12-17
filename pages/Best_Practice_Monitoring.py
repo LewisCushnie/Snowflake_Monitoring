@@ -45,7 +45,7 @@ def main():
 
     # Colour formatting
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.style.applymap(sty.make_red,
-    subset=pd.IndexSlice[:,['DAYS_UNUSED']])
+    subset=pd.IndexSlice[:,['EMPTY']])
     st.dataframe(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df)
 
     with st.expander("What's this for?"):
