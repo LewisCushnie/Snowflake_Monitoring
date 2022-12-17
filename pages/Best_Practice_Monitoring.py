@@ -60,6 +60,10 @@ def main():
     # filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
 
     def filter_df_by_business_domain(df):
+
+        if 'TABLE_SCHEMA' in df:
+            st.write('YAY')
+            
         query = sql.BUSINESS_DOMAINS
         BUSINESS_DOMAINS_df = sf.sql_to_dataframe(query)
 
