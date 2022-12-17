@@ -96,7 +96,7 @@ def main():
     # Create altair chart
     chart = alt.Chart(TABLE_AND_VIEW_BREAKDOWN_df.reset_index()).transform_fold(
     ['VIEW_COUNT', 'MATERIALIZED_VIEW_COUNT', 'BASE_TABLE_COUNT', 'EXTERNAL_TABLE_COUNT'],
-    as_=['TYPE:N', 'COUNT']
+    as_=['TYPE', 'COUNT']
     ).mark_bar().encode(
     x= alt.X('TYPE:N', sort= '-y'),
     y= alt.Y('COUNT:Q'),
