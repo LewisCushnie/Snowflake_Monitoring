@@ -51,17 +51,23 @@ def main():
     
     i = 1
     n = len(domain_selected)
-    for word in domain_selected:
-        if i == 1:
-            selections = word + '|'
-            i += 1
 
-        elif i == n:
-            selections = selections + word
+    if n == 0:
+        selections = None
+    else:
+        for word in domain_selected:
+            if i == 1:
+                selections = word + '|'
+                i += 1
 
-        else:
-            selections = selections + word + '|'
-            i += 1
+            elif i == n:
+                selections = selections + word
+
+            else:
+                selections = selections + word + '|'
+                i += 1
+    
+    st.write(selections)
 
     selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains(selections)
     filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
