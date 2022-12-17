@@ -59,7 +59,7 @@ def main():
     # selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains(selections)
     # filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
 
-    def filter_df_by_business_domain():
+    def filter_df_by_business_domain(df):
         query = sql.BUSINESS_DOMAINS
         BUSINESS_DOMAINS_df = sf.sql_to_dataframe(query)
 
@@ -73,12 +73,12 @@ def main():
             list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']))
             selections = fun.list_to_OR_string(multi_selections)
 
-        selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains(selections)
-        filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
+        selection_rows = df['TABLE_SCHEMA'].str.contains(selections)
+        filtered_df = df.loc[selection_rows]
 
         return filtered_df
     
-    filtered_df = filter_df_by_business_domain()
+    filtered_df = filter_df_by_business_domain(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df)
 
     # Colour formatting
     filtered_df = filtered_df.style.applymap(sty.make_red,
