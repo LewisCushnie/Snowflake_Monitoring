@@ -3,6 +3,7 @@ import streamlit as st
 from utils import snowflake_connector as sf
 import utils.df_styler as sty
 from utils import sql
+from utils import functions as fun
 import datetime
 
 def main():
@@ -48,30 +49,8 @@ def main():
     # Multiselect list
     domain_selected = st.multiselect("Select domain to filter by:",\
     list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']))
-    
-    def list_to_OR_string(input_list):
-        i = 1
-        n = len(input_list)
-        if n == 0:
-            # String to return if nothing is selected
-            selections = 'XXXXXXX'
-        else:
-            selections = ''
-            for word in input_list:
-                if i == n:
-                    selections = selections + word
 
-                elif i == 1:
-                    selections = word + '|'
-                    i += 1
-
-                else:
-                    selections = selections + word + '|'
-                    i += 1
-        
-        return selections
-
-    OR_string = list_to_OR_string(domain_selected)
+    OR_string = fun.list_to_OR_string(domain_selected)
 
     selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains(OR_string)
     filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
