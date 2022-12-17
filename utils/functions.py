@@ -45,7 +45,7 @@ def filter_df_by_business_domain(df, unique_key):
     else:
         # Multiselect list
         multi_selections = st.multiselect("Select domain(s) to filter by:",\
-        list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']))
+        list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), key= unique_key)
         selections = list_to_OR_string(multi_selections)
 
     selection_rows = df['TABLE_SCHEMA'].str.contains(selections)
