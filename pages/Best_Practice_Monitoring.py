@@ -55,7 +55,7 @@ def main():
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df)
 
-    UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df.style.applymap(colour_df,
+    UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df.style.applymap('color: %s' % 'red',
     subset=pd.IndexSlice[:,['DAYS_UNUSED']])
     st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df, width=1000)
 
