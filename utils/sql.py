@@ -1,8 +1,25 @@
+#-------------- ACCOUNT LEVEL DETAILS -------------
+
+SNOWFLAKE_ACCOUNT_PARAMS = '''
+select current_database() as DATABASE
+,current_schema() as SHEMA
+,current_role() as CURRENT_ROLE
+,current_session() as SESSION_ID
+,current_user() as CURRENT_USER
+,current_warehouse() as WAREHOUSE
+,current_region() as ACCOUNT_REGION
+,current_time() as REGION_TIME
+;'''
+
+BUSINESS_DOMAINS = '''
+select DOMAIN_NAME from admin_db.deploy.business_domains;
+'''
+
 #-------------- BEST PRACTICE MONITORING -------------
 
 EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT = '''
-select table_schema
-       ,table_name
+select table_name
+       ,table_schema
        ,'IS EMPTY' as empty
        ,last_altered
 from snowflake.account_usage.tables
@@ -12,7 +29,7 @@ order by table_schema, table_name;
 
 def UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days):
     query = f'''
-    select 
+    select
         table_name
         ,table_schema
         ,datediff(day, last_altered, current_timestamp()) as days_unused
@@ -59,17 +76,6 @@ select
 sum(credits_used_cloud_services) as CREDITS_USED_STREAMLIT
 from query_history
 where query_tag = 'StreamlitQuery';'''
-
-SNOWFLAKE_ACCOUNT_PARAMS = '''
-select current_database() as DATABASE
-,current_schema() as SHEMA
-,current_role() as CURRENT_ROLE
-,current_session() as SESSION_ID
-,current_user() as CURRENT_USER
-,current_warehouse() as WAREHOUSE
-,current_region() as ACCOUNT_REGION
-,current_time() as REGION_TIME
-;'''
 
 METERING_HISTORY = ''' 
 select 

@@ -43,6 +43,8 @@ def main():
     query = sql.EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
 
+    st.write(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains('FINANCE').any())
+
     # Colour formatting
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.style.applymap(sty.make_red,
     subset=pd.IndexSlice[:,['EMPTY']])
