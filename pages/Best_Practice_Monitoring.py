@@ -47,12 +47,17 @@ def main():
     BUSINESS_DOMAINS_df = sf.sql_to_dataframe(query)
 
     # Multiselect list
-    domain_selected = st.multiselect("Select domain to filter by:",\
+    multi_selections = st.multiselect("Select domain(s) to filter by:",\
     list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']))
 
-    OR_string = fun.list_to_OR_string(domain_selected)
+    select_all = st.button('Select all business domains:')
 
-    selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains(OR_string)
+    if select_all:
+        selections = fun.list_to_OR_string(BUSINESS_DOMAINS_df['DOMAIN_NAME'])
+    else:
+        selections = fun.list_to_OR_string(multi_selections)
+
+    selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains(selections)
     filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
 
     # Colour formatting
