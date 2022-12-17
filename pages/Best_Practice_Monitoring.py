@@ -70,8 +70,10 @@ def main():
 
         selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains(selections)
         filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
+
+        return filtered_df
     
-    filter_df_by_business_domain()
+    filtered_df = filter_df_by_business_domain()
 
     # Colour formatting
     filtered_df = filtered_df.style.applymap(sty.make_red,
