@@ -64,7 +64,8 @@ def main():
         if 'boobs' in df:
             st.write('YAY')
         else:
-            raise Exception("The 'TABLE_SCHEMA' column does not exist in this dataframe")
+            raise Exception('''The 'TABLE_SCHEMA' column does not exist in this dataframe, 
+            cannot use filter_df_by_business_domain function''')
 
         query = sql.BUSINESS_DOMAINS
         BUSINESS_DOMAINS_df = sf.sql_to_dataframe(query)
