@@ -58,16 +58,12 @@ def main():
 
         elif i == n:
             selections = selections + word
-            
+
         else:
             selections = selections + word + '|'
             i += 1
-    
-    st.write(selections)
 
-    st.write(domain_selected)
-
-    selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains('policy|FINANCE|UNDERWRITING')
+    selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains(selections)
     filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
 
     # Colour formatting
