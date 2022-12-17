@@ -49,28 +49,29 @@ def main():
     domain_selected = st.multiselect("Select domain to filter by:",\
     list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']))
     
-    i = 1
-    n = len(domain_selected)
+    def list_to_OR_string(input_list):
+        i = 1
+        n = len(input_list)
+        if n == 0:
+            # String to return if nothing is selected
+            selections = 'XXXXXXX'
+        else:
+            selections = ''
+            for word in input_list:
+                if i == n:
+                    selections = selections + word
 
-    if n == 0:
-        selections = 'XXXXXXX'
-    else:
-        selections = ''
-        for word in domain_selected:
-            if i == n:
-                selections = selections + word
+                elif i == 1:
+                    selections = word + '|'
+                    i += 1
 
-            elif i == 1:
-                selections = word + '|'
-                i += 1
+                else:
+                    selections = selections + word + '|'
+                    i += 1
 
-            else:
-                selections = selections + word + '|'
-                i += 1
-    
-    st.write(selections)
+    OR_string = list_to_OR_string(domain_selected)
 
-    selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains(selections)
+    selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains(OR_string)
     filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
 
     # Colour formatting
