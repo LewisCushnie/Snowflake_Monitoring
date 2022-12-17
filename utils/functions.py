@@ -1,5 +1,6 @@
 import streamlit as st
-from utils import sql, sf
+from utils import sql
+from utils import snowflake_connector as sf
 
 def list_to_OR_string(input_list):
     i = 1
