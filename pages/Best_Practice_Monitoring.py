@@ -42,6 +42,12 @@ def main():
     st.header('Empty tables in account')
     query = sql.EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
+    query = sql.BUSINESS_DOMAINS
+    BUSINESS_DOMAINS_df = sf.sql_to_dataframe(query)
+
+    # Multiselect list
+    domain_selected = st.multiselect("Select domain to filter by:",\
+    list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']))
 
     selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains('FINANCE')
     filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
