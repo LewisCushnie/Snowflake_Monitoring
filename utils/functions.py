@@ -28,7 +28,7 @@ def filter_df_by_business_domain(df):
 
     # check that the input df contains a 'TABLE SCHEMA' column
     if 'TABLE_SCHEMA' in df:
-        st.write('YAY')
+        pass
     else:
         raise Exception('''The 'TABLE_SCHEMA' column does not exist in this dataframe, 
         cannot use the filter_df_by_business_domain function''')
