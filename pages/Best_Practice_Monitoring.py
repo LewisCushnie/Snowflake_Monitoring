@@ -48,16 +48,30 @@ def main():
 
     select_all = st.checkbox('Select all business domains:')
 
-    if select_all:
-        selections = fun.list_to_OR_string(BUSINESS_DOMAINS_df['DOMAIN_NAME'])
-    else:
-        # Multiselect list
-        multi_selections = st.multiselect("Select domain(s) to filter by:",\
-        list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']))
-        selections = fun.list_to_OR_string(multi_selections)
+    # if select_all:
+    #     selections = fun.list_to_OR_string(BUSINESS_DOMAINS_df['DOMAIN_NAME'])
+    # else:
+    #     # Multiselect list
+    #     multi_selections = st.multiselect("Select domain(s) to filter by:",\
+    #     list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']))
+    #     selections = fun.list_to_OR_string(multi_selections)
 
-    selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains(selections)
-    filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
+    # selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains(selections)
+    # filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
+
+    def filter_df_by_business_domain():
+        if select_all:
+            selections = fun.list_to_OR_string(BUSINESS_DOMAINS_df['DOMAIN_NAME'])
+        else:
+            # Multiselect list
+            multi_selections = st.multiselect("Select domain(s) to filter by:",\
+            list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']))
+            selections = fun.list_to_OR_string(multi_selections)
+
+        selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains(selections)
+        filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
+    
+    filter_df_by_business_domain()
 
     # Colour formatting
     filtered_df = filtered_df.style.applymap(sty.make_red,
