@@ -54,6 +54,11 @@ def main():
     query = sql.UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days)
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df)
+
+    UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df.style.applymap(colour_df,
+    subset=pd.IndexSlice[:,['DAYS_UNUSED']])
+    st.dataframe(filtered_df, width=1000)
+
     with st.expander("What's this for?"):
         st.info('The dataframe above shows tables/views containing data that has not been used within the specified time period. It is\
         the intention that unused data be reviewed, to check for any tables/views that could be removed from the\
