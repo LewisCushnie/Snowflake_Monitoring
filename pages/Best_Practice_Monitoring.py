@@ -92,6 +92,17 @@ def main():
     st.dataframe(TABLE_AND_VIEW_BREAKDOWN_df)
     st.bar_chart(TABLE_AND_VIEW_BREAKDOWN_df)
 
+    # Create altair chart
+    chart = alt.Chart(TABLE_AND_VIEW_BREAKDOWN_df.reset_index()).transform_fold(
+    ['VIEW_COUNT', 'MATERIALIZED_VIEW_COUNT', 'BASE_TABLE_COUNT', 'EXTERNAL_TABLE_COUNT'],
+    as_=['TYPE', 'COUNT']
+    ).mark_bar().encode(
+    x= alt.X('TYPE', sort= '-y'),
+    y= alt.Y('COUNT:Q'),
+    color= 'TYPE:N'
+    )
+    st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+
     #======================================================#
     # MAIN PAGE: COPY INTO V.S INSERT INTO
     #======================================================#
