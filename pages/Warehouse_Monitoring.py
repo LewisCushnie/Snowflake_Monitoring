@@ -150,7 +150,7 @@ def main():
         pass
 
     # Raw data checkbox
-    raw_data = st.checkbox('Show raw warehouse usage data')
+    raw_data = st.checkbox('Show raw data', key= 'Warehouse credit usage breakdown')
     if raw_data:
         st.dataframe(WH_CREDIT_df)
 

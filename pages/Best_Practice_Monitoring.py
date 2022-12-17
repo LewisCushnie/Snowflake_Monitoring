@@ -90,9 +90,6 @@ def main():
     query = sql.TABLE_AND_VIEW_BREAKDOWN
     TABLE_AND_VIEW_BREAKDOWN_df = sf.sql_to_dataframe(query)
 
-    st.dataframe(TABLE_AND_VIEW_BREAKDOWN_df)
-    st.bar_chart(TABLE_AND_VIEW_BREAKDOWN_df)
-
     # Create altair chart
     chart = alt.Chart(TABLE_AND_VIEW_BREAKDOWN_df.reset_index()).transform_fold(
     ['VIEW_COUNT', 'MATERIALIZED_VIEW_COUNT', 'BASE_TABLE_COUNT', 'EXTERNAL_TABLE_COUNT'],
@@ -103,6 +100,11 @@ def main():
     color= 'TYPE:N'
     )
     st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+
+    # Raw data checkbox
+    raw_data = st.checkbox('Show raw data', key= 'Table and view type summary')
+    if raw_data:
+        st.dataframe(TABLE_AND_VIEW_BREAKDOWN_df)
 
     #======================================================#
     # MAIN PAGE: COPY INTO V.S INSERT INTO
