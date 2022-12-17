@@ -54,8 +54,10 @@ def main():
     for word in domain_selected:
         if i == 1:
             selections = word
+            i += 1
         else:
             selections = selections + word + '|'
+            i += 1
     
     st.write(selections)
 
