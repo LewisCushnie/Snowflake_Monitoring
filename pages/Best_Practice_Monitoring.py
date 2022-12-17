@@ -98,7 +98,7 @@ def main():
     ['VIEW_COUNT', 'MATERIALIZED_VIEW_COUNT', 'BASE_TABLE_COUNT', 'EXTERNAL_TABLE_COUNT'],
     as_=['TYPE', 'COUNT']
     ).mark_bar().encode(
-    x= alt.X('TYPE:N', sort= '-y'),
+    x= alt.X('TYPE:N', sort= '-y', axis=alt.Axis(labels=False)),
     y= alt.Y('COUNT:Q'),
     color= 'TYPE:N'
     )
