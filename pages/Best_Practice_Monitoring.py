@@ -43,7 +43,12 @@ def main():
     query = sql.EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
 
-    st.write(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.iloc(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains('FINANCE')))
+    selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains('FINANCE')
+    filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].isin(selection_rows)]
+    st.write(filtered_df)
+
+    # st.write(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains('FINANCE')))
+    # filtered_df = WH_CREDIT_BREAKDOWN_df.loc[WH_CREDIT_BREAKDOWN_df['WH_NAME'].isin(wh_selected)]
 
     # Colour formatting
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.style.applymap(sty.make_red,
