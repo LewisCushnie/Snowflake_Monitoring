@@ -112,8 +112,11 @@ def main():
         monitor the usage of each type, and better understand which data has time-travel enabled and which does not.
         Consider noting any table types which are not used much, or used a lot. Remember, transient and temporary tables/views
         help save on storage costs, whereas permenant tables/views offer time-travel and fail-safe protection. Be sure to check
-        that the benefits of each are being used appropriately.
-        **Benefit:** Monitoring table/view usage helps ensure storage costs are minimised, and the correct data is backed up.
+        that the benefits of each are being used appropriately.\n
+        **Benefit:** Monitoring table/view usage helps ensure storage costs are minimised, and the correct data is backed up.\n
+        **Snowflake docs:** \n
+        https://docs.snowflake.com/en/user-guide/tables-temp-transient.html \n
+        https://docs.snowflake.com/en/user-guide/views-introduction.html
         '''
         )
 
