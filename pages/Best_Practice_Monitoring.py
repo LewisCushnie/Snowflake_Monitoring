@@ -53,8 +53,8 @@ def main():
     days = st.number_input('Number of days table/view has not been used:', value= 30)
     query = sql.UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days)
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
-    st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df)
 
+    # Colour formatting
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df.style.applymap(sty.make_red,
     subset=pd.IndexSlice[:,['DAYS_UNUSED']])
     st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df, width=1000)
