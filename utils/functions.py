@@ -41,13 +41,13 @@ def filter_df_by_business_domain(df):
     select_all = st.checkbox('Select all business domains:')
 
     if select_all:
-        selections = fun.list_to_OR_string(BUSINESS_DOMAINS_df['DOMAIN_NAME'])
+        selections = list_to_OR_string(BUSINESS_DOMAINS_df['DOMAIN_NAME'])
 
     else:
         # Multiselect list
         multi_selections = st.multiselect("Select domain(s) to filter by:",\
         list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']))
-        selections = fun.list_to_OR_string(multi_selections)
+        selections = list_to_OR_string(multi_selections)
 
     selection_rows = df['TABLE_SCHEMA'].str.contains(selections)
     filtered_df = df.loc[selection_rows]
