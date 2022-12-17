@@ -46,15 +46,14 @@ def main():
     query = sql.BUSINESS_DOMAINS
     BUSINESS_DOMAINS_df = sf.sql_to_dataframe(query)
 
-    # Multiselect list
-    multi_selections = st.multiselect("Select domain(s) to filter by:",\
-    list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']))
-
     select_all = st.checkbox('Select all business domains:')
 
     if select_all:
         selections = fun.list_to_OR_string(BUSINESS_DOMAINS_df['DOMAIN_NAME'])
     else:
+        # Multiselect list
+        multi_selections = st.multiselect("Select domain(s) to filter by:",\
+        list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']))
         selections = fun.list_to_OR_string(multi_selections)
 
     selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains(selections)
