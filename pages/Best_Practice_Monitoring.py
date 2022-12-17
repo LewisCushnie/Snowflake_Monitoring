@@ -45,7 +45,7 @@ def main():
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     
     # Generate the business domain filter options
-    filtered_df = fun.filter_df_by_business_domain(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df, unique_key= 'test1')
+    filtered_df = fun.filter_df_by_business_domain(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df, unique_key= 'Empty tables in account')
 
     # Colour formatting
     filtered_df = filtered_df.style.applymap(sty.make_red,
@@ -64,12 +64,12 @@ def main():
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
 
     # Generate the business domain filter options
-    filtered_df = fun.filter_df_by_business_domain(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df, unique_key= 'test')
+    filtered_df = fun.filter_df_by_business_domain(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df, unique_key= 'Unused tables in account')
 
     # Colour formatting
-    UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df.style.applymap(sty.make_red,
+    filtered_df = filtered_df.style.applymap(sty.make_red,
     subset=pd.IndexSlice[:,['DAYS_UNUSED']])
-    st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df)
+    st.dataframe(filtered_df)
 
     with st.expander("What's this for?"):
         st.info('The dataframe above shows tables/views containing data that has not been used within the specified time period. It is\
