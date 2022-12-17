@@ -53,15 +53,15 @@ def main():
     n = len(domain_selected)
 
     if n == 0:
-        selections = None
+        selections = 'XXXXXXX'
     else:
         for word in domain_selected:
-            if i == 1:
+            if i == n:
+                selections = selections + word
+
+            elif i == 1:
                 selections = word + '|'
                 i += 1
-
-            elif i == n:
-                selections = selections + word
 
             else:
                 selections = selections + word + '|'
