@@ -12,8 +12,8 @@ order by table_schema, table_name;
 
 def UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days):
     query = f'''
-        table_name
-        ,select table_schema
+    select table_name
+        , table_schema
         ,{days} as days_unsused
         ,table_type
         ,last_altered
