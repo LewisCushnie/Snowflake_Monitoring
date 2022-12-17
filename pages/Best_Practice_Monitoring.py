@@ -42,7 +42,12 @@ def main():
     st.header('Empty tables in account')
     query = sql.EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
+
+    # Colour formatting
+    EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.style.applymap(sty.make_red,
+    subset=pd.IndexSlice[:,['DAYS_UNUSED']])
     st.dataframe(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df)
+
     with st.expander("What's this for?"):
         st.info('The dataframe above shows tables/views in the account that do not contain any data. This allows\
         unused/accidentally created tables to be identified and removed from the account'
@@ -57,7 +62,7 @@ def main():
     # Colour formatting
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df.style.applymap(sty.make_red,
     subset=pd.IndexSlice[:,['DAYS_UNUSED']])
-    st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df, width=1000)
+    st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df)
 
     with st.expander("What's this for?"):
         st.info('The dataframe above shows tables/views containing data that has not been used within the specified time period. It is\
