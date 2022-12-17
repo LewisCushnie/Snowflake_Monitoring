@@ -195,7 +195,7 @@ def main():
         pass
 
     # Raw data checkbox
-    raw_data = st.checkbox('Show raw compute data:')
+    raw_data = st.checkbox('Show raw data:', key= 'Total compute credit usage per day')
     if raw_data:
         st.text('Red - $10+ per day | Orange - $5-$10 per day | Green - Less than $5 per day')
         filtered_df = filtered_df.style.applymap(colour_df,
@@ -239,7 +239,7 @@ def main():
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
     # Raw data checkbox
-    raw_data = st.checkbox('Show raw availability data:')
+    raw_data = st.checkbox('Show raw data:', key= 'Compute availablity v.s execution time by hour')
     if raw_data:
         st.dataframe(filtered_df)
 
