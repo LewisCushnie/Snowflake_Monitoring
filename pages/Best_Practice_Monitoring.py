@@ -49,7 +49,7 @@ def main():
     # Colour formatting
     filtered_df = filtered_df.style.applymap(sty.make_red,
     subset=pd.IndexSlice[:,['EMPTY']])
-    st.dataframe(filtered_df, use_column_width= True)
+    st.dataframe(filtered_df, use_container_width= True)
 
     with st.expander("What's this for?"):
         st.info('The dataframe above shows tables/views in the account that do not contain any data. This allows\
