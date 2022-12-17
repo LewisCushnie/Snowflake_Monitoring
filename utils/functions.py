@@ -24,7 +24,6 @@ def list_to_OR_string(input_list):
 
     return OR_string
 
-
 def filter_df_by_business_domain(df):
 
     # check that the input df contains a 'TABLE SCHEMA' column
@@ -53,3 +52,6 @@ def filter_df_by_business_domain(df):
     filtered_df = df.loc[selection_rows]
 
     return filtered_df
+
+if __name__ == "__main__":
+    pass
