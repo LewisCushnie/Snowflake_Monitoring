@@ -51,7 +51,7 @@ def main():
 
     st.write(domain_selected)
 
-    selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains('policy','FINANCE')
+    selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains('policy|FINANCE')
     filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
 
     # Colour formatting
