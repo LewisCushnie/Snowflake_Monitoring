@@ -54,8 +54,11 @@ def main():
     st.dataframe(filtered_df, use_container_width= True)
 
     with st.expander("What's this for?"):
-        st.info('The dataframe above shows tables/views in the account that do not contain any data. This allows\
-        unused/accidentally created tables to be identified and removed from the account'
+        st.info('''
+        The dataframe above shows tables/views in the account that do not contain any data. This allows
+        unused/accidentally created tables to be identified and removed from the account.
+        **Benefit:** Reduced storage costs, and clutter on the account.
+        '''
         )
 
    # UNUSED TABLES IN ACCOUNT
@@ -73,18 +76,26 @@ def main():
     st.dataframe(filtered_df)
 
     with st.expander("What's this for?"):
-        st.info('The dataframe above shows tables/views containing data that has not been used within the specified time period. It is\
-        the intention that unused data be reviewed, to check for any tables/views that could be removed from the\
-        account to reduce storage costs'
+        st.info('''
+        The dataframe above shows tables/views containing data that has not been used within the specified time period. It is
+        the intention that unused data be reviewed, to check for any tables/views that could be removed from the
+        account to reduce storage costs.
+        **Benefit:** Dropping debricated tables (after moving to another location) reduces storage costs
+        '''
         )
 
    # TABLE AND VIEW TYPE SUMMARY
     st.header('Table and view type summary')
 
     with st.expander("What's this for?"):
-        st.info('The dataframe above shows tables/views containing data that has not been used within the specified time period. It is\
-        the intention that unused data be reviewed, to check for any tables/views that could be removed from the\
-        account to reduce storage costs'
+        st.info('''
+        The bar chart above shows a breakdown of each table and view type in the selected location. This can be used to
+        monitor the usage of each type, and better understand which data has time-travel enabled and which does not.
+        Consider noting any table types which are not used much, or used a lot. Remember, transient and temporary tables/views
+        help save on storage costs, whereas permenant tables/views offer time-travel and fail-safe protection. Be sure to check
+        that the benefits of each are being used appropriately.
+        **Benefit:** Monitoring table/view usage helps ensure storage costs are minimised, and the correct data is backed up.
+        '''
         )
 
     query = sql.TABLE_AND_VIEW_BREAKDOWN
