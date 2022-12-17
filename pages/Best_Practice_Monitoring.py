@@ -43,10 +43,10 @@ def main():
     st.header('Empty tables in account')
     query = sql.EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
-    query = sql.BUSINESS_DOMAINS
-    BUSINESS_DOMAINS_df = sf.sql_to_dataframe(query)
+    # query = sql.BUSINESS_DOMAINS
+    # BUSINESS_DOMAINS_df = sf.sql_to_dataframe(query)
 
-    select_all = st.checkbox('Select all business domains:')
+    #select_all = st.checkbox('Select all business domains:')
 
     # if select_all:
     #     selections = fun.list_to_OR_string(BUSINESS_DOMAINS_df['DOMAIN_NAME'])
@@ -60,6 +60,11 @@ def main():
     # filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[selection_rows]
 
     def filter_df_by_business_domain():
+        query = sql.BUSINESS_DOMAINS
+        BUSINESS_DOMAINS_df = sf.sql_to_dataframe(query)
+
+        select_all = st.checkbox('Select all business domains:')
+
         if select_all:
             selections = fun.list_to_OR_string(BUSINESS_DOMAINS_df['DOMAIN_NAME'])
         else:
