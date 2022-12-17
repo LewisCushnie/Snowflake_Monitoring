@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 from utils import snowflake_connector as sf
-from utils.df_styler import colour_df
+import utils.df_styler
 from utils import sql
 import datetime
 
@@ -55,7 +55,7 @@ def main():
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df)
 
-    UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df.style.applymap('color: %s' % 'red',
+    UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df.style.applymap(unused_tables_colour(),
     subset=pd.IndexSlice[:,['DAYS_UNUSED']])
     st.dataframe(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df, width=1000)
 
