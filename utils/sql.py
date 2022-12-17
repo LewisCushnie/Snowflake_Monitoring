@@ -20,7 +20,7 @@ def UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days):
         ,last_altered
     from snowflake.account_usage.tables
     where last_altered < dateadd( 'DAY', -{days}, current_timestamp() ) 
-    order by days_unused;
+    order by days_unused desc;
     '''
     return query
 
