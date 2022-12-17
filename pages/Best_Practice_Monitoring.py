@@ -68,6 +68,8 @@ def main():
                 else:
                     selections = selections + word + '|'
                     i += 1
+        
+        return selections
 
     OR_string = list_to_OR_string(domain_selected)
 
