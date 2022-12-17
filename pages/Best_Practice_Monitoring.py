@@ -45,7 +45,7 @@ def main():
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     
     # Generate the business domain filter options
-    filtered_df = fun.filter_df_by_business_domain(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df)
+    filtered_df = fun.filter_df_by_business_domain(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df, unique_key= 'test1')
 
     # Colour formatting
     filtered_df = filtered_df.style.applymap(sty.make_red,
