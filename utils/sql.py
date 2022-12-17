@@ -12,9 +12,10 @@ order by table_schema, table_name;
 
 def UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days):
     query = f'''
-    select table_name
-        , table_schema
-        ,{days} as days_unsused
+    select 
+        table_name
+        ,table_schema
+        ,datediff(day, last_altered, current_timestamp()) as days_unused
         ,table_type
         ,last_altered
     from snowflake.account_usage.tables
