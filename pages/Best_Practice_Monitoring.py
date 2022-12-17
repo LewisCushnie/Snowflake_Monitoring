@@ -86,6 +86,12 @@ def main():
         account to reduce storage costs'
         )
 
+    query = sql.TABLE_AND_VIEW_BREAKDOWN
+    TABLE_AND_VIEW_BREAKDOWN_df = sf.sql_to_dataframe(query)
+
+    st.dataframe(TABLE_AND_VIEW_BREAKDOWN_df)
+    st.bar_chart(TABLE_AND_VIEW_BREAKDOWN_df)
+
     #======================================================#
     # MAIN PAGE: COPY INTO V.S INSERT INTO
     #======================================================#
