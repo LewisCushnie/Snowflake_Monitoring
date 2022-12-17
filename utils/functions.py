@@ -2,28 +2,6 @@ import streamlit as st
 from utils import sql
 from utils import snowflake_connector as sf
 
-def list_to_OR_string(input_list):
-    i = 1
-    n = len(input_list)
-    if n == 0:
-        # String to return if nothing is selected
-        OR_string = 'XXXXXXX'
-    else:
-        OR_string = ''
-        for word in input_list:
-            if i == n:
-                OR_string = OR_string + word
-
-            elif i == 1:
-                OR_string = word + '|'
-                i += 1
-
-            else:
-                OR_string = OR_string + word + '|'
-                i += 1
-
-    return OR_string
-
 def filter_df_by_business_domain(df, unique_key):
 
     # check that the input df contains a 'TABLE SCHEMA' column
@@ -43,6 +21,29 @@ def filter_df_by_business_domain(df, unique_key):
         # Multiselect list
         multi_selections = st.multiselect("Select domain(s) to filter by:",\
         list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), key= unique_key+'multi1')
+
+        def list_to_OR_string(input_list):
+            i = 1
+            n = len(input_list)
+            if n == 0:
+                # String to return if nothing is selected
+                OR_string = 'XXXXXXX'
+            else:
+                OR_string = ''
+                for word in input_list:
+                    if i == n:
+                        OR_string = OR_string + word
+
+                    elif i == 1:
+                        OR_string = word + '|'
+                        i += 1
+
+                    else:
+                        OR_string = OR_string + word + '|'
+                        i += 1
+
+            return OR_string
+
         selections = list_to_OR_string(multi_selections)
         selection_rows = df['TABLE_SCHEMA'].str.contains(selections)
         filtered_df = df.loc[selection_rows]
