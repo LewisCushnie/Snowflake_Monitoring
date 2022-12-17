@@ -50,7 +50,7 @@ def main():
     list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']))
     
     i = 1
-    n = domain_selected.len()
+    n = len(domain_selected)
     for word in domain_selected:
         if i == 1:
             selections = word
