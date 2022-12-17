@@ -55,7 +55,7 @@ def main():
     if n == 0:
         selections = 'XXXXXXX'
     else:
-        selection = ''
+        selections = ''
         for word in domain_selected:
             if i == n:
                 selections = selections + word
