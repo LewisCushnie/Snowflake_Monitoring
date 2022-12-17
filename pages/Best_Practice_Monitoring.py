@@ -45,6 +45,7 @@ def main():
 
     selection_rows = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].str.contains('FINANCE')
     st.write(selection_rows)
+    st.write(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].isin(selection_rows))
     filtered_df = EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df.loc[EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df['TABLE_SCHEMA'].isin(selection_rows)]
     st.write(filtered_df)
 
