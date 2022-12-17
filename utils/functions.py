@@ -37,19 +37,18 @@ def filter_df_by_business_domain(df, unique_key):
     query = sql.BUSINESS_DOMAINS
     BUSINESS_DOMAINS_df = sf.sql_to_dataframe(query)
 
-    select_all = st.checkbox('Select all business domains:', key= unique_key+'check1')
+    apply_filter = st.checkbox('Apply filter:', key= unique_key+'check1')
 
-    if select_all:
-        selections = list_to_OR_string(BUSINESS_DOMAINS_df['DOMAIN_NAME'])
-
-    else:
+    if apply_filter:
         # Multiselect list
         multi_selections = st.multiselect("Select domain(s) to filter by:",\
         list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), key= unique_key+'multi1')
         selections = list_to_OR_string(multi_selections)
+        selection_rows = df['TABLE_SCHEMA'].str.contains(selections)
+        filtered_df = df.loc[selection_rows]
 
-    selection_rows = df['TABLE_SCHEMA'].str.contains(selections)
-    filtered_df = df.loc[selection_rows]
+    else:
+        filtered_df = df
 
     return filtered_df
 
