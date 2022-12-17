@@ -50,7 +50,7 @@ def main():
     multi_selections = st.multiselect("Select domain(s) to filter by:",\
     list(BUSINESS_DOMAINS_df['DOMAIN_NAME']), list(BUSINESS_DOMAINS_df['DOMAIN_NAME']))
 
-    select_all = st.button('Select all business domains:')
+    select_all = st.checkbox('Select all business domains:')
 
     if select_all:
         selections = fun.list_to_OR_string(BUSINESS_DOMAINS_df['DOMAIN_NAME'])
