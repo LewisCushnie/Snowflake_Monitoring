@@ -24,7 +24,7 @@ def list_to_OR_string(input_list):
 
     return OR_string
 
-def filter_df_by_business_domain(df):
+def filter_df_by_business_domain(df, unique_key):
 
     # check that the input df contains a 'TABLE SCHEMA' column
     if 'TABLE_SCHEMA' in df:
@@ -37,7 +37,7 @@ def filter_df_by_business_domain(df):
     query = sql.BUSINESS_DOMAINS
     BUSINESS_DOMAINS_df = sf.sql_to_dataframe(query)
 
-    select_all = st.checkbox('Select all business domains:')
+    select_all = st.checkbox('Select all business domains:', key= unique_key)
 
     if select_all:
         selections = list_to_OR_string(BUSINESS_DOMAINS_df['DOMAIN_NAME'])

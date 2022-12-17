@@ -64,7 +64,7 @@ def main():
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
 
     # Generate the business domain filter options
-    filtered_df = fun.filter_df_by_business_domain(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df)
+    filtered_df = fun.filter_df_by_business_domain(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df, unique_key= 'test')
 
     # Colour formatting
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df.style.applymap(sty.make_red,
