@@ -9,7 +9,7 @@ def colour_df(value):
 
   return 'color: %s' % colour
 
-def unused_tables_colour(value):
+def make_red(value):
   colour = 'red'
   return 'color: %s' % colour
 
