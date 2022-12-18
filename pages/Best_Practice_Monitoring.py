@@ -75,7 +75,7 @@ def main():
    # UNUSED TABLES IN ACCOUNT
     st.header('(2) Unused tables and views in account')
     days = st.number_input('Number of days table/view has not been used:', value= 30)
-    
+
     query = sql.UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days)
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
 
@@ -143,6 +143,7 @@ def main():
 
     query = sql.WAREHOUSE_DETAILS
     WAREHOUSE_DETAILS_df = sf.sql_to_dataframe(query)
+    WAREHOUSE_DETAILS_df = WAREHOUSE_DETAILS_df[['name', 'owner', 'updated_on','resource_monitor']]
     st.dataframe(WAREHOUSE_DETAILS_df)
 
     #======================================================#
