@@ -143,7 +143,13 @@ def main():
 
     query = sql.WAREHOUSE_DETAILS
     WAREHOUSE_DETAILS_df = sf.sql_to_dataframe(query)
-    WAREHOUSE_DETAILS_df = WAREHOUSE_DETAILS_df[['name', 'owner', 'updated_on','resource_monitor']]
+    WAREHOUSE_DETAILS_df = WAREHOUSE_DETAILS_df[['name', 'resource_monitor','owner', 'updated_on']]
+
+    # Colour formatting
+    WAREHOUSE_DETAILS_df = WAREHOUSE_DETAILS_df.style.applymap(sty.make_red,
+    subset=pd.IndexSlice[:,['resource_monitor']])
+    st.dataframe(filtered_df)
+
     st.dataframe(WAREHOUSE_DETAILS_df)
 
     #======================================================#
