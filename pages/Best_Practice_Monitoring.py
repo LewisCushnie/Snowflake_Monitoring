@@ -159,7 +159,7 @@ def main():
 
     line = '---'
     st.markdown(line)
-    st.header('(2) Compute availablity v.s execution time by hour')
+    st.header('(2) Warehouse utilisation')
 
     query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
     COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
