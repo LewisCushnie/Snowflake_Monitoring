@@ -52,7 +52,7 @@ def main():
     st.info('This section provides analysis on the account\'s tables and views')
 
     # EMPTY TABLES IN ACCOUNT
-    st.header('Empty tables in account')
+    st.header('(1) Empty tables in account')
     query = sql.EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     
@@ -73,7 +73,7 @@ def main():
         )
 
    # UNUSED TABLES IN ACCOUNT
-    st.header('Unused tables in account')
+    st.header('(2) Unused tables in account')
     days = st.number_input('Number of days table/view has not been used:', value= 30)
     query = sql.UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days)
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
@@ -96,7 +96,7 @@ def main():
         )
 
    # TABLE AND VIEW TYPE SUMMARY
-    st.header('Table and view type summary')
+    st.header('(3) Table and view type summary')
 
     query = sql.TABLE_AND_VIEW_BREAKDOWN
     TABLE_AND_VIEW_BREAKDOWN_df = sf.sql_to_dataframe(query)
