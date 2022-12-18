@@ -37,7 +37,7 @@ def main():
     3. **Data transfer costs:** are incurred when you transfer data between Snowflake regions, or to\
     another cloud provider. 
     \n
-    The analysis in this app has been included to aid the maintenance of best practices which reduce costs
+    The analysis in this app has been included to help ensure Snowflake best practices are being maintained to reduce costs
     in the three areas listed above.
     '''
     )
