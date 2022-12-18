@@ -25,7 +25,20 @@ def main():
     '''
     The **Best Practice Monitoring** page provides a number of figures to monitor Snowflake best practices\
     it is the intention that the analysis on this page be used as a method for identiying areas of a (functional team's)\
-    snowflake workflow that could be optimised to further cut costs
+    snowflake workflow that could be optimised to further cut costs. 
+    \n
+    Remeber, at the highest level, snowflake charges you for three things: 
+    \n
+    1. **Compute costs:** are likely to constitute the largest portion of your bill and are based on\
+    how long your warehouses are running and how much compute power they're using. Warehouses come\
+    in a range of sizes, from x-small to 6X-large, with the price doubling between each tier.
+    2. **Storage costs:** are typically lower than compute costs and are based on how much data you're\
+    storing across tables, clones, and regions.
+    3. **Data transfer costs:** are incurred when you transfer data between Snowflake regions, or to\
+    another cloud provider. 
+    \n
+    The analysis in this app has been included to aid the maintenance of best practices which reduce costs
+    in the three areas listed above.
     '''
     )
 
