@@ -139,7 +139,6 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Warehouses that do not have a resource monitor')
-    st.write('Identify big aggregate functions that could be taking advantage of High performing functions')
 
     query = sql.WAREHOUSE_DETAILS
     WAREHOUSE_DETAILS_df = sf.sql_to_dataframe(query)
