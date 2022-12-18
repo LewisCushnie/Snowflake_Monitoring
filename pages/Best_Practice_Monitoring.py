@@ -144,6 +144,7 @@ def main():
     query = sql.WAREHOUSE_DETAILS
     WAREHOUSE_DETAILS_df = sf.sql_to_dataframe(query)
     WAREHOUSE_DETAILS_df = WAREHOUSE_DETAILS_df[['name', 'resource_monitor','owner', 'updated_on']]
+    WAREHOUSE_DETAILS_df = WAREHOUSE_DETAILS_df[WAREHOUSE_DETAILS_df['resource_monitor'] == 'null']
 
     # Colour formatting
     WAREHOUSE_DETAILS_df = WAREHOUSE_DETAILS_df.style.applymap(sty.make_red,
