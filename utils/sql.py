@@ -50,6 +50,10 @@ select
 from SNOWFLAKE.ACCOUNT_USAGE.TABLES;
 '''
 
+WAREHOUSE_DETAILS = '''
+show warehouses;
+'''
+
 #-------------- WAREHOUSE MONITORING ------------------
 WH_CREDIT_BREAKDOWN = '''
 select

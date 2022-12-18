@@ -52,7 +52,7 @@ def main():
     st.info('This section provides analysis on the account\'s tables and views')
 
     # EMPTY TABLES IN ACCOUNT
-    st.header('(1) Empty tables in account')
+    st.header('(1) Empty tables and views in account')
     query = sql.EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     
@@ -73,7 +73,7 @@ def main():
         )
 
    # UNUSED TABLES IN ACCOUNT
-    st.header('(2) Unused tables in account')
+    st.header('(2) Unused tables and views in account')
     days = st.number_input('Number of days table/view has not been used:', value= 30)
     query = sql.UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days)
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
@@ -132,6 +132,19 @@ def main():
         )
 
     #======================================================#
+    # MAIN PAGE: WAREHOUSES THAT DO NOT HAVE A RESOURCE MONITOR   
+    #======================================================#
+
+    line = '---'
+    st.markdown(line)
+    st.header('Warehouses that do not have a resource monitor')
+    st.write('Identify big aggregate functions that could be taking advantage of High performing functions')
+
+    query = sql.WAREHOUSE_DETAILS
+    WAREHOUSE_DETAILS_df = sf.sql_to_dataframe(query)
+    st.dataframe(WAREHOUSE_DETAILS_df)
+
+    #======================================================#
     # MAIN PAGE: COPY INTO V.S INSERT INTO
     #======================================================#
 
@@ -146,7 +159,7 @@ def main():
 
     line = '---'
     st.markdown(line)
-    st.header('Sort v.s Order By')
+    st.header('Queries that contain an Order By')
     st.write('Check why this matters')
 
     #======================================================#
@@ -165,15 +178,6 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Zero Copy Cloning Usage')
-    st.write('Identify big aggregate functions that could be taking advantage of High performing functions')
-
-    #======================================================#
-    # MAIN PAGE: WAREHOUSES THAT DO NOT HAVE A RESOURCE MONITOR   
-    #======================================================#
-
-    line = '---'
-    st.markdown(line)
-    st.header('Warehouses that do not have a resource monitor')
     st.write('Identify big aggregate functions that could be taking advantage of High performing functions')
 
 
