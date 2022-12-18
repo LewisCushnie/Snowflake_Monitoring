@@ -136,9 +136,11 @@ def main():
     # MAIN PAGE: WAREHOUSES THAT DO NOT HAVE A RESOURCE MONITOR   
     #======================================================#
 
+    st.header('Warehouse monitoring')    
+
     line = '---'
     st.markdown(line)
-    st.header('Warehouses that do not have a resource monitor')
+    st.header('(1) Warehouses that do not have a resource monitor')
 
     query = sql.WAREHOUSE_DETAILS
     WAREHOUSE_DETAILS_df = sf.sql_to_dataframe(query)
@@ -150,6 +152,47 @@ def main():
     subset=pd.IndexSlice[:,['resource_monitor']])
 
     st.dataframe(WAREHOUSE_DETAILS_df)
+
+    #======================================================#
+    # MAIN PAGE: COMPUTE AVAILABILITY VS EXECUTION TIME
+    #======================================================#
+
+    line = '---'
+    st.markdown(line)
+    st.header('(2) Compute availablity v.s execution time by hour')
+
+    query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
+    COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
+
+    utilisation = st.checkbox('Show warehouse utlisation:')
+    if utilisation:
+        filtered_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'PCT_UTILIZATION']]
+        filtered_df['PCT_UTILIZATION'] = filtered_df['PCT_UTILIZATION'].div(100)
+
+        # Create altair chart
+        chart = alt.Chart(filtered_df.reset_index()).mark_bar().encode(
+        x= alt.X('HOUR'),
+        y= alt.Y('PCT_UTILIZATION:Q', axis= alt.Axis(title= 'Percentage Warehouse Utilisation', format= '%')),
+        )
+        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+    else:
+        filtered_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']]
+
+        # Create altair chart
+        chart = alt.Chart(filtered_df.reset_index()).transform_fold(
+        ['TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC'],
+        as_=['CATEGORY', 'TIME']
+        ).mark_bar().encode(
+        x= alt.X('HOUR'),
+        y= alt.Y('TIME:Q'),
+        color= 'CATEGORY:N'
+        )
+        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+
+    # Raw data checkbox
+    raw_data = st.checkbox('Show raw data:', key= 'Compute availablity v.s execution time by hour')
+    if raw_data:
+        st.dataframe(filtered_df)
 
     #======================================================#
     # MAIN PAGE: COPY INTO V.S INSERT INTO
