@@ -178,8 +178,13 @@ def main():
    # ----------------- WAREHOUSE UTILIZATION SUMMARY ----------------------
     st.subheader('Warehouse utilisation - Summary')
 
-    query = sql.WAREHOUSE_UTILIZATION_LAST_N_DAYS
+    days = st.number_input('Number of days table/view has not been used:', value= 30)
+
+    query = sql.WAREHOUSE_UTILIZATION_LAST_N_DAYS(days)
     WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = sf.sql_to_dataframe(query)
+
+    # query = sql.WAREHOUSE_UTILIZATION_LAST_N_DAYS
+    # WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = sf.sql_to_dataframe(query)
 
     WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = \
     WAREHOUSE_UTILIZATION_LAST_N_DAYS_df[['WAREHOUSE_NAME', 
