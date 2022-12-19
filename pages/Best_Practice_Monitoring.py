@@ -241,10 +241,11 @@ def main():
    # ----------------- WAREHOUSE UTILIZATION BY HOUR ----------------------
     st.subheader('Warehouse utilisation - Utilisation by hour')
 
-    # query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
-    # COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
+    wh_name = st.selectbox(
+    'Select a warehouse to see hourly data for:',
+    ('COMPUTE_WH'))
+    st.write('You selected:', wh_name)
 
-    wh_name = 'COMPUTE_WH'
     query = sql.WH_UTILIZATION_LAST_48_HOURS(wh_name)
     WH_UTILIZATION_LAST_48_HOURS_df = sf.sql_to_dataframe(query)
 
@@ -298,11 +299,6 @@ def main():
 
         '''
         )
-
-    wh_name = 'COMPUTE_WH'
-    query = sql.WH_UTILIZATION_LAST_48_HOURS(wh_name)
-    WH_UTILIZATION_LAST_48_HOURS_df = sf.sql_to_dataframe(query)
-    st.dataframe(WH_UTILIZATION_LAST_48_HOURS_df)
 
     #======================================================#
     # MAIN PAGE: COPY INTO V.S INSERT INTO
