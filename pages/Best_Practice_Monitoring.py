@@ -51,7 +51,7 @@ def main():
     st.header('Table and View monitoring')
     st.info('This section provides analysis on the account\'s tables and views')
 
-    # EMPTY TABLES IN ACCOUNT
+    # ------------- EMPTY TABLES IN ACCOUNT -----------------
     st.header('(1) Empty tables and views in account')
     query = sql.EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
@@ -74,7 +74,7 @@ def main():
         '''
         )
 
-   # UNUSED TABLES IN ACCOUNT
+   # ---------------- UNUSED TABLES IN ACCOUNT ------------------------
     st.header('(2) Unused tables and views in account')
     days = st.number_input('Number of days table/view has not been used:', value= 30)
 
@@ -100,7 +100,7 @@ def main():
         '''
         )
 
-   # TABLE AND VIEW TYPE SUMMARY
+   # ----------------- TABLE AND VIEW TYPE SUMMARY ----------------------
     st.header('(3) Table and view type summary')
 
     query = sql.TABLE_AND_VIEW_BREAKDOWN
@@ -144,9 +144,10 @@ def main():
 
     st.header('Warehouse monitoring')  
     st.info('This section provides analysis on the account\'s warehouses')  
-
     line = '---'
     st.markdown(line)
+
+   # ----------------- TABLE AND VIEW TYPE SUMMARY ----------------------
     st.header('(1) Warehouses that do not have a resource monitor')
 
     query = sql.WAREHOUSE_DETAILS
@@ -174,12 +175,7 @@ def main():
         '''
         )
 
-    #======================================================#
-    # MAIN PAGE: COMPUTE AVAILABILITY VS EXECUTION TIME
-    #======================================================#
-
-    line = '---'
-    st.markdown(line)
+   # ----------------- WAREHOUSE UTILIZATION ----------------------
     st.header('(2) Warehouse utilisation')
 
     query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
