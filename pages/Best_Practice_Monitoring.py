@@ -131,7 +131,11 @@ def main():
     # Colour formatting
     filtered_df = filtered_df.style.applymap(sty.make_red,
     subset=pd.IndexSlice[:,['EMPTY']])
-    st.dataframe(filtered_df, use_container_width= True)
+
+    if len(filtered_df) != 0:
+        st.dataframe(filtered_df, use_container_width= True)
+    else:
+        st.success('There are no empty tables or views in the selection 😀')
 
     with st.expander("What's this for?"):
         st.info('''
