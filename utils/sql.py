@@ -95,6 +95,43 @@ def WAREHOUSE_UTILIZATION_LAST_N_DAYS(days):
     '''
     return query
 
+def WH_UTILIZATION_LAST_48_HOURS(wh_name):
+    query = f'''
+    WITH availability_time AS 
+    (SELECT
+    TO_CHAR(convert_timezone('UTC', start_time::timestamp_ntz), 'MM/DD/YYYY HH24') as hour
+    ,ROUND(SUM(credits_used_compute),2) AS compute_credits_used
+    ,compute_credits_used * 60 * 60 AS compute_availability_sec
+    FROM snowflake.account_usage.warehouse_metering_history
+    WHERE start_time BETWEEN date_trunc('day', dateadd('day',-7,convert_timezone('UTC',current_timestamp()))) AND current_timestamp()
+    AND warehouse_name = {wh_name}--:warehouse_name
+    GROUP BY 1
+    ),
+
+    query_time AS
+    (
+    SELECT
+    to_char(convert_timezone('UTC', end_time::timestamp_ntz), 'MM/DD/YYYY HH24') as hour, 
+    COUNT(*), ROUND(AVG(total_elapsed_time/1000),2) as avg_query_time
+    ,ROUND(MEDIAN(total_elapsed_time/1000),2) as "Median Query Time"
+    , ROUND(SUM(execution_time/1000),2) as total_exec_time_sec
+    , ROUND(MEDIAN(execution_time/1000),2) as "Median Execution Time"
+        , MEDIAN(query_load_percent) AS median_query_load_pct
+    FROM SNOWFLAKE.account_usage.query_history
+    WHERE start_time >= dateadd(hour, -48, current_date()) AND bytes_scanned > 0
+    AND WAREHOUSE_NAME = {wh_name} --:warehouse_name
+    GROUP BY hour
+    )
+
+    --ORDER BY 1;
+    SELECT at.hour, at.compute_credits_used, at.compute_availability_sec, total_exec_time_sec
+    ,(total_exec_time_sec / at.compute_availability_sec ) * 100 AS pct_utilization
+    FROM availability_time at JOIN
+    query_time qt ON at.hour = qt.hour
+    order by hour;
+    '''
+    return query
+
 #-------------- WAREHOUSE MONITORING ------------------
 WH_CREDIT_BREAKDOWN = '''
 select
@@ -192,43 +229,6 @@ SELECT at.hour, at.compute_credits_used, at.compute_availability_sec, total_exec
 FROM availability_time at JOIN
 query_time qt ON at.hour = qt.hour;
 '''
-
-def WH_UTILIZATION_LAST_48_HOURS(wh_name):
-    query = f'''
-    WITH availability_time AS 
-    (SELECT
-    TO_CHAR(convert_timezone('UTC', start_time::timestamp_ntz), 'MM/DD/YYYY HH24') as hour
-    ,ROUND(SUM(credits_used_compute),2) AS compute_credits_used
-    ,compute_credits_used * 60 * 60 AS compute_availability_sec
-    FROM snowflake.account_usage.warehouse_metering_history
-    WHERE start_time BETWEEN date_trunc('day', dateadd('day',-7,convert_timezone('UTC',current_timestamp()))) AND current_timestamp()
-    AND warehouse_name = 'COMPUTE_WH'--:warehouse_name
-    GROUP BY 1
-    ),
-
-    query_time AS
-    (
-    SELECT
-    to_char(convert_timezone('UTC', end_time::timestamp_ntz), 'MM/DD/YYYY HH24') as hour, 
-    COUNT(*), ROUND(AVG(total_elapsed_time/1000),2) as avg_query_time
-    ,ROUND(MEDIAN(total_elapsed_time/1000),2) as "Median Query Time"
-    , ROUND(SUM(execution_time/1000),2) as total_exec_time_sec
-    , ROUND(MEDIAN(execution_time/1000),2) as "Median Execution Time"
-        , MEDIAN(query_load_percent) AS median_query_load_pct
-    FROM SNOWFLAKE.account_usage.query_history
-    WHERE start_time >= dateadd(hour, -48, current_date()) AND bytes_scanned > 0
-    AND WAREHOUSE_NAME = 'COMPUTE_WH' --:warehouse_name
-    GROUP BY hour
-    )
-
-    --ORDER BY 1;
-    SELECT at.hour, at.compute_credits_used, at.compute_availability_sec, total_exec_time_sec
-    ,(total_exec_time_sec / at.compute_availability_sec ) * 100 AS pct_utilization
-    FROM availability_time at JOIN
-    query_time qt ON at.hour = qt.hour
-    order by hour;
-    '''
-    return query
 
 #-------------- RBAC SUMMARY ------------------
 ALL_RBAC_ROLES = '''
