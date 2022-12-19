@@ -139,7 +139,7 @@ def main():
         )
 
     #======================================================#
-    # MAIN PAGE: WAREHOUSES THAT DO NOT HAVE A RESOURCE MONITOR   
+    # MAIN PAGE: WAREHOUSE MONITORING
     #======================================================#
 
     line = '---'
@@ -147,7 +147,7 @@ def main():
     st.header('Warehouse monitoring')  
     st.info('This section provides analysis on the account\'s warehouses')  
 
-   # ----------------- TABLE AND VIEW TYPE SUMMARY ----------------------
+   # ----------------- WAREHOUSES WITHOUT MONITOR ----------------------
     st.header('(1) Warehouses that do not have a resource monitor')
 
     query = sql.WAREHOUSE_DETAILS
@@ -175,8 +175,15 @@ def main():
         '''
         )
 
-   # ----------------- WAREHOUSE UTILIZATION ----------------------
-    st.header('(2) Warehouse utilisation')
+   # ----------------- WAREHOUSE UTILIZATION SUMMARY ----------------------
+    st.header('(2) Warehouse utilisation summary')
+
+    query = sql.WAREHOUSE_UTILIZATION_LAST_N_DAYS
+    WAREHOUSE_UTILIZATION_LAST_N_DAYS = sf.sql_to_dataframe(query)
+    st.dataframe(WAREHOUSE_UTILIZATION_LAST_N_DAYS)
+
+   # ----------------- WAREHOUSE UTILIZATION BY HOUR ----------------------
+    st.header('(2.1) Warehouse utilisation by hour')
 
     query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
     COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
