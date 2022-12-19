@@ -375,21 +375,11 @@ def main():
     query = sql.SHOW_TASKS
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
     SHOW_TASKS_df = SHOW_TASKS_df[['name', 'warehouse', 'schedule', 'state']]
-    
-    def highlighter(cell_value):
-        if cell_value == 'started':
-            return 'background-color: green'
-    
-    print("Highlighted DataFrame :")
-    SHOW_TASKS_df.style.apply(highlighter, axis = None)
-    st.dataframe(SHOW_TASKS_df)
 
    # ----------------- TASK HISTORY TRACKER ----------------------
     st.subheader('Task success history')
     query = sql.TASK_HISTORY
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
-
-    #st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= ['COUNT_SUCCEEDED', 'COUNT_FAILED'])
 
     chart = alt.Chart(SHOW_TASKS_df).transform_fold(
     ['COUNT_SUCCEEDED', 'COUNT_FAILED'],
