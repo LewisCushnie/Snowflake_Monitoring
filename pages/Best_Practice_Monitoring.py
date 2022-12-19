@@ -103,7 +103,7 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Table and View monitoring')
-    st.info('This section provides analysis on the account\'s tables and views')
+    st.info('💡 This section provides analysis on the account\'s tables and views')
 
     # ------------- EMPTY TABLES IN ACCOUNT -----------------
     st.subheader('Empty tables and views in account')
@@ -121,7 +121,7 @@ def main():
 
     with st.expander("What's this for?"):
         st.info('''
-        The dataframe above shows tables/views in the account that do not contain any data. This allows
+        💡 The dataframe above shows tables/views in the account that do not contain any data. This allows
         unused/accidentally created tables to be identified and removed from the account.
         \n
         **Benefit:** Reduced storage costs, and clutter on the account.
@@ -146,7 +146,7 @@ def main():
 
     with st.expander("What's this for?"):
         st.info('''
-        The dataframe above shows tables/views containing data that has not been used within the specified time period. It is
+        💡 The dataframe above shows tables/views containing data that has not been used within the specified time period. It is
         the intention that unused data be reviewed, to check for any tables/views that could be removed from the
         account to reduce storage costs.
         \n
@@ -178,7 +178,7 @@ def main():
 
     with st.expander("What's this for?"):
         st.info('''
-        The bar chart above shows a breakdown of each table and view type in the selected location. This can be used to
+        💡 The bar chart above shows a breakdown of each table and view type in the selected location. This can be used to
         monitor the usage of each type, and better understand which data has time-travel enabled and which does not.
         Consider noting any table types which are not used much, or used a lot. Remember, transient and temporary tables/views
         help save on storage costs, whereas permenant tables/views offer time-travel and fail-safe protection. Be sure to check
@@ -199,7 +199,7 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Warehouse monitoring')  
-    st.info('This section provides analysis on the account\'s warehouses')  
+    st.info('💡 This section provides analysis on the account\'s warehouses')  
 
    # ----------------- WAREHOUSES WITHOUT MONITOR ----------------------
     st.subheader('Warehouses that do not have a resource monitor')
@@ -221,7 +221,7 @@ def main():
     
     with st.expander("What's this for?"):
         st.info('''
-        It is good practice to ensure that all warehouses have a resource monitor attached to them to
+        💡 It is good practice to ensure that all warehouses have a resource monitor attached to them to
         prevent excessive credit spending from going un-noticed.
         \n
         **Benefit:** Save compute costs by preventing warehouses from using large amounts of credits due
@@ -279,7 +279,7 @@ def main():
 
     with st.expander("What's this for?"):
         st.info('''
-        It is good practice to ensure that all warehouses have a resource monitor attached to them to
+        💡 It is good practice to ensure that all warehouses have a resource monitor attached to them to
         prevent excessive credit spending from going un-noticed.
         \n
         **Benefit:** Save compute costs by preventing warehouses from using large amounts of credits due
@@ -338,7 +338,7 @@ def main():
 
     with st.expander("What's this for?"):
         st.info('''
-        Definition of Warehouse Utilization:
+        💡 Definition of Warehouse Utilization:
 
         Warehouse utilization here is calculated with a simple formula, namely #seconds execution time
          / # seconds of compute availability.  The numerator is the # seconds of execution time for all 
@@ -364,11 +364,9 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Task Monitoring Summary')
-    st.info(
-    '''
-    This section provides analysis on tasks in the account.
-    '''
-    )
+    st.info('''
+    💡 This section provides analysis on tasks in the account.
+    ''')
 
    # ----------------- TASK STATUS SUMMARY ----------------------
     st.subheader('Account task status summary')
