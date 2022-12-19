@@ -363,12 +363,10 @@ def main():
 
     line = '---'
     st.markdown(line)
-    st.title('Task Monitoring Summary')
+    st.header('Task Monitoring Summary')
     st.info(
     '''
-    The **Task Monitoring Summary** page provides a breakdown of task useage within each Snowflake account highlighting
-    task credit usage and those which are/aren't currently running. The aim is to allow tasks to be easily tracked and ensure
-    they are not left running by mistake.
+    This section provides analysis on tasks in the account.
     '''
     )
 
