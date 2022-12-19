@@ -392,6 +392,15 @@ def main():
     subset=pd.IndexSlice[:,['state']])
     st.dataframe(SHOW_TASKS_df)
 
+    with st.expander("What's this for?"):
+        st.info('''
+        💡 The dataframe above shows the state of tasks in the selection (suspended/running). 
+        \n
+        **Benefit:** At a glance, you can see all tasks in the account, and whether they are
+        running or not.
+        '''
+        )
+
    # ----------------- TASK HISTORY TRACKER ----------------------
     st.subheader('Task success history')
     query = sql.TASK_HISTORY
@@ -411,6 +420,16 @@ def main():
     raw_data = st.checkbox('Show raw task history data:')
     if raw_data:
         st.dataframe(SHOW_TASKS_df)
+
+    with st.expander("What's this for?"):
+        st.info('''
+        💡 The figure above shows the success and failure count for each task in the selection.
+        High rates of failure might indicate a task that needs re-working.
+        \n
+        **Benefit:** This figure can alert you to any problematic tasks that fail regularly.
+        Remember, you are still charged for task runtime even when they fail.
+        '''
+        )
 
     #======================================================#
     # MAIN PAGE: COPY INTO V.S INSERT INTO
@@ -446,6 +465,15 @@ def main():
     line = '---'
     st.markdown(line)
     st.subheader('Zero Copy Cloning Usage')
+    st.write('Identify big aggregate functions that could be taking advantage of High performing functions')
+
+    #======================================================#
+    # MAIN PAGE: WAREHOUSES THAT DONT HAVE A TAG    
+    #======================================================#
+
+    line = '---'
+    st.markdown(line)
+    st.subheader('Warehouse without a tag')
     st.write('Identify big aggregate functions that could be taking advantage of High performing functions')
 
 
