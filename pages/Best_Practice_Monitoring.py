@@ -178,7 +178,7 @@ def main():
    # ----------------- WAREHOUSE UTILIZATION SUMMARY ----------------------
     st.subheader('Warehouse utilisation - Summary')
 
-    days = st.number_input('Number of days table/view has not been used:', value= 30, key= 'Warehouse utilisation - Summary')
+    days = st.number_input('Previous n days:', value= 30, key= 'Warehouse utilisation - Summary')
 
     query = sql.WAREHOUSE_UTILIZATION_LAST_N_DAYS(days)
     WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = sf.sql_to_dataframe(query)
@@ -294,6 +294,11 @@ def main():
 
         '''
         )
+
+    wh_name = 'COMPUTE_WH'
+    query = sql.WH_UTILIZATION_LAST_48_HOURS(wh_name)
+    WH_UTILIZATION_LAST_48_HOURS_df = sf.sql_to_dataframe(query)
+    st.dataframe(WH_UTILIZATION_LAST_48_HOURS_df)
 
     #======================================================#
     # MAIN PAGE: COPY INTO V.S INSERT INTO
