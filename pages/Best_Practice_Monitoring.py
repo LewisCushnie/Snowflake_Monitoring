@@ -128,12 +128,12 @@ def main():
     filtered_df = fun.filter_df_by_business_domain(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df,\
      'TABLE_SCHEMA', unique_key= 'Empty tables in account')
 
-    # Colour formatting
-    filtered_df = filtered_df.style.applymap(sty.make_red,
-    subset=pd.IndexSlice[:,['EMPTY']])
-
     if len(filtered_df) != 0:
+        # Colour formatting
+        filtered_df = filtered_df.style.applymap(sty.make_red,
+        subset=pd.IndexSlice[:,['EMPTY']])
         st.dataframe(filtered_df, use_container_width= True)
+
     else:
         st.success('There are no empty tables or views in the selection 😀')
 
