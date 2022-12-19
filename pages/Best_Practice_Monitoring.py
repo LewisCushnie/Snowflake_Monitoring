@@ -142,7 +142,8 @@ def main():
     # MAIN PAGE: WAREHOUSES THAT DO NOT HAVE A RESOURCE MONITOR   
     #======================================================#
 
-    st.header('Warehouse monitoring')    
+    st.header('Warehouse monitoring')  
+    st.info('This section provides analysis on the account\'s warehouses')  
 
     line = '---'
     st.markdown(line)
