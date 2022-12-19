@@ -339,7 +339,19 @@ def main():
         y= alt.Y('TIME:Q'),
         color= 'CATEGORY:N'
         )
-        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+
+        tick = alt.Chart(filtered_df.reset_index()).mark_tick(
+            color='red',
+            thickness=2,
+            size=40 * 0.9,  # controls width of tick.
+        ).encode(
+            x= alt.X('HOUR'),
+            y= alt.Y('TIME:Q')
+        )
+
+        bar + tick
+
+        st.altair_chart(chart + tick, use_container_width= True, theme= 'streamlit')
 
     # Raw data checkbox
     raw_data = st.checkbox('Show raw data:', key= 'Compute availablity v.s execution time by hour')
