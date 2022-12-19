@@ -370,6 +370,20 @@ def main():
     '''
     )
 
+   # ----------------- TASK STATUS SUMMARY ----------------------
+    st.subheader('Account task status summary')
+    query = sql.SHOW_TASKS
+    SHOW_TASKS_df = sf.sql_to_dataframe(query)
+    SHOW_TASKS_df = SHOW_TASKS_df[['name', 'warehouse', 'schedule', 'state']]
+    
+    def highlighter(cell_value):
+        if cell_value == 'started':
+            return 'background-color: green'
+    
+    print("Highlighted DataFrame :")
+    SHOW_TASKS_df.style.apply(highlighter, axis = None)
+    st.dataframe(SHOW_TASKS_df)
+
    # ----------------- TASK HISTORY TRACKER ----------------------
     st.subheader('Task success history')
     query = sql.TASK_HISTORY
@@ -389,24 +403,6 @@ def main():
     st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
     
     raw_data = st.checkbox('Show raw task history data:')
-    if raw_data:
-        st.dataframe(SHOW_TASKS_df)
-
-   # ----------------- TASK STATUS SUMMARY ----------------------
-    st.subheader('Account task status summary')
-    query = sql.SHOW_TASKS
-    SHOW_TASKS_df = sf.sql_to_dataframe(query)
-    SHOW_TASKS_df = SHOW_TASKS_df[['name', 'warehouse', 'schedule', 'state']]
-    
-    def highlighter(cell_value):
-        if cell_value == 'started':
-            return 'background-color: green'
-    
-    print("Highlighted DataFrame :")
-    SHOW_TASKS_df.style.apply(highlighter, axis = None)
-    st.dataframe(SHOW_TASKS_df)
-
-    raw_data = st.checkbox('Show raw task activity data:')
     if raw_data:
         st.dataframe(SHOW_TASKS_df)
 
