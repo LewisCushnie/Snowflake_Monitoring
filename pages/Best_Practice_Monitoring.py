@@ -189,7 +189,7 @@ def main():
 
     st.dataframe(WAREHOUSE_UTILIZATION_LAST_N_DAYS)
 
-    utilisation = st.checkbox('Show warehouse utlisation:')
+    utilisation = st.checkbox('Show warehouse utlisation:', key= '(2.0) Warehouse utilisation - Summary')
     if utilisation:
         filtered_df = WAREHOUSE_UTILIZATION_LAST_N_DAYS[['WAREHOUSE_NAME', 'PCT_UTILIZATION']]
         filtered_df['PCT_UTILIZATION'] = filtered_df['PCT_UTILIZATION'].div(100)
@@ -222,7 +222,7 @@ def main():
     query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
     COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
 
-    utilisation = st.checkbox('Show warehouse utlisation:')
+    utilisation = st.checkbox('Show warehouse utlisation:', key= '(2.1) Warehouse utilisation - Utilisation by hour')
     if utilisation:
         filtered_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'PCT_UTILIZATION']]
         filtered_df['PCT_UTILIZATION'] = filtered_df['PCT_UTILIZATION'].div(100)
