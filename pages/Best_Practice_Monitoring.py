@@ -372,9 +372,16 @@ def main():
 
    # ----------------- TASK STATUS SUMMARY ----------------------
     st.subheader('Account task status summary')
+
     query = sql.SHOW_TASKS
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
+
     SHOW_TASKS_df = SHOW_TASKS_df[['name', 'warehouse', 'schedule', 'state']]
+
+    # Colour formatting
+    SHOW_TASKS_df = SHOW_TASKS_df.style.applymap(sty.make_red,
+    subset=pd.IndexSlice[:,['state']])
+    st.dataframe(SHOW_TASKS_df)
 
    # ----------------- TASK HISTORY TRACKER ----------------------
     st.subheader('Task success history')
