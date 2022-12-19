@@ -39,6 +39,8 @@ def main():
     \n
     The analysis in this app has been included to help ensure Snowflake best practices are being maintained to reduce costs
     in the three areas listed above.
+    \n
+    What are the costs in Snoflake?: https://docs.snowflake.com/en/user-guide/cost-understanding.html
     '''
     )
 
