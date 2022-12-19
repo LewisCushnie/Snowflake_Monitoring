@@ -188,7 +188,7 @@ def main():
                                         'PCT_UTILIZATION']]
 
     # Generate the business domain filter options
-    filtered_df = fun.filter_df_by_business_domain(WAREHOUSE_UTILIZATION_LAST_N_DAYS_df\
+    WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = fun.filter_df_by_business_domain(WAREHOUSE_UTILIZATION_LAST_N_DAYS_df\
     ,'WAREHOUSE_NAME' ,unique_key= '(2.0) Warehouse utilisation - Summary')
 
     utilisation = st.checkbox('Show warehouse utlisation:', key= '(2.0) Warehouse utilisation - Summary')
