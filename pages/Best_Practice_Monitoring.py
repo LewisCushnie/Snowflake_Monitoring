@@ -348,9 +348,7 @@ def main():
             x= alt.X('HOUR'),
             y= alt.Y('TIME:Q')
         )
-
-        bar + tick
-
+        
         st.altair_chart(chart + tick, use_container_width= True, theme= 'streamlit')
 
     # Raw data checkbox
