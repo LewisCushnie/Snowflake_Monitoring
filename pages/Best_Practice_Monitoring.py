@@ -95,6 +95,16 @@ def main():
         filtered_df = filtered_df.style.applymap(colour_df,
         subset=pd.IndexSlice[:,['Cost ($)']])
         st.dataframe(filtered_df, width=1000)
+    
+    with st.expander("What's this for?"):
+        st.info('''
+        💡 This figure allows you to investigate trends in credit spending on the snowflake account.
+        This should act as a starting point to understand what the current spending habits and projections are,
+        and therefore informs which of the following figures are likely to be of benefit. 
+        \n
+        **Benefit:** Provides a high-level overview of spending.
+        '''
+        )
 
     #======================================================#
     # MAIN PAGE - TRANSIENT, TEMPORARY, AND MATERIALIZED VIEWS/TABLES
@@ -369,7 +379,7 @@ def main():
     ''')
 
    # ----------------- TASK STATUS SUMMARY ----------------------
-    st.subheader('Account task status summary')
+    st.subheader('Account Task status summary')
 
     query = sql.SHOW_TASKS
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
