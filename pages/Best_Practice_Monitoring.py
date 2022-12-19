@@ -340,7 +340,9 @@ def main():
         color= 'CATEGORY:N'
         )
 
-        tick = alt.Chart(filtered_df.reset_index()).mark_tick(
+        tick = alt.Chart(filtered_df.reset_index()).transform_fold(
+        ['TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC'],
+        as_=['CATEGORY', 'TIME']).mark_tick(
             color='red',
             thickness=2,
             size=40 * 0.9,  # controls width of tick.
@@ -348,7 +350,7 @@ def main():
             x= alt.X('HOUR'),
             y= alt.Y('TIME:Q')
         )
-        
+
         st.altair_chart(chart + tick, use_container_width= True, theme= 'streamlit')
 
     # Raw data checkbox
