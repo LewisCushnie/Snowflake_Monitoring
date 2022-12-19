@@ -148,7 +148,7 @@ def main():
     st.info('This section provides analysis on the account\'s warehouses')  
 
    # ----------------- WAREHOUSES WITHOUT MONITOR ----------------------
-    st.subheader('- Warehouses that do not have a resource monitor')
+    st.subheader('Warehouses that do not have a resource monitor')
 
     query = sql.WAREHOUSE_DETAILS
     WAREHOUSE_DETAILS_df = sf.sql_to_dataframe(query)
@@ -176,7 +176,7 @@ def main():
         )
 
    # ----------------- WAREHOUSE UTILIZATION SUMMARY ----------------------
-    st.subheader('- Warehouse utilisation - Summary')
+    st.subheader('Warehouse utilisation - Summary')
 
     query = sql.WAREHOUSE_UTILIZATION_LAST_N_DAYS
     WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = sf.sql_to_dataframe(query)
