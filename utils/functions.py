@@ -2,10 +2,18 @@ import streamlit as st
 from utils import sql
 from utils import snowflake_connector as sf
 
-def filter_df_by_business_domain(df, domain_name_column, unique_key):
+def filter_df_by_business_domain(df, domain_name_column_str, unique_key):
+
+    '''
+    - df: The dataframe that you want to filter by domain
+    - domain_name_column_str: The column that contains the domain name info (can contain domain names,
+    or objects that have the domain name in them e.g a warehouse called PROD_FINANCE_WH)
+    - unique_key: This keep streamlit happy (otherwise you get duplicate keys generated for the buttons).
+    simply name this after the graph title e.g 'warehouse monitoring'
+    '''
 
     # check that the input df contains a 'TABLE SCHEMA' column
-    if 'TABLE_SCHEMA' in df:
+    if domain_name_column_str in df:
         pass
     else:
         raise Exception('''The 'TABLE_SCHEMA' column does not exist in this dataframe, 
