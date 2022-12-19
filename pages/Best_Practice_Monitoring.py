@@ -20,11 +20,11 @@ def main():
     # MAIN PAGE - INTRO
     #======================================================#
     
-    st.title('Best Practice Monitoring')
+    st.title('Snowflake Best Practice Monitoring')
     st.success(
     '''
-    The **Best Practice Monitoring** page provides a number of figures to monitor Snowflake best practices\
-    it is the intention that the analysis on this page be used as a method for identiying areas of a (functional team's)\
+    The **Best Practice Monitoring** page provides a number of figures to monitor Snowflake best practices.\
+    It is the intention that the analysis on this page be used as a method for identiying areas of a (functional team's)\
     snowflake workflow that could be optimised to further cut costs. 
     \n
     Remeber, at the highest level, snowflake charges you for three things: 
@@ -214,6 +214,27 @@ def main():
     raw_data = st.checkbox('Show raw data:', key= 'Compute availablity v.s execution time by hour')
     if raw_data:
         st.dataframe(filtered_df)
+
+    with st.expander("What's this for?"):
+        st.info('''
+        Definition of Warehouse Utilization:
+
+        Warehouse utilization here is calculated with a simple formula, namely #seconds execution time
+         / # seconds of compute availability.  The numerator is the # seconds of execution time for all 
+         queries running during the period.  The denominator is # seconds of compute availability during 
+         the period.  This availability piggybacks on the easily available credits used during the period 
+         being measured, since that is already accurately captured for all warehouse sizes, and even 
+         accounts for warehouse resizing during the period.  
+
+        Availability in seconds = credits_used * 60 *60.  For example, an extra small WH costs 1 credit 
+        per hour, meaning 1 credit = 1 hour of compute availability.  Therefore, a single credit hour equals
+         3,600 seconds of credit availability.  Although it could be argued that there are 8 threads per XS 
+         Warehouse, and it could be fully loaded with queries, in testing it let to embarrassingly low 
+         utilization rates for most warehouses.  On a data warehouse, multiple threads are usually used to 
+         process single queries in parallel.  Not accounting for the threads works well for comparison purposes.
+
+        '''
+        )
 
     #======================================================#
     # MAIN PAGE: COPY INTO V.S INSERT INTO

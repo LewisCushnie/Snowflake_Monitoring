@@ -54,6 +54,45 @@ WAREHOUSE_DETAILS = '''
 show warehouses;
 '''
 
+WAREHOUSE_UTILIZATION_LAST_N_DAYS = '''
+WITH availability_time AS 
+(SELECT
+--TO_CHAR(convert_timezone('UTC', start_time::timestamp_ntz), 'MM/DD/YYYY HH24') as hour
+ warehouse_name
+,ROUND(SUM(credits_used_compute),0) AS compute_credits_used
+,compute_credits_used * 60 * 60 AS compute_availability_sec
+FROM snowflake.account_usage.warehouse_metering_history
+WHERE start_time BETWEEN date_trunc('day', dateadd('day',-28,convert_timezone('UTC',current_timestamp()))) AND current_timestamp()
+--AND warehouse_name = 'AIRFLOW_WH'--:warehouse_name
+GROUP BY 1
+),
+
+query_time AS
+(
+SELECT
+--to_char(convert_timezone('UTC', end_time::timestamp_ntz), 'MM/DD/YYYY HH24') as hour,
+    warehouse_name,
+COUNT(*), ROUND(AVG(total_elapsed_time/1000),2) as avg_query_time
+,ROUND(MEDIAN(total_elapsed_time/1000),2) as "Median Query Time"
+, ROUND(SUM(execution_time/1000),2) as total_exec_time_sec
+, ROUND(MEDIAN(execution_time/1000),2) as "Median Execution Time"
+    , MEDIAN(query_load_percent) AS median_query_load_pct
+FROM SNOWFLAKE.account_usage.query_history
+WHERE start_time BETWEEN date_trunc('day', dateadd('day',-28,convert_timezone('UTC',current_timestamp()))) AND current_timestamp()
+GROUP BY warehouse_name
+)
+
+--ORDER BY 1;
+SELECT at.warehouse_name--, at.hour
+, at.compute_credits_used, at.compute_availability_sec, total_exec_time_sec,
+ROUND((total_exec_time_sec / nullif(at.compute_availability_sec,0 )) * 100,1) AS pct_utilization,
+median_query_load_pct, median_query_load_pct / 64 as median_query_load_pct_3xl
+FROM availability_time at JOIN query_time qt ON at.warehouse_name = qt.warehouse_name
+--and query_time qt ON at.hour = qt.hour
+ORDER BY pct_utilization DESC
+;
+'''
+
 #-------------- WAREHOUSE MONITORING ------------------
 WH_CREDIT_BREAKDOWN = '''
 select
