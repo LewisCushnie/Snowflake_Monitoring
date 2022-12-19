@@ -57,7 +57,8 @@ def main():
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     
     # Generate the business domain filter options
-    filtered_df = fun.filter_df_by_business_domain(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df, unique_key= 'Empty tables in account')
+    filtered_df = fun.filter_df_by_business_domain(EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df,\
+     'TABLE_SCHEMA', unique_key= 'Empty tables in account')
 
     # Colour formatting
     filtered_df = filtered_df.style.applymap(sty.make_red,
@@ -80,7 +81,8 @@ def main():
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
 
     # Generate the business domain filter options
-    filtered_df = fun.filter_df_by_business_domain(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df, unique_key= 'Unused tables in account')
+    filtered_df = fun.filter_df_by_business_domain(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df\
+    ,'TABLE_SCHEMA' ,unique_key= 'Unused tables in account')
 
     # Colour formatting
     filtered_df = filtered_df.style.applymap(sty.make_red,
@@ -152,6 +154,15 @@ def main():
     subset=pd.IndexSlice[:,['resource_monitor']])
 
     st.dataframe(WAREHOUSE_DETAILS_df)
+    with st.expander("What's this for?"):
+        st.info('''
+        It is good practice to ensure that all warehouses have a resource monitor attached to them to
+        prevent excessive credit spending from going un-noticed.
+        \n
+        **Benefit:** Save compute costs by preventing warehouses from using large amounts of credits due
+        to mistakes, ineffecient queries, etc.
+        '''
+        )
 
     #======================================================#
     # MAIN PAGE: COMPUTE AVAILABILITY VS EXECUTION TIME

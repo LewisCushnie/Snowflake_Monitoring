@@ -2,7 +2,7 @@ import streamlit as st
 from utils import sql
 from utils import snowflake_connector as sf
 
-def filter_df_by_business_domain(df, unique_key):
+def filter_df_by_business_domain(df, domain_name_column, unique_key):
 
     # check that the input df contains a 'TABLE SCHEMA' column
     if 'TABLE_SCHEMA' in df:
@@ -45,7 +45,7 @@ def filter_df_by_business_domain(df, unique_key):
             return OR_string
 
         selections = list_to_OR_string(multi_selections)
-        selection_rows = df['TABLE_SCHEMA'].str.contains(selections)
+        selection_rows = df[domain_name_column].str.contains(selections)
         filtered_df = df.loc[selection_rows]
 
     else:
