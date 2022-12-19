@@ -357,6 +357,61 @@ def main():
         '''
         )
 
+    # ===========================================#
+    # MAIN PAGE - ACCOUNT TASK RUN TRACKER
+    # ===========================================#
+
+    line = '---'
+    st.markdown(line)
+    st.title('Task Monitoring Summary')
+    st.info(
+    '''
+    The **Task Monitoring Summary** page provides a breakdown of task useage within each Snowflake account highlighting
+    task credit usage and those which are/aren't currently running. The aim is to allow tasks to be easily tracked and ensure
+    they are not left running by mistake.
+    '''
+    )
+
+   # ----------------- TASK HISTORY TRACKER ----------------------
+    st.subheader('Task success history')
+    query = sql.TASK_HISTORY
+    SHOW_TASKS_df = sf.sql_to_dataframe(query)
+
+    #st.bar_chart(SHOW_TASKS_df, x= 'NAME', y= ['COUNT_SUCCEEDED', 'COUNT_FAILED'])
+
+    chart = alt.Chart(SHOW_TASKS_df).transform_fold(
+    ['COUNT_SUCCEEDED', 'COUNT_FAILED'],
+    as_=['STATUS', 'COUNT']
+    ).mark_bar().encode(
+    x= alt.X('NAME', sort= '-y'),
+    y= alt.Y('COUNT:Q'),
+    color= 'STATUS:N'
+    )
+    
+    st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+    
+    raw_data = st.checkbox('Show raw task history data:')
+    if raw_data:
+        st.dataframe(SHOW_TASKS_df)
+
+   # ----------------- TASK STATUS SUMMARY ----------------------
+    st.subheader('Account task status summary')
+    query = sql.SHOW_TASKS
+    SHOW_TASKS_df = sf.sql_to_dataframe(query)
+    SHOW_TASKS_df = SHOW_TASKS_df[['name', 'warehouse', 'schedule', 'state']]
+    
+    def highlighter(cell_value):
+        if cell_value == 'started':
+            return 'background-color: green'
+    
+    print("Highlighted DataFrame :")
+    SHOW_TASKS_df.style.apply(highlighter, axis = None)
+    st.dataframe(SHOW_TASKS_df)
+
+    raw_data = st.checkbox('Show raw task activity data:')
+    if raw_data:
+        st.dataframe(SHOW_TASKS_df)
+
     #======================================================#
     # MAIN PAGE: COPY INTO V.S INSERT INTO
     #======================================================#
