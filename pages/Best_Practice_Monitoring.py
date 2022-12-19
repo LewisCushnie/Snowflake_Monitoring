@@ -218,6 +218,21 @@ def main():
         )
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
+    with st.expander("What's this for?"):
+        st.info('''
+        It is good practice to ensure that all warehouses have a resource monitor attached to them to
+        prevent excessive credit spending from going un-noticed.
+        \n
+        **Benefit:** Save compute costs by preventing warehouses from using large amounts of credits due
+        to mistakes, ineffecient queries, etc.
+        '''
+        )
+
+    # Raw data checkbox
+    raw_data = st.checkbox('Show raw data:', key= 'Warehouse utilisation - Summary')
+    if raw_data:
+        st.dataframe(filtered_df)
+
    # ----------------- WAREHOUSE UTILIZATION BY HOUR ----------------------
     st.subheader('Warehouse utilisation - Utilisation by hour')
 
