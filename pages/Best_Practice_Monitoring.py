@@ -241,12 +241,16 @@ def main():
    # ----------------- WAREHOUSE UTILIZATION BY HOUR ----------------------
     st.subheader('Warehouse utilisation - Utilisation by hour')
 
-    query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
-    COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
+    # query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
+    # COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
+
+    wh_name = 'COMPUTE_WH'
+    query = sql.WH_UTILIZATION_LAST_48_HOURS(wh_name)
+    WH_UTILIZATION_LAST_48_HOURS_df = sf.sql_to_dataframe(query)
 
     utilisation = st.checkbox('Show warehouse utlisation:', key= '(2.1) Warehouse utilisation - Utilisation by hour')
     if utilisation:
-        filtered_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'PCT_UTILIZATION']]
+        filtered_df = WH_UTILIZATION_LAST_48_HOURS_df[['HOUR', 'PCT_UTILIZATION']]
         filtered_df['PCT_UTILIZATION'] = filtered_df['PCT_UTILIZATION'].div(100)
 
         # Create altair chart
@@ -256,7 +260,7 @@ def main():
         )
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
     else:
-        filtered_df = COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']]
+        filtered_df = WH_UTILIZATION_LAST_48_HOURS_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']]
 
         # Create altair chart
         chart = alt.Chart(filtered_df.reset_index()).transform_fold(
