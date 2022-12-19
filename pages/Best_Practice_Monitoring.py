@@ -340,7 +340,7 @@ def main():
         color= 'CATEGORY:N'
         )
 
-        st.altair_chart(chart + tick, use_container_width= True, theme= 'streamlit')
+        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
     # Raw data checkbox
     raw_data = st.checkbox('Show raw data:', key= 'Compute availablity v.s execution time by hour')
