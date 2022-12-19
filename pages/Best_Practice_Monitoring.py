@@ -244,11 +244,10 @@ def main():
     query = sql.WAREHOUSE_DETAILS
     WAREHOUSE_DETAILS_df = sf.sql_to_dataframe(query)
     WAREHOUSE_NAMES_LIST = WAREHOUSE_DETAILS_df['name'].tolist()
-    st.write(WAREHOUSE_NAMES_LIST)
 
     wh_name = st.selectbox(
     'Select a warehouse to see hourly data for:',
-    ('COMPUTE_WH', 'COMPUTE_WH', 'COMPUTE_WH'))
+    WAREHOUSE_NAMES_LIST)
 
     query = sql.WH_UTILIZATION_LAST_48_HOURS(wh_name)
     WH_UTILIZATION_LAST_48_HOURS_df = sf.sql_to_dataframe(query)
