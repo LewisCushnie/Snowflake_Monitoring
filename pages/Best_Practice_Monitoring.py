@@ -69,6 +69,7 @@ def main():
         st.info('''
         The dataframe above shows tables/views in the account that do not contain any data. This allows
         unused/accidentally created tables to be identified and removed from the account.
+        \n
         **Benefit:** Reduced storage costs, and clutter on the account.
         '''
         )
@@ -94,6 +95,7 @@ def main():
         The dataframe above shows tables/views containing data that has not been used within the specified time period. It is
         the intention that unused data be reviewed, to check for any tables/views that could be removed from the
         account to reduce storage costs.
+        \n
         **Benefit:** Dropping debricated tables (after moving to another location) reduces storage costs.
         '''
         )
@@ -126,9 +128,11 @@ def main():
         monitor the usage of each type, and better understand which data has time-travel enabled and which does not.
         Consider noting any table types which are not used much, or used a lot. Remember, transient and temporary tables/views
         help save on storage costs, whereas permenant tables/views offer time-travel and fail-safe protection. Be sure to check
-        that the benefits of each are being used appropriately.\n
+        that the benefits of each are being used appropriately.
+        \n
         **Benefit:** Monitoring table/view usage helps ensure storage costs are minimised, and the correct data is backed up.\n
-        **Snowflake docs:** \n
+        **Snowflake docs:** 
+        \n
         https://docs.snowflake.com/en/user-guide/tables-temp-transient.html \n
         https://docs.snowflake.com/en/user-guide/views-introduction.html
         '''
@@ -149,11 +153,16 @@ def main():
     WAREHOUSE_DETAILS_df = WAREHOUSE_DETAILS_df[['name', 'resource_monitor','owner', 'updated_on']]
     WAREHOUSE_DETAILS_df = WAREHOUSE_DETAILS_df[WAREHOUSE_DETAILS_df['resource_monitor'] == 'null']
 
+    # Generate the business domain filter options
+    filtered_df = fun.filter_df_by_business_domain(WAREHOUSE_DETAILS_df\
+    ,'name' ,unique_key= 'Warehouses that do not have a resource monitor')
+
     # Colour formatting
-    WAREHOUSE_DETAILS_df = WAREHOUSE_DETAILS_df.style.applymap(sty.make_red,
+    filtered_df = filtered_df.style.applymap(sty.make_red,
     subset=pd.IndexSlice[:,['resource_monitor']])
 
-    st.dataframe(WAREHOUSE_DETAILS_df)
+    st.dataframe(filtered_df)
+    
     with st.expander("What's this for?"):
         st.info('''
         It is good practice to ensure that all warehouses have a resource monitor attached to them to
