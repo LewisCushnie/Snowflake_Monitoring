@@ -43,6 +43,54 @@ def main():
     )
 
     #======================================================#
+    # MAIN PAGE: TOTAL COMPUTE CREDITS PER DAY
+    #======================================================#
+
+    line = '---'
+    st.markdown(line)
+    st.header('Total compute credit usage per day')
+
+    st.write('Cost assumes $4/credit')
+    query = sql.COMPUTE_CREDITS_PER_DAY
+    COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
+
+    # Add slider:
+    min_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].min()
+    max_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].max()
+    auto_date_lower = min_date
+    auto_date_higher = max_date
+    slider_values = st.slider(
+    'Select date range',
+    min_date, max_date, (auto_date_lower, auto_date_higher)
+    )
+
+    # Select DataFrame rows between two dates
+    date_mask = (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] > slider_values[0]) &\
+     (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= slider_values[1])
+    filtered_df = COMPUTE_CREDITS_PER_DAY_df.loc[date_mask]
+
+    selection = st.selectbox(
+    'Select currency:', 
+    ('Cost ($)', 'Credits used'))
+
+    if selection == 'Credits used':
+        # Credits bar chart
+        st.bar_chart(filtered_df, x= 'Usage Week', y= 'Compute Credits Used')
+    elif selection == 'Cost ($)':
+        # Cost bar chart
+        st.bar_chart(filtered_df, x= 'Usage Week', y= 'Cost ($)')
+    else:
+        pass
+
+    # Raw data checkbox
+    raw_data = st.checkbox('Show raw data:', key= 'Total compute credit usage per day')
+    if raw_data:
+        st.text('Red - $10+ per day | Orange - $5-$10 per day | Green - Less than $5 per day')
+        filtered_df = filtered_df.style.applymap(colour_df,
+        subset=pd.IndexSlice[:,['Cost ($)']])
+        st.dataframe(filtered_df, width=1000)
+
+    #======================================================#
     # MAIN PAGE - TRANSIENT, TEMPORARY, AND MATERIALIZED VIEWS/TABLES
     #======================================================#
 
