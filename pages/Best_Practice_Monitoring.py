@@ -377,6 +377,8 @@ def main():
     st.header('Task Monitoring Summary')
     st.info('''
     💡 This section provides analysis on tasks in the account.
+    \n
+    What is a task?: https://docs.snowflake.com/en/user-guide/tasks-intro.html
     ''')
 
    # ----------------- TASK STATUS SUMMARY ----------------------
