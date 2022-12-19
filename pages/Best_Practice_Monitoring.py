@@ -246,8 +246,6 @@ def main():
 
     else:
         st.success('There are no warehouses without a resource monitor in the selection 😀')
-
-    st.dataframe(filtered_df)
     
     with st.expander("What's this for?"):
         st.info('''
