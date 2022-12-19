@@ -107,13 +107,17 @@ def main():
         )
 
     #======================================================#
-    # MAIN PAGE - TRANSIENT, TEMPORARY, AND MATERIALIZED VIEWS/TABLES
+    # MAIN PAGE - TABLE AND VIEW MONITORING
     #======================================================#
 
     line = '---'
     st.markdown(line)
     st.header('Table and View monitoring')
-    st.info('💡 This section provides analysis on the account\'s tables and views')
+    st.info('''💡 This section provides analysis on the account\'s tables and views
+    \n
+    What are the different tables?: https://docs.snowflake.com/en/user-guide/tables-temp-transient.html
+    What are the different views?: https://docs.snowflake.com/en/user-guide/views-introduction.html
+    ''')
 
     # ------------- EMPTY TABLES IN ACCOUNT -----------------
     st.subheader('Empty tables and views in account')
@@ -209,7 +213,10 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Warehouse monitoring')  
-    st.info('💡 This section provides analysis on the account\'s warehouses')  
+    st.info('''💡 This section provides analysis on the account\'s warehouses
+    \n
+    What is a warehouse?: https://docs.snowflake.com/en/user-guide/warehouses-overview.html
+    ''')  
 
    # ----------------- WAREHOUSES WITHOUT MONITOR ----------------------
     st.subheader('Warehouses that do not have a resource monitor')
@@ -382,7 +389,7 @@ def main():
     ''')
 
    # ----------------- TASK STATUS SUMMARY ----------------------
-    st.subheader('Account Task status summary')
+    st.subheader('Task status summary')
 
     query = sql.SHOW_TASKS
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
