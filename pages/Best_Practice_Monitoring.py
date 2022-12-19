@@ -189,6 +189,33 @@ def main():
 
     st.dataframe(WAREHOUSE_UTILIZATION_LAST_N_DAYS)
 
+    utilisation = st.checkbox('Show warehouse utlisation:')
+    if utilisation:
+        filtered_df = WAREHOUSE_UTILIZATION_LAST_N_DAYS[['WAREHOUSE_NAME', 'PCT_UTILIZATION']]
+        filtered_df['PCT_UTILIZATION'] = filtered_df['PCT_UTILIZATION'].div(100)
+
+        # Create altair chart
+        chart = alt.Chart(filtered_df.reset_index()).mark_bar().encode(
+        x= alt.X('WAREHOUSE_NAME'),
+        y= alt.Y('PCT_UTILIZATION:Q', axis= alt.Axis(title= 'Percentage Warehouse Utilisation', format= '%')),
+        )
+        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+    else:
+        filtered_df = WAREHOUSE_UTILIZATION_LAST_N_DAYS[['WAREHOUSE_NAME', 
+                                                        'TOTAL_EXEC_TIME_SEC', 
+                                                        'COMPUTE_AVAILABILITY_SEC']]
+
+        # Create altair chart
+        chart = alt.Chart(filtered_df.reset_index()).transform_fold(
+        ['TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC'],
+        as_=['CATEGORY', 'TIME']
+        ).mark_bar().encode(
+        x= alt.X('WAREHOUSE_NAME'),
+        y= alt.Y('TIME:Q'),
+        color= 'CATEGORY:N'
+        )
+        st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+
    # ----------------- WAREHOUSE UTILIZATION BY HOUR ----------------------
     st.header('(2.1) Warehouse utilisation - Utilisation by hour')
 
