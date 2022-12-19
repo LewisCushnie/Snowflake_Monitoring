@@ -249,6 +249,8 @@ def main():
     'Select a warehouse to see hourly data for:',
     WAREHOUSE_NAMES_LIST)
 
+    st.write(wh_name)
+
     query = sql.WH_UTILIZATION_LAST_48_HOURS(wh_name)
     WH_UTILIZATION_LAST_48_HOURS_df = sf.sql_to_dataframe(query)
 
