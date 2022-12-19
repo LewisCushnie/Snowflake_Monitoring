@@ -50,11 +50,13 @@ def main():
     st.markdown(line)
     st.header('Total compute credit usage per day')
 
-    st.info('''
+    st.info(
+    '''
     This section provides a summary of snowflake spending for the given selection
     \n
     **Note:** Cost assumes $4/credit
-    ''')
+    '''
+    )
     query = sql.COMPUTE_CREDITS_PER_DAY
     COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
 
