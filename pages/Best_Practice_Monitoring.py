@@ -496,6 +496,28 @@ def main():
     st.subheader('Warehouse without a tag')
     st.write('Identify big aggregate functions that could be taking advantage of High performing functions')
 
+    #======================================================#
+    # MAIN PAGE: QUERIES THAT SPILL TO DISC
+    #======================================================#
+
+    line = '---'
+    st.markdown(line)
+    st.subheader('Queries that spill to disc')
+    st.write('Identify big aggregate functions that could be taking advantage of High performing functions')
+
+    #======================================================#
+    # MAIN PAGE: PARTITION PRUNING
+    #======================================================#
+
+    line = '---'
+    st.markdown(line)
+    st.subheader('Taking advantage of partition pruning')
+    st.write('''
+    SELECT * usage
+    ORDER BY usage
+    WHERE usage
+    ''')
+
 
 if __name__ == "__main__":
     main()
