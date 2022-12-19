@@ -176,14 +176,21 @@ def main():
         )
 
    # ----------------- WAREHOUSE UTILIZATION SUMMARY ----------------------
-    st.header('(2) Warehouse utilisation summary')
+    st.header('(2.0) Warehouse utilisation - Summary')
 
     query = sql.WAREHOUSE_UTILIZATION_LAST_N_DAYS
     WAREHOUSE_UTILIZATION_LAST_N_DAYS = sf.sql_to_dataframe(query)
+
+    WAREHOUSE_UTILIZATION_LAST_N_DAYS = \
+    WAREHOUSE_UTILIZATION_LAST_N_DAYS[['WAREHOUSE_NAME', 
+                                        'COMPUTE_AVAILABILITY_SEC', 
+                                        'TOTAL_EXEC_TIME_SEC', 
+                                        'PCT_UTILIZATION']]
+
     st.dataframe(WAREHOUSE_UTILIZATION_LAST_N_DAYS)
 
    # ----------------- WAREHOUSE UTILIZATION BY HOUR ----------------------
-    st.header('(2.1) Warehouse utilisation by hour')
+    st.header('(2.1) Warehouse utilisation - Utilisation by hour')
 
     query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
     COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
