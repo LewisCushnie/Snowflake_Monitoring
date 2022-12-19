@@ -52,7 +52,7 @@ def main():
 
     st.info(
     '''
-    ℹ️ This section provides a summary of snowflake spending for the given selection
+    💡 This section provides a summary of snowflake spending for the given selection
     \n
     **Note:** Cost assumes $4/credit
     '''
