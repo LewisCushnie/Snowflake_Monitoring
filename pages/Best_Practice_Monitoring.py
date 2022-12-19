@@ -176,7 +176,7 @@ def main():
         )
 
    # ----------------- WAREHOUSE UTILIZATION SUMMARY ----------------------
-    st.subheader('Warehouse utilisation - Summary')
+    st.subheader('Warehouse utilisation summary over previous n days')
 
     days = st.number_input('Previous n days:', value= 30, key= 'Warehouse utilisation - Summary')
 
@@ -239,7 +239,7 @@ def main():
         st.dataframe(filtered_df)
 
    # ----------------- WAREHOUSE UTILIZATION BY HOUR ----------------------
-    st.subheader('Warehouse utilisation - Utilisation by hour')
+    st.subheader('Warehouse utilisation by hour over previous 48 hours')
 
     query = sql.WAREHOUSE_DETAILS
     WAREHOUSE_DETAILS_df = sf.sql_to_dataframe(query)
