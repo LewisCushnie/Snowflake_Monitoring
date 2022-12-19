@@ -157,10 +157,15 @@ def main():
     filtered_df = fun.filter_df_by_business_domain(UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df\
     ,'TABLE_SCHEMA' ,unique_key= 'Unused tables in account')
 
-    # Colour formatting
-    filtered_df = filtered_df.style.applymap(sty.make_red,
-    subset=pd.IndexSlice[:,['DAYS_UNUSED']])
-    st.dataframe(filtered_df)
+    if len(filtered_df) != 0:
+        # Colour formatting
+        filtered_df = filtered_df.style.applymap(sty.make_red,
+        subset=pd.IndexSlice[:,['DAYS_UNUSED']])
+
+        st.dataframe(filtered_df)
+
+    else:
+        st.success('There are no unused tables in the selection 😀')
 
     with st.expander("What's this for?"):
         st.info('''
@@ -232,9 +237,15 @@ def main():
     filtered_df = fun.filter_df_by_business_domain(WAREHOUSE_DETAILS_df\
     ,'name' ,unique_key= 'Warehouses that do not have a resource monitor')
 
-    # Colour formatting
-    filtered_df = filtered_df.style.applymap(sty.make_red,
-    subset=pd.IndexSlice[:,['resource_monitor']])
+    if len(filtered_df) != 0:
+        # Colour formatting
+        filtered_df = filtered_df.style.applymap(sty.make_red,
+        subset=pd.IndexSlice[:,['resource_monitor']])
+
+        st.dataframe(filtered_df)
+
+    else:
+        st.success('There are no warehouses without a resource monitor in the selection 😀')
 
     st.dataframe(filtered_df)
     
