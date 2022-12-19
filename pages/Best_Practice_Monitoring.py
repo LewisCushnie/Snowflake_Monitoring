@@ -114,8 +114,8 @@ def main():
     st.markdown(line)
     st.header('Table and View monitoring')
     st.info('💡 This section provides analysis on the account\'s tables and views \n \
-    \n What are the different tables? https://docs.snowflake.com/en/user-guide/tables-temp-transient.html\
-    \n What are the different views? https://docs.snowflake.com/en/user-guide/views-introduction.html')
+    \n What are the different table types? https://docs.snowflake.com/en/user-guide/tables-temp-transient.html\
+    \n What are the different view types? https://docs.snowflake.com/en/user-guide/views-introduction.html')
 
     # ------------- EMPTY TABLES IN ACCOUNT -----------------
     st.subheader('Empty tables and views in account')
@@ -211,10 +211,8 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Warehouse monitoring')  
-    st.info('''💡 This section provides analysis on the account\'s warehouses
-    \n
-    What is a warehouse?: https://docs.snowflake.com/en/user-guide/warehouses-overview.html
-    ''')  
+    st.info('💡 This section provides analysis on the account\'s warehouses \n \
+    What is a warehouse?: https://docs.snowflake.com/en/user-guide/warehouses-overview.html')  
 
    # ----------------- WAREHOUSES WITHOUT MONITOR ----------------------
     st.subheader('Warehouses that do not have a resource monitor')
