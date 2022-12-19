@@ -219,6 +219,7 @@ def WH_UTILIZATION_LAST_48_HOURS(wh_name):
     WHERE start_time >= dateadd(hour, -48, current_date()) AND bytes_scanned > 0
     AND WAREHOUSE_NAME = {wh_name} --:warehouse_name
     GROUP BY hour
+    )
 
     --ORDER BY 1;
     SELECT at.hour, at.compute_credits_used, at.compute_availability_sec, total_exec_time_sec
