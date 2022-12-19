@@ -176,7 +176,7 @@ def main():
         )
 
    # ----------------- WAREHOUSE UTILIZATION SUMMARY ----------------------
-    st.header('(2.0) Warehouse utilisation - Summary')
+    st.subheader('(2.0) Warehouse utilisation - Summary')
 
     query = sql.WAREHOUSE_UTILIZATION_LAST_N_DAYS
     WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = sf.sql_to_dataframe(query)
