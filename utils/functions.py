@@ -16,7 +16,7 @@ def filter_df_by_business_domain(df, domain_name_column_str, unique_key):
     if domain_name_column_str in df:
         pass
     else:
-        raise Exception('''The 'TABLE_SCHEMA' column does not exist in this dataframe, 
+        raise Exception(f'''The {domain_name_column_str} column does not exist in this dataframe, 
         cannot use the filter_df_by_business_domain function''')
 
     # get the business domains from the ADMIN_DB
@@ -53,7 +53,7 @@ def filter_df_by_business_domain(df, domain_name_column_str, unique_key):
             return OR_string
 
         selections = list_to_OR_string(multi_selections)
-        selection_rows = df[domain_name_column].str.contains(selections)
+        selection_rows = df[domain_name_column_str].str.contains(selections)
         filtered_df = df.loc[selection_rows]
 
     else:
