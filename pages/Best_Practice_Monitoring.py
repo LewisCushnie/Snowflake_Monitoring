@@ -179,19 +179,21 @@ def main():
     st.header('(2.0) Warehouse utilisation - Summary')
 
     query = sql.WAREHOUSE_UTILIZATION_LAST_N_DAYS
-    WAREHOUSE_UTILIZATION_LAST_N_DAYS = sf.sql_to_dataframe(query)
+    WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = sf.sql_to_dataframe(query)
 
-    WAREHOUSE_UTILIZATION_LAST_N_DAYS = \
-    WAREHOUSE_UTILIZATION_LAST_N_DAYS[['WAREHOUSE_NAME', 
+    WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = \
+    WAREHOUSE_UTILIZATION_LAST_N_DAYS_df[['WAREHOUSE_NAME', 
                                         'COMPUTE_AVAILABILITY_SEC', 
                                         'TOTAL_EXEC_TIME_SEC', 
                                         'PCT_UTILIZATION']]
 
-    st.dataframe(WAREHOUSE_UTILIZATION_LAST_N_DAYS)
+    # Generate the business domain filter options
+    filtered_df = fun.filter_df_by_business_domain(WAREHOUSE_UTILIZATION_LAST_N_DAYS_df\
+    ,'WAREHOUSE_NAME' ,unique_key= '(2.0) Warehouse utilisation - Summary')
 
     utilisation = st.checkbox('Show warehouse utlisation:', key= '(2.0) Warehouse utilisation - Summary')
     if utilisation:
-        filtered_df = WAREHOUSE_UTILIZATION_LAST_N_DAYS[['WAREHOUSE_NAME', 'PCT_UTILIZATION']]
+        filtered_df = WAREHOUSE_UTILIZATION_LAST_N_DAYS_df[['WAREHOUSE_NAME', 'PCT_UTILIZATION']]
         filtered_df['PCT_UTILIZATION'] = filtered_df['PCT_UTILIZATION'].div(100)
 
         # Create altair chart
@@ -201,7 +203,7 @@ def main():
         )
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
     else:
-        filtered_df = WAREHOUSE_UTILIZATION_LAST_N_DAYS[['WAREHOUSE_NAME', 
+        filtered_df = WAREHOUSE_UTILIZATION_LAST_N_DAYS_df[['WAREHOUSE_NAME', 
                                                         'TOTAL_EXEC_TIME_SEC', 
                                                         'COMPUTE_AVAILABILITY_SEC']]
 
