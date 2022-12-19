@@ -113,7 +113,7 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Table and View monitoring')
-    st.info('💡 This section provides analysis on the account\'s tables and views\
+    st.info('💡 This section provides analysis on the account\'s tables and views \n \
     \n What are the different tables? https://docs.snowflake.com/en/user-guide/tables-temp-transient.html\
     \n What are the different views? https://docs.snowflake.com/en/user-guide/views-introduction.html')
 
