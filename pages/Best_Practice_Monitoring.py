@@ -52,7 +52,7 @@ def main():
     st.info('This section provides analysis on the account\'s tables and views')
 
     # ------------- EMPTY TABLES IN ACCOUNT -----------------
-    st.header('(1) Empty tables and views in account')
+    st.subheader('Empty tables and views in account')
     query = sql.EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     
@@ -75,7 +75,7 @@ def main():
         )
 
    # ---------------- UNUSED TABLES IN ACCOUNT ------------------------
-    st.header('(2) Unused tables and views in account')
+    st.subheader('Unused tables and views in account')
     days = st.number_input('Number of days table/view has not been used:', value= 30)
 
     query = sql.UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days)
@@ -101,7 +101,7 @@ def main():
         )
 
    # ----------------- TABLE AND VIEW TYPE SUMMARY ----------------------
-    st.header('(3) Table and view type summary')
+    st.subheader('Table and view type summary')
 
     query = sql.TABLE_AND_VIEW_BREAKDOWN
     TABLE_AND_VIEW_BREAKDOWN_df = sf.sql_to_dataframe(query)
@@ -219,7 +219,7 @@ def main():
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
    # ----------------- WAREHOUSE UTILIZATION BY HOUR ----------------------
-    st.header('(2.1) Warehouse utilisation - Utilisation by hour')
+    st.subheader('Warehouse utilisation - Utilisation by hour')
 
     query = sql.COMPUTE_AVAILABILITY_AND_EXECUTION_TIME
     COMPUTE_AVAILABILITY_AND_EXECUTION_TIME_df = sf.sql_to_dataframe(query)
@@ -281,7 +281,7 @@ def main():
 
     line = '---'
     st.markdown(line)
-    st.header('Copy Into v.s Insert Into')
+    st.subheader('Copy Into v.s Insert Into')
     st.write('Check why this matters')
 
     #======================================================#
@@ -290,7 +290,7 @@ def main():
 
     line = '---'
     st.markdown(line)
-    st.header('Queries that contain an Order By')
+    st.subheader('Queries that contain an Order By')
     st.write('Check why this matters')
 
     #======================================================#
@@ -299,7 +299,7 @@ def main():
 
     line = '---'
     st.markdown(line)
-    st.header('High Performing function usage')
+    st.subheader('High Performing function usage')
     st.write('Identify big aggregate functions that could be taking advantage of High performing functions')
 
     #======================================================#
@@ -308,7 +308,7 @@ def main():
 
     line = '---'
     st.markdown(line)
-    st.header('Zero Copy Cloning Usage')
+    st.subheader('Zero Copy Cloning Usage')
     st.write('Identify big aggregate functions that could be taking advantage of High performing functions')
 
 
