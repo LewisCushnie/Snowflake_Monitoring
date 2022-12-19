@@ -234,7 +234,7 @@ def main():
         )
 
     # Raw data checkbox
-    raw_data = st.checkbox('Show raw data:', key= 'Warehouse utilisation - Summary')
+    raw_data = st.checkbox('Show raw data:', key= 'Warehouse utilisation - Summary raw data')
     if raw_data:
         st.dataframe(filtered_df)
 
