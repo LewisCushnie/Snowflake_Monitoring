@@ -212,7 +212,7 @@ def main():
     st.markdown(line)
     st.header('Warehouse monitoring')  
     st.info('💡 This section provides analysis on the account\'s warehouses \n \
-    What is a warehouse?: https://docs.snowflake.com/en/user-guide/warehouses-overview.html')  
+    \n What is a warehouse?: https://docs.snowflake.com/en/user-guide/warehouses-overview.html')  
 
    # ----------------- WAREHOUSES WITHOUT MONITOR ----------------------
     st.subheader('Warehouses that do not have a resource monitor')
