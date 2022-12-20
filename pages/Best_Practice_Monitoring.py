@@ -1,3 +1,4 @@
+# Imports
 import pandas as pd
 import streamlit as st
 import altair as alt
@@ -13,27 +14,31 @@ def main():
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    # GLOBAL VARAIBLES
+    # Define global variables
     default_width = 500
 
     #======================================================#
     # SIDEBAR - SNOWFLAKE ACCOUNT PARAMETERS
     #======================================================#
 
+    # Import query from the sql.py file then convert to dataframe
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
     df = sf.sql_to_dataframe(query)
     
+    # Get current user
     df = df.transpose()
     current_user = df.loc['CURRENT_USER'].iloc[0]
 
-    st.sidebar.header(f'Hello, {current_user} ❄️')
-
+    # Get current role
     role = df.loc['CURRENT_ROLE'].iloc[0]
     #st.sidebar.text(f'Current role - {role}')
 
+    # Get current warehouse
     wh = df.loc['WAREHOUSE'].iloc[0]
     #st.sidebar.text(f'Warehouse - {wh}')
 
+    # Display in sidebar
+    st.sidebar.header(f'Hello, {current_user} ❄️')
     st.sidebar.markdown(
     f'''**Current Role** - {role}
      **Current Warehouse** - {wh}'''
@@ -43,11 +48,14 @@ def main():
     # SIDEBAR - CREDITS USED THROUGH STREAMLIT
     #======================================================#
 
-    # Credits used running queries through streamlit
+    # Import query from the sql.py file then convert to dataframe
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
+
+
     metric=round(STREAMLIT_CREDITS_USED_df['CREDITS_USED_STREAMLIT'].iloc[0],5)
     remaining=round(100-metric,3)
+
     st.sidebar.metric(label='**Credits used by Streamlit:**', value =metric, delta=f'{remaining} remaining')
 
     #======================================================#
@@ -93,6 +101,8 @@ def main():
     **Note:** Cost assumes $4/credit
     '''
     )
+
+    # Import query from the sql.py file then convert to dataframe
     query = sql.COMPUTE_CREDITS_PER_DAY
     COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
 
@@ -155,6 +165,8 @@ def main():
 
     # ------------- EMPTY TABLES IN ACCOUNT -----------------
     st.subheader('Empty tables and views in account')
+
+    # Import query from the sql.py file then convert to dataframe
     query = sql.EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT
     EMPTY_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
     
@@ -184,6 +196,7 @@ def main():
     st.subheader('Unused tables and views in account')
     days = st.number_input('Number of days table/view has not been used:', value= 30)
 
+    # Import query from the sql.py file then convert to dataframe
     query = sql.UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT(days)
     UNUSED_TABLES_AND_VIEWS_IN_ACCOUNT_df = sf.sql_to_dataframe(query)
 
@@ -214,6 +227,7 @@ def main():
    # ----------------- TABLE AND VIEW TYPE SUMMARY ----------------------
     st.subheader('Table and view type summary')
 
+    # Import query from the sql.py file then convert to dataframe
     query = sql.TABLE_AND_VIEW_BREAKDOWN
     TABLE_AND_VIEW_BREAKDOWN_df = sf.sql_to_dataframe(query)
 
@@ -262,8 +276,10 @@ def main():
    # ----------------- WAREHOUSES WITHOUT MONITOR ----------------------
     st.subheader('Warehouses that do not have a resource monitor')
 
+    # Import query from the sql.py file then convert to dataframe
     query = sql.WAREHOUSE_DETAILS
     WAREHOUSE_DETAILS_df = sf.sql_to_dataframe(query)
+
     WAREHOUSE_DETAILS_df = WAREHOUSE_DETAILS_df[['name', 'resource_monitor','owner', 'updated_on']]
     WAREHOUSE_DETAILS_df = WAREHOUSE_DETAILS_df[WAREHOUSE_DETAILS_df['resource_monitor'] == 'null']
 
@@ -296,9 +312,11 @@ def main():
 
     days = st.number_input('Previous n days:', value= 30, key= 'Warehouse utilisation - Summary')
 
+    # Import query from the sql.py file then convert to dataframe
     query = sql.WAREHOUSE_UTILIZATION_LAST_N_DAYS(days)
     WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = sf.sql_to_dataframe(query)
 
+    # Import query from the sql.py file then convert to dataframe
     # query = sql.WAREHOUSE_UTILIZATION_LAST_N_DAYS
     # WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = sf.sql_to_dataframe(query)
 
@@ -357,14 +375,17 @@ def main():
    # ----------------- WAREHOUSE UTILIZATION BY HOUR ----------------------
     st.subheader('Warehouse utilisation by hour over previous 48 hours')
 
+    # Import query from the sql.py file then convert to dataframe
     query = sql.WAREHOUSE_DETAILS
     WAREHOUSE_DETAILS_df = sf.sql_to_dataframe(query)
+
     WAREHOUSE_NAMES_LIST = WAREHOUSE_DETAILS_df['name'].tolist()
 
     wh_name = st.selectbox(
     'Select a warehouse to see hourly data for:',
     WAREHOUSE_NAMES_LIST)
 
+    # Import query from the sql.py file then convert to dataframe
     query = sql.WH_UTILIZATION_LAST_48_HOURS(wh_name)
     WH_UTILIZATION_LAST_48_HOURS_df = sf.sql_to_dataframe(query)
 
@@ -436,6 +457,7 @@ def main():
    # ----------------- TASK STATUS SUMMARY ----------------------
     st.subheader('Task status summary')
 
+    # Import query from the sql.py file then convert to dataframe
     query = sql.SHOW_TASKS
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
 
@@ -457,6 +479,8 @@ def main():
 
    # ----------------- TASK HISTORY TRACKER ----------------------
     st.subheader('Task success history')
+
+    # Import query from the sql.py file then convert to dataframe
     query = sql.TASK_HISTORY
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
 

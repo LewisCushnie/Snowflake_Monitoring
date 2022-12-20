@@ -1,18 +1,21 @@
+# Imports 
 import streamlit as st
 from utils import snowflake_connector as sf
 from utils import sql
 
-
+# Page config settings
 st.set_page_config(
     page_title="Usage Insights App"
     ,page_icon="🌀"
     ,layout="centered")
 
 def main():
+
     # Make sure session state is preserved
     for key in st.session_state:
         st.session_state[key] = st.session_state[key]
 
+    # Apply formatting to page
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
@@ -20,20 +23,24 @@ def main():
     # SIDEBAR - SNOWFLAKE ACCOUNT PARAMETERS
     #======================================================#
 
+    # Import query from the sql.py file then convert to dataframe
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
     df = sf.sql_to_dataframe(query)
     
+    # Get current user
     df = df.transpose()
     current_user = df.loc['CURRENT_USER'].iloc[0]
 
-    st.sidebar.header(f'Hello, {current_user} ❄️')
-
+    # Get current role
     role = df.loc['CURRENT_ROLE'].iloc[0]
     #st.sidebar.text(f'Current role - {role}')
 
+    # Get current warehouse
     wh = df.loc['WAREHOUSE'].iloc[0]
     #st.sidebar.text(f'Warehouse - {wh}')
 
+    # Display in sidebar
+    st.sidebar.header(f'Hello, {current_user} ❄️')
     st.sidebar.markdown(
     f'''**Current Role** - {role}
      **Current Warehouse** - {wh}'''
@@ -43,16 +50,25 @@ def main():
     # SIDEBAR - CREDITS USED THROUGH STREAMLIT
     #======================================================#
 
-    # Credits used running queries through streamlit
+    # Import query from the sql.py file then convert to dataframe
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
-    metric=round(STREAMLIT_CREDITS_USED_df['CREDITS_USED_STREAMLIT'].iloc[0],5)
-    remaining=round(100-metric,3)
+
+    # Get credits used, and credits remaining
+    metric = round(STREAMLIT_CREDITS_USED_df['CREDITS_USED_STREAMLIT'].iloc[0], 5)
+    remaining = round(100-metric, 3)
+
+    # Display in sidebar
     st.sidebar.metric(label='**Credits used by Streamlit:**', value =metric, delta=f'{remaining} remaining')
         
+    #======================================================#
+    # MAIN PAGE - INTRO
+    #======================================================#
+
     st.title("Welcome to the Usage Insights app!")
-    # st.sidebar.text(f"Account: {st.secrets.sf_usage_app.account}")
+
     st.sidebar.info("Choose a page above!")
+
     st.success(
     """
     This app provides insights on a demo Snowflake account usage.
@@ -82,12 +98,14 @@ def main():
     )
 
     st.header("Understanding the charging rates")
+
     st.info('''
     This section will list all of the costs associated with each activity in snowflake
     '''
     )
 
     st.header("Reducing Compute Costs")
+
     st.info('''
     1) **Choose the right size of warehouse:** For optimal query performance and cost\
     per credit
@@ -123,6 +141,7 @@ def main():
     )
 
     st.header("Reducing Storage Costs")
+
     st.info('''
     1) **Use zero-copy cloning**
     2) **Match bucket specifications with data transfer expectations:** e.g., are they organized\
@@ -137,6 +156,7 @@ def main():
     )
 
     st.header("Reducing Data Transfer Costs")
+    
     st.info('''
     This section will list all of the costs associated with each activity in snowflake
     1) **Use S3 buckets in the same region as your data warehouse**
