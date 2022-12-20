@@ -52,10 +52,11 @@ def main():
     query = sql.STREAMLIT_CREDITS_USED
     STREAMLIT_CREDITS_USED_df = sf.sql_to_dataframe(query)
 
+    # Get credits used, and credits remaining
+    metric = round(STREAMLIT_CREDITS_USED_df['CREDITS_USED_STREAMLIT'].iloc[0], 5)
+    remaining = round(100-metric, 3)
 
-    metric=round(STREAMLIT_CREDITS_USED_df['CREDITS_USED_STREAMLIT'].iloc[0],5)
-    remaining=round(100-metric,3)
-
+    # Display in sidebar
     st.sidebar.metric(label='**Credits used by Streamlit:**', value =metric, delta=f'{remaining} remaining')
 
     #======================================================#
@@ -63,6 +64,7 @@ def main():
     #======================================================#
     
     st.title('Snowflake Best Practice Monitoring')
+
     st.success(
     '''
     The **Best Practice Monitoring** page provides a number of figures to monitor Snowflake best practices.\
@@ -106,21 +108,24 @@ def main():
     query = sql.COMPUTE_CREDITS_PER_DAY
     COMPUTE_CREDITS_PER_DAY_df = sf.sql_to_dataframe(query)
 
-    # Add slider:
+    # Get min and max values from query date range
     min_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].min()
     max_date = COMPUTE_CREDITS_PER_DAY_df['Usage Week'].max()
     auto_date_lower = min_date
     auto_date_higher = max_date
+
+    # Create slider with min and max date values
     slider_values = st.slider(
     'Select date range',
     min_date, max_date, (auto_date_lower, auto_date_higher)
     )
 
-    # Select DataFrame rows between two dates
+    # Select DataFrame rows between the dates outputted from the slider
     date_mask = (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] > slider_values[0]) &\
      (COMPUTE_CREDITS_PER_DAY_df['Usage Week'] <= slider_values[1])
     filtered_df = COMPUTE_CREDITS_PER_DAY_df.loc[date_mask]
 
+    # Create selectbox for currency selection
     selection = st.selectbox(
     'Select currency:', 
     ('Cost ($)', 'Credits used'))
@@ -128,18 +133,24 @@ def main():
     if selection == 'Credits used':
         # Credits bar chart
         st.bar_chart(filtered_df, x= 'Usage Week', y= 'Compute Credits Used')
+
     elif selection == 'Cost ($)':
         # Cost bar chart
         st.bar_chart(filtered_df, x= 'Usage Week', y= 'Cost ($)')
+        
     else:
         pass
 
-    # Raw data checkbox
+    # Create checkbox for raw data display 
     raw_data = st.checkbox('Show raw data:', key= 'Total compute credit usage per day')
+
     if raw_data:
+        # Apply color formatting to dataframe
         st.text('Red - $10+ per day | Orange - $5-$10 per day | Green - Less than $5 per day')
         filtered_df = filtered_df.style.applymap(colour_df,
         subset=pd.IndexSlice[:,['Cost ($)']])
+
+        # Display dataframe
         st.dataframe(filtered_df, width=1000)
     
     with st.expander("What's this for?"):
@@ -159,6 +170,7 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Table and View monitoring')
+    
     st.info('💡 This section provides analysis on the account\'s tables and views \n \
     \n What are the different table types? https://docs.snowflake.com/en/user-guide/tables-temp-transient.html\
     \n What are the different view types? https://docs.snowflake.com/en/user-guide/views-introduction.html')
