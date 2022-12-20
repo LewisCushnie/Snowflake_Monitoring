@@ -63,8 +63,6 @@ def main():
             except:
                 st.write('No credit usage by user')
 
-            csv = convert_df(my_large_df)
-
             USER_ACCESS_HISTORY = sql.USER_ACCESS_HISTORY(user)
             df = sf.sql_to_dataframe(USER_ACCESS_HISTORY)
             download = df.to_csv().encode('utf-8')
