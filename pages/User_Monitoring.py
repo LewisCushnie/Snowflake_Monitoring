@@ -94,6 +94,7 @@ def main():
 
             df = sf.sql_to_dataframe(LOGIN)
             try:
+                st.dataframe(df)
                 st.write(f"Last login by user, {user}: {df['LAST_SUCCESS_LOGIN'][0]}")
             except Exception as e:
                 st.write(e)
