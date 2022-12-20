@@ -132,6 +132,8 @@ def WH_UTILIZATION_LAST_48_HOURS(wh_name):
     '''
     return query
 
+
+
 #-------------- WAREHOUSE MONITORING ------------------
 WH_CREDIT_BREAKDOWN = '''
 select
@@ -316,6 +318,19 @@ select count(q.query_type) as "Number of Queries",avg(q.total_elapsed_time/1000)
     order by count(q.query_type) desc;
 
 '''
+
+def USER_ACCESS_HISTORY(user):
+    query = f'''
+    select query_id, 
+    convert_timezone('Europe/London', query_start_time) as "query_start_time", 
+    direct_objects_accessed,
+    base_objects_accessed,
+    objects_modified
+    from snowflake.account_usage.access_history
+    where user_name = '{user}'
+    order by query_start_time desc;
+    '''
+    return query
 
 #-------------- TASK MONITORING ------------------
 SHOW_TASKS = '''
