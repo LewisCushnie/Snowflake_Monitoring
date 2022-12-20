@@ -50,13 +50,13 @@ def main():
                 df['LAST_SUCCESS_LOGIN'] = df['LAST_SUCCESS_LOGIN'].dt.tz_convert(None)
                 last_login = df['LAST_SUCCESS_LOGIN'][0]
                 st.write(f"Last login by user, {user}:")
-                st.write("{last_login}")
+                st.write(f"{last_login}")
             except Exception as e:
                 st.write(e)
 
             CREDITS_BY_USER = sql.CREDITS_BY_USER(user)
             df = sf.sql_to_dataframe(CREDITS_BY_USER)
-            
+
             try:
                 credits = df['APPROXIMATE_CREDITS_USED'][0]
                 st.metric('Credits Used',round(credits,2))
