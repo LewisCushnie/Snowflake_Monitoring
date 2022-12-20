@@ -170,7 +170,7 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Table and View monitoring')
-    
+
     st.info('💡 This section provides analysis on the account\'s tables and views \n \
     \n What are the different table types? https://docs.snowflake.com/en/user-guide/tables-temp-transient.html\
     \n What are the different view types? https://docs.snowflake.com/en/user-guide/views-introduction.html')
@@ -187,12 +187,16 @@ def main():
      'TABLE_SCHEMA', unique_key= 'Empty tables in account')
 
     if len(filtered_df) != 0:
+
         # Colour formatting
         filtered_df = filtered_df.style.applymap(sty.make_red,
         subset=pd.IndexSlice[:,['EMPTY']])
+
+        # Display dataframe
         st.dataframe(filtered_df, use_container_width= True)
 
     else:
+        # Message to show if no matches from the filter
         st.success('There are no empty tables or views in the selection 😀')
 
     with st.expander("What's this for?"):
@@ -206,6 +210,8 @@ def main():
 
    # ---------------- UNUSED TABLES IN ACCOUNT ------------------------
     st.subheader('Unused tables and views in account')
+
+    # User input for number of days to look back
     days = st.number_input('Number of days table/view has not been used:', value= 30)
 
     # Import query from the sql.py file then convert to dataframe
@@ -217,13 +223,16 @@ def main():
     ,'TABLE_SCHEMA' ,unique_key= 'Unused tables in account')
 
     if len(filtered_df) != 0:
+
         # Colour formatting
         filtered_df = filtered_df.style.applymap(sty.make_red,
         subset=pd.IndexSlice[:,['DAYS_UNUSED']])
 
+        # Display dataframe
         st.dataframe(filtered_df)
 
     else:
+        # Message to show if no matches from the filter
         st.success('There are no unused tables in the selection 😀')
 
     with st.expander("What's this for?"):
@@ -252,11 +261,15 @@ def main():
     y= alt.Y('COUNT:Q'),
     color= 'TYPE:N'
     )
+
+    # Dipslay altair chart
     st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
     # Raw data checkbox
     raw_data = st.checkbox('Show raw data', key= 'Table and view type summary')
     if raw_data:
+
+        # Display dataframe
         st.dataframe(TABLE_AND_VIEW_BREAKDOWN_df)
 
     with st.expander("What's this for?"):
@@ -282,6 +295,7 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Warehouse monitoring')  
+
     st.info('💡 This section provides analysis on the account\'s warehouses \n \
     \n What is a warehouse?: https://docs.snowflake.com/en/user-guide/warehouses-overview.html')  
 
@@ -292,6 +306,7 @@ def main():
     query = sql.WAREHOUSE_DETAILS
     WAREHOUSE_DETAILS_df = sf.sql_to_dataframe(query)
 
+    # Select rows where there is no resource monitor
     WAREHOUSE_DETAILS_df = WAREHOUSE_DETAILS_df[['name', 'resource_monitor','owner', 'updated_on']]
     WAREHOUSE_DETAILS_df = WAREHOUSE_DETAILS_df[WAREHOUSE_DETAILS_df['resource_monitor'] == 'null']
 
@@ -300,10 +315,12 @@ def main():
     ,'name' ,unique_key= 'Warehouses that do not have a resource monitor')
 
     if len(filtered_df) != 0:
+
         # Colour formatting
         filtered_df = filtered_df.style.applymap(sty.make_red,
         subset=pd.IndexSlice[:,['resource_monitor']])
 
+        # Display dataframe
         st.dataframe(filtered_df)
 
     else:
@@ -322,28 +339,27 @@ def main():
    # ----------------- WAREHOUSE UTILIZATION SUMMARY ----------------------
     st.subheader('Warehouse utilisation summary over previous n days')
 
+    # User input for number of days selection
     days = st.number_input('Previous n days:', value= 30, key= 'Warehouse utilisation - Summary')
 
     # Import query from the sql.py file then convert to dataframe
     query = sql.WAREHOUSE_UTILIZATION_LAST_N_DAYS(days)
     WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = sf.sql_to_dataframe(query)
 
-    # Import query from the sql.py file then convert to dataframe
-    # query = sql.WAREHOUSE_UTILIZATION_LAST_N_DAYS
-    # WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = sf.sql_to_dataframe(query)
-
+    # Select necessary rows
     WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = \
     WAREHOUSE_UTILIZATION_LAST_N_DAYS_df[['WAREHOUSE_NAME', 
                                         'COMPUTE_AVAILABILITY_SEC', 
                                         'TOTAL_EXEC_TIME_SEC', 
                                         'PCT_UTILIZATION']]
 
-    # Generate the business domain filter options
+    # Generate business domain filter options using the filter_df_by_business_domain function
     WAREHOUSE_UTILIZATION_LAST_N_DAYS_df = fun.filter_df_by_business_domain(WAREHOUSE_UTILIZATION_LAST_N_DAYS_df\
     ,'WAREHOUSE_NAME' ,unique_key= '(2.0) Warehouse utilisation - Summary')
 
     utilisation = st.checkbox('Show warehouse utlisation:', key= '(2.0) Warehouse utilisation - Summary')
     if utilisation:
+        # Select necessary columns and divide by 100 to get correct percentage
         filtered_df = WAREHOUSE_UTILIZATION_LAST_N_DAYS_df[['WAREHOUSE_NAME', 'PCT_UTILIZATION']]
         filtered_df['PCT_UTILIZATION'] = filtered_df['PCT_UTILIZATION'].div(100)
 
@@ -352,8 +368,12 @@ def main():
         x= alt.X('WAREHOUSE_NAME'),
         y= alt.Y('PCT_UTILIZATION:Q', axis= alt.Axis(title= 'Percentage Warehouse Utilisation', format= '%')),
         )
+
+        # Display altair chart
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+
     else:
+        # Select necessary columns
         filtered_df = WAREHOUSE_UTILIZATION_LAST_N_DAYS_df[['WAREHOUSE_NAME', 
                                                         'TOTAL_EXEC_TIME_SEC', 
                                                         'COMPUTE_AVAILABILITY_SEC']]
@@ -367,6 +387,8 @@ def main():
         y= alt.Y('TIME:Q'),
         color= 'CATEGORY:N'
         )
+
+        # Display altair chart
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
     with st.expander("What's this for?"):
@@ -391,7 +413,7 @@ def main():
     query = sql.WAREHOUSE_DETAILS
     WAREHOUSE_DETAILS_df = sf.sql_to_dataframe(query)
 
-    WAREHOUSE_NAMES_LIST = WAREHOUSE_DETAILS_df['name'].tolist()
+    # Convert warehouse names to list WAREHOUSE_NAMES_LIST = WAREHOUSE_DETAILS_df['name'].tolist()
 
     wh_name = st.selectbox(
     'Select a warehouse to see hourly data for:',
