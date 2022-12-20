@@ -63,6 +63,18 @@ def main():
             except:
                 st.write('No credit usage by user')
 
+            csv = convert_df(my_large_df)
+
+            USER_ACCESS_HISTORY = sql.USER_ACCESS_HISTORY(user)
+            df = sf.sql_to_dataframe(USER_ACCESS_HISTORY)
+            download = df.to_csv().encode('utf-8')
+
+            st.download_button(
+                label= f"Download access history for {user}",
+                data=download,
+                file_name=f'{user}_access_hisotry.csv'
+            )
+
     #===============#
     # COMPARE USERS #
     #===============#
