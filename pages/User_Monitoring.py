@@ -44,34 +44,34 @@ def main():
         if submitted:
         
             LOGIN = sql.LOGIN(user)
-            df = sf.sql_to_dataframe(LOGIN)
+            LOGIN_df = sf.sql_to_dataframe(LOGIN)
+
+            CREDITS_BY_USER = sql.CREDITS_BY_USER(user)
+            CREDITS_BY_USER_df = sf.sql_to_dataframe(CREDITS_BY_USER)
 
             try:
-                df['LAST_SUCCESS_LOGIN'] = pd.to_datetime(df['LAST_SUCCESS_LOGIN'], format='%Y-%m-%d %H:%M:%S.%f').dt.tz_convert(None)
-                last_login = df['LAST_SUCCESS_LOGIN'][0]
+                LOGIN_df['LAST_SUCCESS_LOGIN'] = pd.to_datetime(LOGIN_df['LAST_SUCCESS_LOGIN'], format='%Y-%m-%d %H:%M:%S.%f').dt.tz_convert(None)
+                last_login = LOGIN_df['LAST_SUCCESS_LOGIN'][0]
                 st.write(f"Last login by user, {user}:")
                 st.write(f"{last_login}")
             except Exception as e:
                 st.write(e)
 
-            CREDITS_BY_USER = sql.CREDITS_BY_USER(user)
-            df = sf.sql_to_dataframe(CREDITS_BY_USER)
-
             try:
-                credits = df['APPROXIMATE_CREDITS_USED'][0]
+                credits = CREDITS_BY_USER_df['APPROXIMATE_CREDITS_USED'][0]
                 st.metric('Credits Used',round(credits,2))
             except:
                 st.write('No credit usage by user')
 
-            USER_ACCESS_HISTORY = sql.USER_ACCESS_HISTORY(user)
-            df = sf.sql_to_dataframe(USER_ACCESS_HISTORY)
-            download = df.to_csv().encode('utf-8')
+    USER_ACCESS_HISTORY = sql.USER_ACCESS_HISTORY(user)
+    df = sf.sql_to_dataframe(USER_ACCESS_HISTORY)
+    download = df.to_csv().encode('utf-8')
 
-            st.download_button(
-                label= f"Download access history for {user}",
-                data=download,
-                file_name=f'{user}_access_hisotry.csv'
-            )
+    st.download_button(
+        label= f"Download access history for {user}",
+        data=download,
+        file_name=f'{user}_access_hisotry.csv'
+    )
 
     #===============#
     # COMPARE USERS #
