@@ -47,7 +47,7 @@ def main():
             df = sf.sql_to_dataframe(LOGIN)
 
             try:
-                df['LAST_SUCCESS_LOGIN'] = df['LAST_SUCCESS_LOGIN'].dt.tz_convert(None)
+                df['LAST_SUCCESS_LOGIN'] = pd.to_datetime(df['LAST_SUCCESS_LOGIN'], format='%Y-%m-%d %H:%M:%S.%f').dt.tz_convert(None)
                 last_login = df['LAST_SUCCESS_LOGIN'][0]
                 st.write(f"Last login by user, {user}:")
                 st.write(f"{last_login}")
