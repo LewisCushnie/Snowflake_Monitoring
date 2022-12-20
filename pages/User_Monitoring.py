@@ -16,6 +16,7 @@ def main():
     st.title('User Monitoring')
     st.success(
     '''The **User Monitoring** page allows you to track and compare account usage and query performance between users.
+    Full access history, including direct and base object access, is available to download for each user
     '''
     )
 
@@ -94,8 +95,8 @@ def main():
             df = sf.sql_to_dataframe(LOGIN)
             try:
                 st.write(f"Last login by user, {user}: {df['LAST_SUCCESS_LOGIN'][0]}")
-            except:
-                st.write('User has not logged in')
+            except Exception as e:
+                st.write(e)
 
             df = sf.sql_to_dataframe(CREDITS_BY_USER)
             try:
