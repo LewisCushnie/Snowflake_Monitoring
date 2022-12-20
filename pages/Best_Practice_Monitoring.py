@@ -413,7 +413,8 @@ def main():
     query = sql.WAREHOUSE_DETAILS
     WAREHOUSE_DETAILS_df = sf.sql_to_dataframe(query)
 
-    # Convert warehouse names to list WAREHOUSE_NAMES_LIST = WAREHOUSE_DETAILS_df['name'].tolist()
+    # Convert warehouse names to list
+    WAREHOUSE_NAMES_LIST = WAREHOUSE_DETAILS_df['name'].tolist()
 
     wh_name = st.selectbox(
     'Select a warehouse to see hourly data for:',
