@@ -43,11 +43,6 @@ def main():
 
         if submitted:
         
-            LOGIN = f'''
-            select convert_timezone('Europe/London', last_success_login)
-            from users
-            where name = '{user}';
-            '''
 
             CREDITS_BY_USER = f'''
             WITH USER_HOUR_EXECUTION_CTE AS (
@@ -91,7 +86,8 @@ def main():
             ;
 
             '''
-
+            
+            LOGIN = sql.LOGIN(user)
             df = sf.sql_to_dataframe(LOGIN)
             try:
                 st.dataframe(df)

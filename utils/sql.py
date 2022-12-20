@@ -319,6 +319,15 @@ select count(q.query_type) as "Number of Queries",avg(q.total_elapsed_time/1000)
 
 '''
 
+def LOGIN(user):
+    query = f'''
+            select convert_timezone('Europe/London', last_success_login) as "LAST_SUCCESS_LOGIN"
+            from users
+            where name = '{user}';
+
+            '''
+    return query        
+    
 def USER_ACCESS_HISTORY(user):
     query = f'''
     select query_id, 
