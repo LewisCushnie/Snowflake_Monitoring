@@ -416,6 +416,7 @@ def main():
     # Convert warehouse names to list
     WAREHOUSE_NAMES_LIST = WAREHOUSE_DETAILS_df['name'].tolist()
 
+    # Create warehouse name selectbox
     wh_name = st.selectbox(
     'Select a warehouse to see hourly data for:',
     WAREHOUSE_NAMES_LIST)
@@ -426,6 +427,7 @@ def main():
 
     utilisation = st.checkbox('Show warehouse utlisation:', key= '(2.1) Warehouse utilisation - Utilisation by hour')
     if utilisation:
+        # Select necessary rows and divide by 100 to get correct percentage
         filtered_df = WH_UTILIZATION_LAST_48_HOURS_df[['HOUR', 'PCT_UTILIZATION']]
         filtered_df['PCT_UTILIZATION'] = filtered_df['PCT_UTILIZATION'].div(100)
 
@@ -434,8 +436,12 @@ def main():
         x= alt.X('HOUR'),
         y= alt.Y('PCT_UTILIZATION:Q', axis= alt.Axis(title= 'Percentage Warehouse Utilisation', format= '%')),
         )
+
+        # Display altair chart
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
+
     else:
+        # Select necessary rows
         filtered_df = WH_UTILIZATION_LAST_48_HOURS_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']]
 
         # Create altair chart
@@ -448,6 +454,7 @@ def main():
         color= 'CATEGORY:N'
         )
 
+        # Display altair chart
         st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
 
     # Raw data checkbox
@@ -483,6 +490,7 @@ def main():
     line = '---'
     st.markdown(line)
     st.header('Task Monitoring Summary')
+
     st.info('''
     💡 This section provides analysis on tasks in the account.
     \n
@@ -496,11 +504,14 @@ def main():
     query = sql.SHOW_TASKS
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
 
+    # Select necessary rows
     SHOW_TASKS_df = SHOW_TASKS_df[['name', 'warehouse', 'schedule', 'state']]
 
     # Colour formatting
     SHOW_TASKS_df = SHOW_TASKS_df.style.applymap(sty.make_red,
     subset=pd.IndexSlice[:,['state']])
+
+    # Display dataframe
     st.dataframe(SHOW_TASKS_df)
 
     with st.expander("What's this for?"):
@@ -519,6 +530,7 @@ def main():
     query = sql.TASK_HISTORY
     SHOW_TASKS_df = sf.sql_to_dataframe(query)
 
+    # Create altair chart
     chart = alt.Chart(SHOW_TASKS_df).transform_fold(
     ['COUNT_SUCCEEDED', 'COUNT_FAILED'],
     as_=['STATUS', 'COUNT']
@@ -528,6 +540,7 @@ def main():
     color= 'STATUS:N'
     )
     
+    # Display altair chart
     st.altair_chart(chart, use_container_width= True, theme= 'streamlit')
     
     raw_data = st.checkbox('Show raw task history data:')
