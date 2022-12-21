@@ -360,7 +360,8 @@ def main():
     utilisation = st.checkbox('Show warehouse utlisation:', key= '(2.0) Warehouse utilisation - Summary')
     if utilisation:
         # Select necessary columns and divide by 100 to get correct percentage
-        filtered_df = WAREHOUSE_UTILIZATION_LAST_N_DAYS_df[['WAREHOUSE_NAME', 'PCT_UTILIZATION']]
+        filtered_df = WAREHOUSE_UTILIZATION_LAST_N_DAYS_df[['WAREHOUSE_NAME', 
+                                                            'PCT_UTILIZATION']]
         filtered_df['PCT_UTILIZATION'] = filtered_df['PCT_UTILIZATION'].div(100)
 
         # Create altair chart
@@ -428,7 +429,8 @@ def main():
     utilisation = st.checkbox('Show warehouse utlisation:', key= '(2.1) Warehouse utilisation - Utilisation by hour')
     if utilisation:
         # Select necessary rows and divide by 100 to get correct percentage
-        filtered_df = WH_UTILIZATION_LAST_48_HOURS_df[['HOUR', 'PCT_UTILIZATION']]
+        filtered_df = WH_UTILIZATION_LAST_48_HOURS_df[['HOUR', 
+                                                        'PCT_UTILIZATION']]
         filtered_df['PCT_UTILIZATION'] = filtered_df['PCT_UTILIZATION'].div(100)
 
         # Create altair chart
@@ -442,7 +444,9 @@ def main():
 
     else:
         # Select necessary rows
-        filtered_df = WH_UTILIZATION_LAST_48_HOURS_df[['HOUR', 'TOTAL_EXEC_TIME_SEC', 'COMPUTE_AVAILABILITY_SEC']]
+        filtered_df = WH_UTILIZATION_LAST_48_HOURS_df[['HOUR', 
+                                                        'TOTAL_EXEC_TIME_SEC', 
+                                                        'COMPUTE_AVAILABILITY_SEC']]
 
         # Create altair chart
         chart = alt.Chart(filtered_df.reset_index()).transform_fold(
