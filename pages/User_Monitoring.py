@@ -50,7 +50,7 @@ def main():
             CREDITS_BY_USER_df = sf.sql_to_dataframe(CREDITS_BY_USER)
 
             try:
-    
+                st.dataframe(LOGIN_df)
                 last_login = LOGIN_df['LAST_SUCCESS_LOGIN'][0]
                 name = LOGIN_df['NAME'][0]
                 st.info(body=f"{name} last active: {last_login} days ago", icon='ℹ️')
