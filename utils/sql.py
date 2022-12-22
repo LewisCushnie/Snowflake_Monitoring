@@ -328,9 +328,51 @@ def LOGIN(user):
         where name = '{user}';
 
             '''
-    return query        
+    return query    
 
-def CREDITS_BY_USER(user):
+def USER_USAGE(user):
+    query = f'''
+    select 
+    case
+        when query_type like '%CREATE%' or 
+            query_type like '%ALTER%' or 
+            query_type like '%DROP%' or 
+            query_type like '%RENAME%' or 
+            query_type like '%TRUNCATE%' or 
+            query_type like '%SHOW%' or 
+            query_type like '%USE%' or
+            query_type like '%DESCRIBE%' or 
+            query_type like '%COMMENT%' then 'DDL General'
+        when query_type like '%GRANT%' or
+            query_type like '%REVOKE%' then 'DCL'
+        when query_type like '%SET%' then 'DDL Account Session'
+        when query_type = 'SELECT' or
+            query_type = 'INSERT' or 
+            query_type = 'UPDATE' or 
+            query_type = 'DELETE' or 
+            query_type = 'MERGE' or 
+            query_type = 'CALL' then 'DML General'
+        when query_type like  '%PUT%' or
+            query_type like '%REMOVE%' or
+            query_type like '%LIST%' or
+            query_type like  '%GET%' then 'DML File Staging' 
+        when query_type like  '%COPY%' then 'DML Data Loading'
+        when query_type like  '%COMMIT%' or
+             query_type like  '%BEGIN%' then 'TCL'
+        else 'Unknown'
+        end as "Query_Category",
+     sum(qh.total_elapsed_time/1000) as total_time
+    from query_history as qh
+    join users as u
+    on qh.user_name = u.name
+    where u.name = '{user}'
+    group by 1
+    order by 2 desc
+    limit 1000;
+    '''    
+    return query
+
+def CREDITS_BY_USER_YEAR(user):
     query = f'''
             WITH USER_HOUR_EXECUTION_CTE AS (
                 SELECT  USER_NAME
@@ -342,7 +384,52 @@ def CREDITS_BY_USER(user):
                 AND EXECUTION_TIME > 0
             
             --Change the below filter if you want to look at a longer range than the last 1 month 
-                AND START_TIME > DATEADD(Month,-1,CURRENT_TIMESTAMP())
+                AND START_TIME > DATEADD(Month,-12,CURRENT_TIMESTAMP())
+                group by 1,2,3
+                )
+            , HOUR_EXECUTION_CTE AS (
+                SELECT  START_TIME_HOUR
+                ,WAREHOUSE_NAME
+                ,SUM(USER_HOUR_EXECUTION_TIME) AS HOUR_EXECUTION_TIME
+                FROM USER_HOUR_EXECUTION_CTE
+                group by 1,2
+            )
+            , APPROXIMATE_CREDITS AS (
+                SELECT 
+                A.USER_NAME
+                ,C.WAREHOUSE_NAME
+                ,(A.USER_HOUR_EXECUTION_TIME/B.HOUR_EXECUTION_TIME)*C.CREDITS_USED AS APPROXIMATE_CREDITS_USED
+
+                FROM USER_HOUR_EXECUTION_CTE A
+                JOIN HOUR_EXECUTION_CTE B  ON A.START_TIME_HOUR = B.START_TIME_HOUR and B.WAREHOUSE_NAME = A.WAREHOUSE_NAME
+                JOIN "SNOWFLAKE"."ACCOUNT_USAGE"."WAREHOUSE_METERING_HISTORY" C ON C.WAREHOUSE_NAME = A.WAREHOUSE_NAME AND C.START_TIME = A.START_TIME_HOUR
+            )
+
+            SELECT 
+            USER_NAME
+            ,SUM(APPROXIMATE_CREDITS_USED) AS APPROXIMATE_CREDITS_USED
+            FROM APPROXIMATE_CREDITS
+            WHERE USER_NAME = '{user}'
+            GROUP BY 1
+            ORDER BY 2 DESC
+            ;
+
+            '''
+    return query
+
+def CREDITS_BY_USER_WEEK(user):
+    query = f'''
+            WITH USER_HOUR_EXECUTION_CTE AS (
+                SELECT  USER_NAME
+                ,WAREHOUSE_NAME
+                ,DATE_TRUNC('hour',START_TIME) as START_TIME_HOUR
+                ,SUM(EXECUTION_TIME)  as USER_HOUR_EXECUTION_TIME
+                FROM "SNOWFLAKE"."ACCOUNT_USAGE"."QUERY_HISTORY" 
+                WHERE WAREHOUSE_NAME IS NOT NULL
+                AND EXECUTION_TIME > 0
+            
+            --Change the below filter if you want to look at a longer range than the last 1 month 
+                AND START_TIME > DATEADD(Day,-7,CURRENT_TIMESTAMP())
                 group by 1,2,3
                 )
             , HOUR_EXECUTION_CTE AS (

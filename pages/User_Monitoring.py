@@ -49,22 +49,31 @@ def main():
             LOGIN = sql.LOGIN(user)
             LOGIN_df = sf.sql_to_dataframe(LOGIN)
 
-            CREDITS_BY_USER = sql.CREDITS_BY_USER(user)
-            CREDITS_BY_USER_df = sf.sql_to_dataframe(CREDITS_BY_USER)
+            CREDITS_BY_USER_YEAR = sql.CREDITS_BY_USER_YEAR(user)
+            CREDITS_BY_USER_YEAR_df = sf.sql_to_dataframe(CREDITS_BY_USER_YEAR)
+
+            CREDITS_BY_USER_WEEK = sql.CREDITS_BY_USER_WEEK(user)
+            CREDITS_BY_USER_WEEK_df = sf.sql_to_dataframe(CREDITS_BY_USER_WEEK)
+
+            USER_USAGE = sql.USER_USAGE(user)
+            USER_USAGE_df = sf.sql_to_dataframe(USER_USAGE)
 
             try:
                 last_login = LOGIN_df['LAST_LOGIN'][0]
                 role = LOGIN_df['DEFAULT_ROLE'][0]
                 name = LOGIN_df['NAME'][0]
-                st.info(body=f"{name} last active: {last_login} day(s) ago", icon='ℹ️')
-                st.write(role)
+                st.wrtie(f'{user} ({role})')
+                st.info(body=f"Last active: {last_login} day(s) ago", icon='ℹ️')
+
         
             except Exception as e:
                 st.write('User not logged in')
 
             try:
-                credits = CREDITS_BY_USER_df['APPROXIMATE_CREDITS_USED'][0]
-                st.metric('Credits Used',round(credits,2))
+                credits_year = CREDITS_BY_USER_YEAR_df['APPROXIMATE_CREDITS_USED'][0]
+                credits_week = CREDITS_BY_USER_WEEK_df['APPROXIMATE_CREDITS_USED'][0]
+                average_week = credits_year/52.1429
+                st.metric('Credits Used Last 7 days', value=round(credits_week,2), delta=round(average_week,2))
             except:
                 st.write('No credit usage by user')
 
