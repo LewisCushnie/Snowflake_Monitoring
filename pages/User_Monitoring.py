@@ -9,9 +9,9 @@ def main():
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    #==========================#
+    #===================#
     # MAIN PAGE - INTRO #
-    #==========================#
+    #===================#
 
     st.title('User Monitoring')
     st.success(
@@ -29,9 +29,9 @@ def main():
     for i in users:
             clean_users.append(i[0])
 
-    #==========================#
+    #================#
     # USER IN DETAIL #
-    #==========================#
+    #================#
     
     line = '---'
     st.markdown(line)
