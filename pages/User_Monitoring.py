@@ -50,9 +50,10 @@ def main():
             CREDITS_BY_USER_df = sf.sql_to_dataframe(CREDITS_BY_USER)
 
             try:
-                LOGIN_df['LAST_SUCCESS_LOGIN'] = pd.to_datetime(LOGIN_df['LAST_SUCCESS_LOGIN'], format='%Y-%m-%d %H:%M:%S.%f').dt.tz_convert(None)
+    
                 last_login = LOGIN_df['LAST_SUCCESS_LOGIN'][0]
-                st.info(body=f"Last login by user, {user}: {last_login}", icon='ℹ️')
+                name = LOGIN_df['NAME'][0]
+                st.info(body=f"{name} last active: {last_login} days ago", icon='ℹ️')
                 st.write(f"Last login by user, {user}:")
                 st.write(f"{last_login}")
             except Exception as e:
