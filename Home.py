@@ -2,7 +2,7 @@
 import streamlit as st
 from utils import snowflake_connector as sf
 from utils import sql
-from PIL import Image
+from utils.functions import add_logo
 
 # Page config settings
 st.set_page_config(
