@@ -76,6 +76,30 @@ def make_red(value):
   colour = 'red'
   return 'color: %s' % colour
 
+def add_logo():
+
+    return st.markdown(
+        """
+        <style>
+            [data-testid="stSidebarNav"] {
+                background-image: url(https://www.beazley.com/themes/custom/beazley_default/logo.svg);
+                background-repeat: no-repeat;
+                padding-top: 120px;
+                background-position: 20px 20px;
+            }
+            [data-testid="stSidebarNav"]::before {
+                content: "My Company Name";
+                margin-left: 20px;
+                margin-top: 20px;
+                font-size: 30px;
+                position: relative;
+                top: 100px;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
 if __name__ == "__main__":
     pass
 
