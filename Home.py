@@ -20,7 +20,7 @@ def main():
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    st.markdown('''<img src="pic_trulli.jpg">''')
+    st.markdown('''<img src="https://www.beazley.com/themes/custom/beazley_default/logo.svg">''')
 
     st.image('https://www.beazley.com/themes/custom/beazley_default/logo.svg')
 
