@@ -3,6 +3,7 @@ import streamlit as st
 import altair as alt
 from utils import snowflake_connector as sf
 from utils.df_styler import colour_df
+from utils.functions import add_logo
 from utils import sql
 import datetime
 
@@ -18,6 +19,9 @@ def main():
     #======================================================#
     # SIDEBAR - WAREHOUSE USAGE SUMMARY STATS
     #======================================================#
+
+    # Add logo
+    add_logo()
 
     st.sidebar.header('Warehouse usage summary stats')
     query = sql.WH_USAGE_LAST_7_DAYS

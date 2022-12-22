@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 from utils import snowflake_connector as sf
+from utils.functions import add_logo
+
 from utils import sql
 
 def main():
@@ -21,6 +23,8 @@ def main():
     '''
     )
 
+    add_logo()
+    
     #==========================#
     # USER QUERY PERFORMANCE #
     #==========================#

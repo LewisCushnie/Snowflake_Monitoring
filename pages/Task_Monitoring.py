@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import altair as alt
+from utils.functions import add_logo
 from utils import snowflake_connector as sf
 from utils import sql
 import datetime
@@ -14,6 +15,8 @@ def main():
     # GLOBAL VARAIBLES
     default_width = 500
 
+    add_logo()
+    
     # ===========================================#
     # MAIN PAGE - INTRO
     # ===========================================#

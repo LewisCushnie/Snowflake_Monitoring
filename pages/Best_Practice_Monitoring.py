@@ -6,6 +6,8 @@ from utils import snowflake_connector as sf
 import utils.df_styler as sty
 from utils import sql
 from utils import functions as fun
+from utils.functions import add_logo
+
 import datetime
 
 def main():
@@ -20,6 +22,9 @@ def main():
     #======================================================#
     # SIDEBAR - SNOWFLAKE ACCOUNT PARAMETERS
     #======================================================#
+
+    # Sidebar logo
+    add_logo
 
     # Import query from the sql.py file then convert to dataframe
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
