@@ -20,11 +20,11 @@ def main():
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    st.image('https://www.beazley.com/themes/custom/beazley_default/logo.svg')
-
     #======================================================#
     # SIDEBAR - SNOWFLAKE ACCOUNT PARAMETERS
     #======================================================#
+
+    st.image('https://www.beazley.com/themes/custom/beazley_default/logo.svg')
 
     # Import query from the sql.py file then convert to dataframe
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
