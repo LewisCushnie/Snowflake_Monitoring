@@ -65,21 +65,22 @@ def main():
                 if len(role) > 0:
                     st.write(f'{user} ({role})')
                 else:
-                    st.write(user)
-                    
+                    st.write(f'{user} (no default role)')
                 st.info(body=f"Last active: {last_login} day(s) ago", icon='ℹ️')
 
         
             except Exception as e:
                 st.write('User not logged in')
-
-            try:
-                credits_year = CREDITS_BY_USER_YEAR_df['APPROXIMATE_CREDITS_USED'][0]
-                credits_week = CREDITS_BY_USER_WEEK_df['APPROXIMATE_CREDITS_USED'][0]
-                average_week = credits_year/52.1429
-                st.metric('Credits Used Last 7 days', value=round(credits_week,2), delta=round(average_week,2))
-            except:
-                st.write('No credit usage by user')
+            
+            credits_year = CREDITS_BY_USER_YEAR_df['APPROXIMATE_CREDITS_USED'][0]
+            st.write(credits_year)
+            credits_week = CREDITS_BY_USER_WEEK_df['APPROXIMATE_CREDITS_USED'][0]
+            st.write(credits_week)
+            average_week = credits_year/52.1429
+            st.write(average_week)
+            st.metric('Credits Used Last 7 days', value=round(credits_week,2), delta=round(average_week,2))
+            # except:
+            #     st.write('No credit usage by user')
 
     USER_ACCESS_HISTORY = sql.USER_ACCESS_HISTORY(user)
     df = sf.sql_to_dataframe(USER_ACCESS_HISTORY)
