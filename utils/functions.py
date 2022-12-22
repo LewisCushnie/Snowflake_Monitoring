@@ -84,7 +84,7 @@ def add_logo():
             [data-testid="stSidebarNav"] {
                 background-image: url(https://www.beazley.com/themes/custom/beazley_default/logo.svg);
                 background-repeat: no-repeat;
-                padding-top: 120px;
+                padding-top: 20px;
                 background-position: 20px 20px;
             }
         </style>
