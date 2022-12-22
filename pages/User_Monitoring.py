@@ -52,6 +52,7 @@ def main():
             try:
                 LOGIN_df['LAST_SUCCESS_LOGIN'] = pd.to_datetime(LOGIN_df['LAST_SUCCESS_LOGIN'], format='%Y-%m-%d %H:%M:%S.%f').dt.tz_convert(None)
                 last_login = LOGIN_df['LAST_SUCCESS_LOGIN'][0]
+                st.info(body=f"Last login by user, {user}: {last_login}", icon='ℹ️')
                 st.write(f"Last login by user, {user}:")
                 st.write(f"{last_login}")
             except Exception as e:
