@@ -54,8 +54,10 @@ def main():
 
             try:
                 last_login = LOGIN_df['LAST_LOGIN'][0]
+                role = LOGIN_df['DEFAULT_ROLE'][0]
                 name = LOGIN_df['NAME'][0]
                 st.info(body=f"{name} last active: {last_login} day(s) ago", icon='ℹ️')
+                st.write(role)
         
             except Exception as e:
                 st.write('User not logged in')

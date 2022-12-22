@@ -321,7 +321,8 @@ select count(q.query_type) as "Number of Queries",avg(q.total_elapsed_time/1000)
 
 def LOGIN(user):
     query = f'''
-        select name, 
+        select name,
+        default_role, 
         datediff(day,  to_date(LAST_SUCCESS_LOGIN), to_date(current_date())) as last_login
         from users
         where name = '{user}';
