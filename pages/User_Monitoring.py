@@ -73,12 +73,12 @@ def main():
                 st.write('User not logged in')
             
             credits_year = CREDITS_BY_USER_YEAR_df['APPROXIMATE_CREDITS_USED'][0]
-            st.write(credits_year)
+            st.dataframe(CREDITS_BY_USER_YEAR_df)
             credits_week = CREDITS_BY_USER_WEEK_df['APPROXIMATE_CREDITS_USED'][0]
-            st.write(credits_week)
-            average_week = credits_year/52.1429
-            st.write(average_week)
-            st.metric('Credits Used Last 7 days', value=round(credits_week,2), delta=round(average_week,2))
+            st.dataframe(CREDITS_BY_USER_WEEK_df)
+            # average_week = credits_year/52.1429
+            # st.write(average_week)
+            # st.metric('Credits Used Last 7 days', value=round(credits_week,2), delta=round(average_week,2))
             # except:
             #     st.write('No credit usage by user')
 
