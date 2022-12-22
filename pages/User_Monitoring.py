@@ -62,7 +62,7 @@ def main():
                 last_login = LOGIN_df['LAST_LOGIN'][0]
                 role = LOGIN_df['DEFAULT_ROLE'][0]
                 name = LOGIN_df['NAME'][0]
-                st.wrtie(f'{user} ({role})')
+                st.write(f'{user} ({role})')
                 st.info(body=f"Last active: {last_login} day(s) ago", icon='ℹ️')
 
         
