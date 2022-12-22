@@ -24,7 +24,7 @@ def main():
     #======================================================#
 
     # Sidebar logo
-    add_logo
+    add_logo()
 
     # Import query from the sql.py file then convert to dataframe
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
