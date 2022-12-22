@@ -50,15 +50,12 @@ def main():
             CREDITS_BY_USER_df = sf.sql_to_dataframe(CREDITS_BY_USER)
 
             try:
-                if LOGIN_df['LAST_LOGIN'][0] != None:
-                    last_login = LOGIN_df['LAST_LOGIN'][0]
-                    name = LOGIN_df['NAME'][0]
-                    st.info(body=f"{name} last active: {last_login} day(s) ago", icon='ℹ️')
-                else:
-                    pass
-
+                last_login = LOGIN_df['LAST_LOGIN'][0]
+                name = LOGIN_df['NAME'][0]
+                st.info(body=f"{name} last active: {last_login} day(s) ago", icon='ℹ️')
+        
             except Exception as e:
-                st.write(e)
+                st.write('User not logged in')
 
             try:
                 credits = CREDITS_BY_USER_df['APPROXIMATE_CREDITS_USED'][0]
