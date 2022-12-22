@@ -24,7 +24,7 @@ def main():
     # SIDEBAR - SNOWFLAKE ACCOUNT PARAMETERS
     #======================================================#
 
-    st.image('https://www.beazley.com/themes/custom/beazley_default/logo.svg')
+    st.sidebar.image('https://www.beazley.com/themes/custom/beazley_default/logo.svg')
 
     # Import query from the sql.py file then convert to dataframe
     query = sql.SNOWFLAKE_ACCOUNT_PARAMS
