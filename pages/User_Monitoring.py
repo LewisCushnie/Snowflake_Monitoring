@@ -72,9 +72,9 @@ def main():
             except Exception as e:
                 st.write('User not logged in')
             
-            credits_year = CREDITS_BY_USER_YEAR_df['APPROXIMATE_CREDITS_USED'][0]
+            #credits_year = CREDITS_BY_USER_YEAR_df['APPROXIMATE_CREDITS_USED'][0]
             st.dataframe(CREDITS_BY_USER_YEAR_df)
-            credits_week = CREDITS_BY_USER_WEEK_df['APPROXIMATE_CREDITS_USED'][0]
+            #credits_week = CREDITS_BY_USER_WEEK_df['APPROXIMATE_CREDITS_USED'][0]
             st.dataframe(CREDITS_BY_USER_WEEK_df)
             # average_week = credits_year/52.1429
             # st.write(average_week)
