@@ -51,7 +51,7 @@ def main():
 
             try:
                 st.dataframe(LOGIN_df)
-                last_login = LOGIN_df['LAST_SUCCESS_LOGIN'][0]
+                last_login = LOGIN_df['LAST_LOGIN'][0]
                 name = LOGIN_df['NAME'][0]
                 st.info(body=f"{name} last active: {last_login} days ago", icon='ℹ️')
                 st.write(f"Last login by user, {user}:")
