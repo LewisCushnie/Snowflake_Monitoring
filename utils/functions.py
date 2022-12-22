@@ -85,7 +85,7 @@ def add_logo():
                 background-image: url(https://www.beazley.com/themes/custom/beazley_default/logo.svg);
                 background-repeat: no-repeat;
                 padding-top: 5px;
-                background-position: 100px 20px;
+                background-position: 125px 10px;
             }
         </style>
         """,
