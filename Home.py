@@ -2,6 +2,7 @@
 import streamlit as st
 from utils import snowflake_connector as sf
 from utils import sql
+from PIL import Image
 
 # Page config settings
 st.set_page_config(
@@ -18,6 +19,9 @@ def main():
     # Apply formatting to page
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+    image = Image.open('https://github.com/LewisCushnie/Snowflake_Monitoring/tree/main/utils/logos/logo.svg')
+    st.image(image)
 
     #======================================================#
     # SIDEBAR - SNOWFLAKE ACCOUNT PARAMETERS
