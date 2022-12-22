@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from utils import snowflake_connector as sf
+from utils.functions import add_logo
 from utils import sql
 import altair as alt
 
@@ -20,6 +21,8 @@ def main():
     and most expensive queries. The aim is to allow business domains and users to track query history and 
     optimise caching and warehouse compute.'''
     )
+
+    add_logo()
 
     #==========================#
     # DOMAIN QUERY PERFORMANCE #

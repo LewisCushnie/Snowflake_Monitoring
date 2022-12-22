@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from utils import snowflake_connector as sf
+from utils.functions import add_logo
 from utils import sql
 
 def main():
@@ -19,6 +20,8 @@ def main():
     Full access history, including direct and base object access, is available to download for each user
     '''
     )
+
+    add_logo()
 
     # Get clean list of USERS from ACCOUNT_USAGE
     query = sql.USER_LIST 
