@@ -19,7 +19,9 @@ def main():
     # Apply formatting to page
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-        
+
+    st.markdown('''<p style='text-align: center; color: grey;'>"+https://www.beazley.com/themes/custom/beazley_default/logo.svg+"</p>", unsafe_allow_html=True''')
+
     st.image('https://www.beazley.com/themes/custom/beazley_default/logo.svg')
 
     #======================================================#
