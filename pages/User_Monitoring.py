@@ -50,6 +50,7 @@ def main():
             CREDITS_BY_USER_df = sf.sql_to_dataframe(CREDITS_BY_USER)
 
             try:
+                st.write(LOGIN_df['LAST_LOGIN'][0])
                 if len(LOGIN_df['LAST_LOGIN'][0]) > 0:
                     last_login = LOGIN_df['LAST_LOGIN'][0]
                     name = LOGIN_df['NAME'][0]
