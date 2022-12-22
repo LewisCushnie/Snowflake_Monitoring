@@ -20,7 +20,7 @@ def main():
     with open("utils/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    image = Image.open('https://github.com/LewisCushnie/Snowflake_Monitoring/tree/main/utils/logos/logo.svg')
+    image = Image.open('https://raw.githubusercontent.com/LewisCushnie/Snowflake_Monitoring/main/utils/logos/logo.svg')
     st.image(image)
 
     #======================================================#
