@@ -68,7 +68,7 @@ def main():
                 if mfa == 'false':
                     st.warning(body=f'Warning! MFA not implemented for user, {user}', icon='⚠️')
 
-                st.info(body=f"Last active: {last_login} day(s) ago")
+                st.caption(f"Last active: {last_login} day(s) ago")
         
             except Exception as e:
                 st.write('User not logged in')
