@@ -71,15 +71,19 @@ def main():
             except Exception as e:
                 st.write('User not logged in')
             
-            credits_year = CREDITS_BY_USER_YEAR_df['APPROXIMATE_CREDITS_USED'][0]
-            st.dataframe(CREDITS_BY_USER_YEAR_df)
-            credits_week = CREDITS_BY_USER_WEEK_df['APPROXIMATE_CREDITS_USED'][0]
-            st.dataframe(CREDITS_BY_USER_WEEK_df)
-            average_week = credits_year/52.1429
-            # st.write(average_week)
-            st.metric('7 Day Credit Usage', value=round(credits_week,2), delta=round(average_week,2))
-            # except:
-            #     st.write('No credit usage by user')
+            try:
+                credits_week = CREDITS_BY_USER_WEEK_df['APPROXIMATE_CREDITS_USED'][0]
+                credits_year = CREDITS_BY_USER_YEAR_df['APPROXIMATE_CREDITS_USED'][0]
+
+                if credits_week != None:
+                    average_week = credits_year/52.1429
+                    st.metric('7 Day Credit Usage', value=round(credits_week,2), delta=round(average_week,2))
+                
+                elif credits_year != None:
+                    st.metric('Yearly Credit Usage', value=round(credits_year,2))
+                
+            except Exception:
+                st.write('No credit usage by user')
 
     USER_ACCESS_HISTORY = sql.USER_ACCESS_HISTORY(user)
     df = sf.sql_to_dataframe(USER_ACCESS_HISTORY)
