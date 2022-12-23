@@ -89,8 +89,8 @@ def main():
 
             st.write('Query Type by Total Elapsed Time')
             chart = alt.Chart(USER_USAGE_df).mark_bar().encode(
-                    x=alt.X('Query_Category', sort=None),
-                    y='TOTAL_TIME',
+                    y=alt.y('Query_Category', sort=None),
+                    x='TOTAL_TIME',
                     )
             st.altair_chart(chart, use_container_width=True)
 
