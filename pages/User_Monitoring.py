@@ -3,6 +3,7 @@ import pandas as pd
 from utils import snowflake_connector as sf
 from utils.functions import add_logo
 from utils import sql
+import altair as alt
 
 def main():
 
