@@ -67,7 +67,6 @@ def main():
                 else:
                     st.write(f'{user} (no default role)')
                 st.info(body=f"Last active: {last_login} day(s) ago", icon='ℹ️')
-
         
             except Exception as e:
                 st.write('User not logged in')
