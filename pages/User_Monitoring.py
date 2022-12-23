@@ -87,6 +87,7 @@ def main():
             except Exception:
                 st.write('No credit usage by user')
 
+            st.write('Query Type by Total Elapsed Time')
             chart = alt.Chart(USER_USAGE_df).mark_bar().encode(
                     x=alt.X('Query_Category', sort=None),
                     y='TOTAL_TIME',
