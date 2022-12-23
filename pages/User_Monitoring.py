@@ -75,7 +75,7 @@ def main():
             st.dataframe(CREDITS_BY_USER_YEAR_df)
             credits_week = CREDITS_BY_USER_WEEK_df['APPROXIMATE_CREDITS_USED'][0]
             st.dataframe(CREDITS_BY_USER_WEEK_df)
-            # average_week = credits_year/52.1429
+            average_week = credits_year/52.1429
             # st.write(average_week)
             st.metric('7 Day Credit Usage', value=round(credits_week,2), delta=round(average_week,2))
             # except:
