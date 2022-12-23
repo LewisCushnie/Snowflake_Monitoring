@@ -87,13 +87,11 @@ def main():
             except Exception:
                 st.write('No credit usage by user')
 
-            st.dataframe(USER_USAGE_df)
-            st.bar_chart(USER_USAGE_df, x='Query_Category', y='TOTAL_TIME')
             chart = alt.Chart(USER_USAGE_df).mark_bar().encode(
                     x=alt.X('Query_Category', sort=None),
                     y='TOTAL_TIME',
                     )
-            st.altair_chart(chart)
+            st.altair_chart(chart, use_container_width=True)
 
     USER_ACCESS_HISTORY = sql.USER_ACCESS_HISTORY(user)
     df = sf.sql_to_dataframe(USER_ACCESS_HISTORY)
