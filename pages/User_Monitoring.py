@@ -87,7 +87,7 @@ def main():
                 st.write('No credit usage by user')
 
             st.dataframe(USER_USAGE_df)
-            st.area_chart(USER_USAGE_df)
+            st.area_chart(USER_USAGE_df, x='Query_Category', y='TOTAL_TIME')
 
     USER_ACCESS_HISTORY = sql.USER_ACCESS_HISTORY(user)
     df = sf.sql_to_dataframe(USER_ACCESS_HISTORY)
