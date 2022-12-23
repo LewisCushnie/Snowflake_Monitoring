@@ -66,7 +66,8 @@ def main():
                     st.write(f'{user} ({role})')
                 else:
                     st.write(f'{user} (no default role)')
-                st.info(body=f"Last active: {last_login} day(s) ago", icon='ℹ️')
+
+                st.info(body=f"Last active: {last_login} day(s) ago")
         
             except Exception as e:
                 st.write('User not logged in')
@@ -84,6 +85,8 @@ def main():
                 
             except Exception:
                 st.write('No credit usage by user')
+
+            st.dataframe(USER_USAGE_df)
 
     USER_ACCESS_HISTORY = sql.USER_ACCESS_HISTORY(user)
     df = sf.sql_to_dataframe(USER_ACCESS_HISTORY)
