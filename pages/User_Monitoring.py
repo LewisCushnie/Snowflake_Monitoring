@@ -63,10 +63,9 @@ def main():
                 last_login = LOGIN_df['LAST_LOGIN'][0]
                 role = LOGIN_df['DEFAULT_ROLE'][0]
                 name = LOGIN_df['NAME'][0]
-                if len(role) > 0:
-                    st.write(f'{user} ({role})')
-                else:
-                    st.write(f'{user} (no default role)')
+                mfa = LOGIN_df['MFA'][0]
+
+                st.write(mfa)
 
                 st.info(body=f"Last active: {last_login} day(s) ago")
         

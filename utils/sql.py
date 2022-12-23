@@ -323,6 +323,7 @@ def LOGIN(user):
     query = f'''
         select name,
         default_role, 
+        EXT_AUTHN_DUO as "MFA",
         datediff(day,  to_date(LAST_SUCCESS_LOGIN), to_date(current_date())) as last_login
         from users
         where name = '{user}';
