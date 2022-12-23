@@ -65,7 +65,8 @@ def main():
                 name = LOGIN_df['NAME'][0]
                 mfa = LOGIN_df['MFA'][0]
 
-                st.write(mfa)
+                if mfa == 'false':
+                    st.info(body=f'Warning! MFA not implemented for user, {user}', icon='ℹ️')
 
                 st.info(body=f"Last active: {last_login} day(s) ago")
         
