@@ -118,7 +118,7 @@ def WH_UTILIZATION_LAST_48_HOURS(wh_name):
     , ROUND(MEDIAN(execution_time/1000),2) as "Median Execution Time"
         , MEDIAN(query_load_percent) AS median_query_load_pct
     FROM SNOWFLAKE.account_usage.query_history
-    WHERE start_time >= dateadd(hour, -48, current_date()) AND bytes_scanned > 0
+    WHERE start_time >= dateadd(hour, -24, current_date()) AND bytes_scanned > 0
     AND WAREHOUSE_NAME = '{wh_name}' --:warehouse_name
     GROUP BY hour
     )
