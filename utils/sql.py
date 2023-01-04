@@ -478,7 +478,7 @@ def USER_ACCESS_HISTORY(user):
 
 #-------------- TASK MONITORING ------------------
 SHOW_TASKS = '''
-show tasks in database snowflake_monitoring_db;
+show tasks in database streamlit;
 '''
 
 TASK_HISTORY = '''
