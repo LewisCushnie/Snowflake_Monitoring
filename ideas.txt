@@ -1,4 +1,4 @@
-data science ideas:
+DATA SCIENCE IDEAS:
 
 - Predict expected warehouse usage to select optimal warehouse size (WH size does not auto scale)
 - What is the minimum guaranteed run-time for each WH each day (by looking at tasks, refresh rates, auto-suspend etc.)
@@ -8,6 +8,7 @@ then compare this with actual run-time (due to people using it for things)
 - identify if any large files are being ingested using the copy command (this is bad)
 - monitor the usage of zero-copy cloning (this is good)
 
+USE THE SNOWFLAKE ZERO TO SNOWFLAKE RESOURCES FOR QUERY IDEAS:
 
 Snowflake training docs pages to refer to
 170-177 tables and views
