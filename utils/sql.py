@@ -1,7 +1,8 @@
 #-------------- ACCOUNT LEVEL DETAILS -------------
 
 SNOWFLAKE_ACCOUNT_PARAMS = '''
-select current_database() as DATABASE
+select 
+current_database() as DATABASE
 ,current_schema() as SHEMA
 ,current_role() as CURRENT_ROLE
 ,current_session() as SESSION_ID

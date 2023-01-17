@@ -1,0 +1,6 @@
+select
+    SUM(CASE WHEN TABLE_TYPE = 'VIEW' THEN 1 ELSE 0 END) as view_count
+    ,SUM(CASE WHEN TABLE_TYPE = 'MATERIALIZED VIEW' THEN 1 ELSE 0 END) as materialized_view_count
+    ,SUM(CASE WHEN TABLE_TYPE = 'BASE TABLE' THEN 1 ELSE 0 END) as base_table_count
+    ,SUM(CASE WHEN TABLE_TYPE = 'EXTERNAL TABLE' THEN 1 ELSE 0 END) as external_table_count
+from SNOWFLAKE.ACCOUNT_USAGE.TABLES;
